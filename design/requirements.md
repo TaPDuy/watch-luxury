@@ -7,6 +7,8 @@
     Backend: Django + Sqlite  
     UI: Compose  
 
+---------------------------------------
+
 ## User stories
 
 - Người dùng có thể đăng ký và đăng nhập vào một tài khoản
