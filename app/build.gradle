@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace 'com.duyta.watchluxury'
+    namespace 'nhom9.watchluxury'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.duyta.watchluxury"
+        applicationId "nhom9.watchluxury"
         minSdk 21
         targetSdk 33
         versionCode 1
