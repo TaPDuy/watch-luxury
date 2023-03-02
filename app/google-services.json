@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "485001295572",
+    "project_id": "login-watch-luxury",
+    "storage_bucket": "login-watch-luxury.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:485001295572:android:049ec79f24ff23ba402d41",
+        "android_client_info": {
+          "package_name": "nhom9.watchluxury"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "485001295572-sm6budor14pf6nt746atb9ov1r1t5k6t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD3hcpkbzLd015_9E1WcbVU4xwCR48o-IA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "485001295572-sm6budor14pf6nt746atb9ov1r1t5k6t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
