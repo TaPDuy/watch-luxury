@@ -2,9 +2,13 @@ package nhom9.watchluxury.data.model;
 
 import androidx.annotation.NonNull;
 
+import com.squareup.moshi.Json;
+
 public class LoginResponse {
 
+    @Json(name="access")
     private String accessToken;
+    @Json(name="refresh")
     private String refreshToken;
 
     public LoginResponse(String accessToken, String refreshToken) {
