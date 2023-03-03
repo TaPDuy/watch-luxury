@@ -37,17 +37,4 @@
 ---------------------------------------
 
 ## Backend
-
-- Model: User, Product, Order
-  
-### Public gateways
-
-|URI            |Method |Action              |
-|---------------|-------|--------------------|
-|/users         |GET    |Lấy tất cả tài khoản|
-|/users         |POST   |Tạo tài khoản mới   |
-|/users/{id}    |GET    |Lấy 1 tài khoản     |
-|/users/{id}    |PUT    |Cập nhật 1 tài khoản|
-|/products      |GET    |Lấy tất cả item     |
-|/products/{id} |GET    |Lấy 1 item          |
-|/orders/{id}   |PUT    |Tạo 1 order         |
+https://github.com/TaPDuy/watch-luxury-backend
