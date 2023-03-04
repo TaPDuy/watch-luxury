@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Watch Luxury</string>
+    <string name="register_title">Create new account</string>
+    <string name="hint_etUsername">Username</string>
+    <string name="hint_etEmail">Email</string>
+    <string name="hint_etAddress">Address</string>
+    <string name="hint_etPassword1">Password</string>
+    <string name="hint_etPassword2">Retype Password</string>
+    <string name="btn_register">Register</string>
+    <string name="register_back_to_login">Already have an account! Login</string>
 </resources>
