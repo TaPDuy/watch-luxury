@@ -15,17 +15,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import nhom9.watchluxury.data.model.LoginInfo;
 import nhom9.watchluxury.data.model.LoginResponse;
-import nhom9.watchluxury.data.remote.APIUtils;
+import nhom9.watchluxury.util.APIUtils;
 import nhom9.watchluxury.data.remote.service.AuthService;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -70,9 +66,7 @@ public class Login extends AppCompatActivity {
             }
         });
 
-        if (sharedPref.contains("accessToken") && sharedPref.contains("refreshToken")) {
-            Log.d("LoginActivity", sharedPref.getString("accessToken", "noToken"));
-            Log.d("LoginActivity", sharedPref.getString("refreshToken", "noToken"));
+        if (sharedPref.contains("userID")) {
             Intent intent = new Intent(Login.this , HomePage.class);
             startActivity(intent);
         }
@@ -102,6 +96,7 @@ public class Login extends AppCompatActivity {
                     SharedPreferences.Editor editor = sharedPref.edit();
                     editor.putString("accessToken", data.getAccessToken());
                     editor.putString("refreshToken", data.getRefreshToken());
+                    editor.putInt("userID", data.getLoggedInUserID());
                     editor.apply();
 
                     Toast.makeText(context, "Login successful!", Toast.LENGTH_LONG).show();
