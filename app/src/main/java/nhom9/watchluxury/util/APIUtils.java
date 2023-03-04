@@ -1,6 +1,7 @@
-package nhom9.watchluxury.data.remote;
+package nhom9.watchluxury.util;
 
 import nhom9.watchluxury.BuildConfig;
+import nhom9.watchluxury.data.remote.RetrofitClient;
 import nhom9.watchluxury.data.remote.service.AuthService;
 
 public class APIUtils {
