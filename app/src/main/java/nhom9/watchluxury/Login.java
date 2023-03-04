@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import android.text.TextUtils;
@@ -36,6 +37,7 @@ public class Login extends AppCompatActivity {
     private FirebaseAuth mAuth ;
 
     private AuthService authService;
+    SharedPreferences sharedPref;
 
 
     @Override
@@ -48,6 +50,7 @@ public class Login extends AppCompatActivity {
         passEdit = findViewById(R.id.inPassLogin);
 
         authService = APIUtils.getAuthenticationService();
+        sharedPref = this.getSharedPreferences("login_info", MODE_PRIVATE);
 
         btnlogin =  (Button) findViewById(R.id.btnLogin);
         btnregister = (Button)findViewById(R.id.btnRegister);
@@ -66,6 +69,13 @@ public class Login extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        if (sharedPref.contains("accessToken") && sharedPref.contains("refreshToken")) {
+            Log.d("LoginActivity", sharedPref.getString("accessToken", "noToken"));
+            Log.d("LoginActivity", sharedPref.getString("refreshToken", "noToken"));
+            Intent intent = new Intent(Login.this , HomePage.class);
+            startActivity(intent);
+        }
     }
 
 
@@ -88,9 +98,16 @@ public class Login extends AppCompatActivity {
             @Override
             public void onResponse(@NonNull Call<LoginResponse> call, @NonNull Response<LoginResponse> response) {
                 if (response.isSuccessful()) {
+                    LoginResponse data = response.body();
+                    SharedPreferences.Editor editor = sharedPref.edit();
+                    editor.putString("accessToken", data.getAccessToken());
+                    editor.putString("refreshToken", data.getRefreshToken());
+                    editor.apply();
+
                     Toast.makeText(context, "Login successful!", Toast.LENGTH_LONG).show();
-                    // Decode and store tokens
-                    Log.d("LoginActivity", response.body().toString());
+                    Log.d("LoginActivity", data.toString());
+                    Intent intent = new Intent(Login.this , HomePage.class);
+                    startActivity(intent);
                 } else if (response.code() >= 400 && response.code() < 500) {
                     Toast.makeText(context, "Username or password is not correct", Toast.LENGTH_LONG).show();
                     Log.d("LoginActivity", "Couldn't login (401)");
