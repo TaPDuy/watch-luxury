@@ -19,4 +19,14 @@ với được truy cập vào!"
 
     </LinearLayout>
 
+    <Button
+        android:id="@+id/btnLogout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="14dp"
+        android:text="Logout" />
+
 </RelativeLayout>
