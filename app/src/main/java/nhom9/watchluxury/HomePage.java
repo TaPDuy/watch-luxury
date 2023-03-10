@@ -1,14 +1,12 @@
 package nhom9.watchluxury;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import nhom9.watchluxury.data.model.User;
 import nhom9.watchluxury.data.remote.TokenManager;
