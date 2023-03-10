@@ -21,6 +21,7 @@ import org.jetbrains.annotations.Nullable;
 
 import nhom9.watchluxury.data.model.LoginInfo;
 import nhom9.watchluxury.data.model.LoginResponse;
+import nhom9.watchluxury.data.remote.TokenManager;
 import nhom9.watchluxury.util.APIUtils;
 import nhom9.watchluxury.data.remote.service.AuthService;
 import retrofit2.Call;
@@ -33,7 +34,6 @@ public class Login extends AppCompatActivity {
     private FirebaseAuth mAuth ;
 
     private AuthService authService;
-    SharedPreferences sharedPref;
 
 
     @Override
@@ -46,10 +46,11 @@ public class Login extends AppCompatActivity {
         passEdit = findViewById(R.id.inPassLogin);
 
         authService = APIUtils.getAuthenticationService();
-        sharedPref = this.getSharedPreferences("login_info", MODE_PRIVATE);
 
         btnlogin =  (Button) findViewById(R.id.btnLogin);
         btnregister = (Button)findViewById(R.id.btnRegister);
+
+        TokenManager.init(getApplicationContext());
 
         btnlogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,7 +67,7 @@ public class Login extends AppCompatActivity {
             }
         });
 
-        if (sharedPref.contains("userID")) {
+        if (TokenManager.isAuthenticated()) {
             Intent intent = new Intent(Login.this , HomePage.class);
             startActivity(intent);
         }
@@ -93,11 +94,11 @@ public class Login extends AppCompatActivity {
             public void onResponse(@NonNull Call<LoginResponse> call, @NonNull Response<LoginResponse> response) {
                 if (response.isSuccessful()) {
                     LoginResponse data = response.body();
-                    SharedPreferences.Editor editor = sharedPref.edit();
-                    editor.putString("accessToken", data.getAccessToken());
-                    editor.putString("refreshToken", data.getRefreshToken());
-                    editor.putInt("userID", data.getLoggedInUserID());
-                    editor.apply();
+                    TokenManager.save(
+                            data.getAccessToken(),
+                            data.getRefreshToken(),
+                            data.getLoggedInUserID()
+                    );
 
                     Toast.makeText(context, "Login successful!", Toast.LENGTH_LONG).show();
                     Log.d("LoginActivity", data.toString());

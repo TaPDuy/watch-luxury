@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.widget.Toast;
 
 import nhom9.watchluxury.data.model.User;
+import nhom9.watchluxury.data.remote.TokenManager;
 import nhom9.watchluxury.data.remote.service.UserService;
 import nhom9.watchluxury.databinding.ActivityHomePageBinding;
 import nhom9.watchluxury.util.APIUtils;
@@ -33,11 +34,7 @@ public class HomePage extends AppCompatActivity {
         userService = APIUtils.getUserService();
 
         binding.btnLogout.setOnClickListener(view -> {
-            SharedPreferences.Editor editor = view.getContext().getSharedPreferences("login_info", MODE_PRIVATE).edit();
-            editor.remove("accessToken");
-            editor.remove("refreshToken");
-            editor.remove("userID");
-            editor.apply();
+            TokenManager.deleteTokens();
             finish();
         });
 
@@ -46,16 +43,16 @@ public class HomePage extends AppCompatActivity {
 
     private void loadUserInfo() {
         Context context = binding.getRoot().getContext();
-        SharedPreferences shareRef = getSharedPreferences("login_info", MODE_PRIVATE);
-        int userID = shareRef.getInt("userID", -1);
 
-        if (userID == -1) {
+        int userID = TokenManager.getUserId();
+
+        if (!TokenManager.isAuthenticated()) {
             Toast.makeText(context, "Oops, something went wrong!", Toast.LENGTH_LONG).show();
             Log.d("HomeActivity", "User didn't login correctly");
             finish();
         }
 
-        String accessToken = shareRef.getString("accessToken", "");
+        String accessToken = TokenManager.getAccessToken();
         userService.getUser(userID, "Bearer " + accessToken).enqueue(new Callback<User>() {
             @Override
             public void onResponse(@NonNull Call<User> call, @NonNull Response<User> response) {
