@@ -17,6 +17,10 @@ public class LoginResponse {
     @Json(name="user_id")
     private int userID;
 
+    public LoginResponse(String refreshToken) {
+        this("", refreshToken, -1);
+    }
+
     public LoginResponse(String accessToken, String refreshToken, int userID) {
         this.accessToken = accessToken;
         this.refreshToken = refreshToken;
