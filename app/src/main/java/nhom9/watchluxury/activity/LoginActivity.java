@@ -1,4 +1,4 @@
-package nhom9.watchluxury;
+package nhom9.watchluxury.activity;
 
 import android.content.Context;
 import android.content.Intent;
