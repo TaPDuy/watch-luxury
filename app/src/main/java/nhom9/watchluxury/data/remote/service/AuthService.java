@@ -7,11 +7,14 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
 
-public interface AuthService {
+public interface AuthService extends Service {
 
     @POST("login/")
     Call<LoginResponse> login(@Body LoginInfo info);
 
     @POST("register/")
     Call<User> register(@Body User user);
+
+    @POST("login/refresh/")
+    Call<LoginResponse> refresh(@Body LoginResponse info);
 }
