@@ -22,7 +22,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Login extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
     private ActivityLoginBinding binding;
     private AuthService authService;
@@ -41,12 +41,12 @@ public class Login extends AppCompatActivity {
         binding.btnLogin.setOnClickListener(view -> login());
         binding.btnRegister.setOnClickListener(view -> {
             Intent intent = new Intent();
-            intent.setClass(Login.this, Register.class);
+            intent.setClass(LoginActivity.this, RegisterActivity.class);
             startActivity(intent);
         });
 
         if (TokenManager.isAuthenticated()) {
-            Intent intent = new Intent(Login.this , HomePage.class);
+            Intent intent = new Intent(LoginActivity.this , HomeActivity.class);
             startActivity(intent);
         }
     }
@@ -80,7 +80,7 @@ public class Login extends AppCompatActivity {
 
                     Toast.makeText(context, "Login successful!", Toast.LENGTH_LONG).show();
                     Log.d("LoginActivity", data.toString());
-                    Intent intent = new Intent(Login.this , HomePage.class);
+                    Intent intent = new Intent(LoginActivity.this , HomeActivity.class);
                     startActivity(intent);
                 } else if (response.code() >= 400 && response.code() < 500) {
                     Toast.makeText(context, "Username or password is not correct", Toast.LENGTH_LONG).show();

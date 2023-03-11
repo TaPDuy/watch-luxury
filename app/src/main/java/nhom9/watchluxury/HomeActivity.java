@@ -17,7 +17,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class HomePage extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity {
 
     private ActivityHomePageBinding binding;
     private UserService userService;
