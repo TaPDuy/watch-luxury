@@ -51,14 +51,6 @@ public class LoginViewModel extends ViewModel {
         return this.password;
     }
 
-    public void setUsername(String username) {
-        this.username.setValue(username);
-    }
-
-    public void setPassword(String password) {
-        this.password.setValue(password);
-    }
-
     public void onLoginClicked() {
         String user = username.getValue();
         String pass = password.getValue();
