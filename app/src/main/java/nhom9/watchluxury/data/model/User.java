@@ -25,10 +25,50 @@ public class User {
     private boolean isAdmin;
     @Json(name="is_active")
     private boolean isActive;
-    @Json(name="last_login")
-    private transient Date lastLogin;
-    @Json(name="date_joined")
-    private transient Date dateJoined;
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getFullname() {
+        return this.getFirstName() + " " + this.getLastName();
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
 
     @NonNull
     @Override
@@ -95,16 +135,6 @@ public class User {
 
         public Builder isActive(boolean isActive) {
             user.isActive = isActive;
-            return this;
-        }
-
-        public Builder lastLogin(Date lastLogin) {
-            user.lastLogin = lastLogin;
-            return this;
-        }
-
-        public Builder dateJoined(Date dateJoined) {
-            user.dateJoined = dateJoined;
             return this;
         }
     }

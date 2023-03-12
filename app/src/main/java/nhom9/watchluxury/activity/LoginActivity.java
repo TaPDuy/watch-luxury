@@ -1,44 +1,39 @@
 package nhom9.watchluxury.activity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.Log;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
 
 import org.jetbrains.annotations.Nullable;
 
-import nhom9.watchluxury.data.model.LoginInfo;
-import nhom9.watchluxury.data.model.LoginResponse;
+import nhom9.watchluxury.R;
 import nhom9.watchluxury.data.remote.TokenManager;
-import nhom9.watchluxury.data.remote.service.AuthService;
 import nhom9.watchluxury.databinding.ActivityLoginBinding;
-import nhom9.watchluxury.util.APIUtils;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import nhom9.watchluxury.viewmodel.LoginViewModel;
+import nhom9.watchluxury.viewmodel.LoginViewModel.Status;
 
 public class LoginActivity extends AppCompatActivity {
 
     private ActivityLoginBinding binding;
-    private AuthService authService;
-
+    private LoginViewModel viewModel;
 
     @Override
-
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityLoginBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
 
-        authService = APIUtils.getAuthenticationService();
+        viewModel = new ViewModelProvider(this).get(LoginViewModel.class);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
+        binding.setLifecycleOwner(this);
+        binding.setViewModel(viewModel);
+
+        initObserver();
+
         TokenManager.init(getApplicationContext());
 
-        binding.btnLogin.setOnClickListener(view -> login());
         binding.btnRegister.setOnClickListener(view -> {
             Intent intent = new Intent();
             intent.setClass(LoginActivity.this, RegisterActivity.class);
@@ -51,55 +46,28 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-
-
-    private void login() {
-        Context context = this;
-        String account = binding.etLoginUsername.getText().toString();
-        String pass = binding.etLoginPassword.getText().toString();
-
-        if(TextUtils.isEmpty(account)){
-            Toast.makeText(context, "Please! fill account ", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if(TextUtils.isEmpty(pass)){
-            Toast.makeText(context, "Please! fill password to login", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        authService.login(new LoginInfo(account, pass)).enqueue(new Callback<LoginResponse>() {
-            @Override
-            public void onResponse(@NonNull Call<LoginResponse> call, @NonNull Response<LoginResponse> response) {
-                if (response.isSuccessful()) {
-                    LoginResponse data = response.body();
-                    TokenManager.save(
-                            data.getAccessToken(),
-                            data.getRefreshToken(),
-                            data.getLoggedInUserID()
-                    );
-
-                    Toast.makeText(context, "Login successful!", Toast.LENGTH_LONG).show();
-                    Log.d("LoginActivity", data.toString());
+    private void initObserver() {
+        viewModel.getStatus().observe(this, status -> {
+            switch (status) {
+                case SUCCESS:
+                    Toast.makeText(LoginActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(LoginActivity.this , HomeActivity.class);
                     startActivity(intent);
-                } else if (response.code() >= 400 && response.code() < 500) {
-                    Toast.makeText(context, "Username or password is not correct", Toast.LENGTH_LONG).show();
-                    Log.d("LoginActivity", "Couldn't login (401)");
-                    Log.d("LoginActivity", call.toString());
-                    Log.d("LoginActivity", response.message());
-                } else {
-                    Toast.makeText(context, "Oops, something went wrong!", Toast.LENGTH_LONG).show();
-                    Log.d("LoginActivity", "Couldn't login (" + response.code() + ")");
-                    Log.d("LoginActivity", call.toString());
-                }
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<LoginResponse> call, @NonNull Throwable t) {
-                Toast.makeText(context, "Oops, something went wrong!", Toast.LENGTH_LONG).show();
-                Log.d("LoginActivity", "Couldn't login");
-                Log.d("LoginActivity", call.toString());
-                Log.d("LoginActivity", t.getMessage());
+                    break;
+                case WRONG_LOGIN:
+                    Toast.makeText(LoginActivity.this, "Username or password is not correct", Toast.LENGTH_SHORT).show();
+                    break;
+                case USERNAME_EMPTY:
+                    Toast.makeText(LoginActivity.this, "Please enter username", Toast.LENGTH_SHORT).show();
+                    break;
+                case PASSWORD_EMPTY:
+                    Toast.makeText(LoginActivity.this, "Please enter password", Toast.LENGTH_SHORT).show();
+                    break;
+                case ERROR:
+                    Toast.makeText(LoginActivity.this, "Oops, something went wrong!", Toast.LENGTH_SHORT).show();
+                    break;
+                default:
+                    break;
             }
         });
     }

@@ -3,6 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".activity.LoginActivity">
 
+    <data>
+        <variable
+            name="viewModel"
+            type="nhom9.watchluxury.viewmodel.LoginViewModel" />
+    </data>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -23,7 +29,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="18"
-                android:hint="Username" />
+                android:hint="Username"
+                android:text="@={viewModel.username}"/>
 
             <EditText
                 android:id="@+id/etLoginPassword"
@@ -32,7 +39,8 @@
                 android:layout_marginTop="10dp"
                 android:ems="18"
                 android:hint="Password"
-                android:inputType="textPassword" />
+                android:inputType="textPassword"
+                android:text="@={viewModel.password}"/>
 
             <TextView
                 android:id="@+id/forgot"
@@ -51,7 +59,7 @@
                 android:layout_marginTop="40dp"
                 android:background="#2196F3"
                 android:text="Login"
-
+                android:onClick="@{() -> viewModel.onLoginClicked()}"
                 android:textColor="#fcfcfc" />
 
             <Button
