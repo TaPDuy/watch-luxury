@@ -2,8 +2,13 @@
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".activity.UserInfoActivity">
+    xmlns:bind="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="nhom9.watchluxury.viewmodel.UserInfoViewModel" />
+    </data>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -36,7 +41,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Username"
+                android:text="@{viewModel.user.username}"
                 android:textAlignment="center"
                 android:textSize="20sp" />
         </LinearLayout>
@@ -53,24 +58,28 @@
                 android:orientation="vertical">
 
                 <include
+                    android:id="@+id/tvName"
                     layout="@layout/labeled_text_view"
-                    app:label="@{`Full name`}"
-                    app:text="@{`John Doe`}"/>
+                    bind:label="@{`Full name`}"
+                    bind:text="@{viewModel.user.fullname}"/>
 
                 <include
+                    android:id="@+id/tvEmail"
                     layout="@layout/labeled_text_view"
-                    app:label="@{`Email`}"
-                    app:text="@{`example@gmail.com`}"/>
+                    bind:label="@{`Email`}"
+                    bind:text="@{viewModel.user.email}"/>
 
                 <include
+                    android:id="@+id/tvPhone"
                     layout="@layout/labeled_text_view"
-                    app:label="@{`Phone number`}"
-                    app:text="@{`0903499034`}"/>
+                    bind:label="@{`Phone number`}"
+                    bind:text="@{viewModel.user.phoneNumber}"/>
 
                 <include
+                    android:id="@+id/tvAddress"
                     layout="@layout/labeled_text_view"
-                    app:label="@{`Address`}"
-                    app:text="@{`21 Jumpscare Street`}"/>
+                    bind:label="@{`Address`}"
+                    bind:text="@{viewModel.user.address}"/>
 
             </LinearLayout>
 
