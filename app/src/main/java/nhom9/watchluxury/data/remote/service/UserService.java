@@ -18,6 +18,6 @@ public interface UserService {
     @GET("users/")
     Call<List<User>> getUsers();
 
-    @PUT("users/{id}")
-    Call<User> updateUser(@Body User user);
+    @PUT("users/{id}/")
+    Call<User> updateUser(@Path("id") int id, @Body User user);
 }
