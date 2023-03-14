@@ -4,11 +4,12 @@ import androidx.annotation.NonNull;
 
 import com.squareup.moshi.Json;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import nhom9.watchluxury.util.JsonUtils;
 
-public class User {
+public class User implements Serializable {
 
     private int id;
     private String username;
