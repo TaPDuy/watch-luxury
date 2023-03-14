@@ -19,6 +19,7 @@ public class UserInfoViewModel extends ViewModel {
     public enum Status {
         NONE,
         ERROR,
+        SUCCESS,
     }
 
     private final MutableLiveData<User> user;
@@ -29,7 +30,7 @@ public class UserInfoViewModel extends ViewModel {
         userService = APIUtils.getUserService();
         loadUserInfo();
 
-        user = new MutableLiveData<>(new User());
+        user = new MutableLiveData<>(null);
         status = new MutableLiveData<>(Status.NONE);
     }
 
@@ -41,6 +42,9 @@ public class UserInfoViewModel extends ViewModel {
         return this.status;
     }
 
+    public void onReload() {
+        loadUserInfo();
+    }
     private void loadUserInfo() {
 
         if (!TokenManager.isAuthenticated())
@@ -54,8 +58,10 @@ public class UserInfoViewModel extends ViewModel {
             public void onResponse(@NonNull Call<User> call, @NonNull Response<User> response) {
                 if (response.isSuccessful()) {
                     user.setValue(response.body());
+                    status.setValue(Status.SUCCESS);
                     Log.d("HomeActivity", user.toString());
                 } else {
+                    user.setValue(null);
                     status.setValue(Status.ERROR);
                     Log.d("HomeActivity", "Couldn't load user info (" + response.code() + ")");
                     Log.d("HomeActivity", call.toString());
@@ -64,6 +70,7 @@ public class UserInfoViewModel extends ViewModel {
 
             @Override
             public void onFailure(@NonNull Call<User> call, @NonNull Throwable t) {
+                user.setValue(null);
                 status.setValue(Status.ERROR);
                 Log.d("HomeActivity", "Couldn't load user info");
                 Log.d("HomeActivity", call.toString());

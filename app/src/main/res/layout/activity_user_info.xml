@@ -81,6 +81,13 @@
                     bind:label="@{`Address`}"
                     bind:text="@{viewModel.user.address}"/>
 
+                <Button
+                    android:id="@+id/btnEdit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Edit"
+                    android:clickable="false"/>
+
             </LinearLayout>
 
         </ScrollView>
