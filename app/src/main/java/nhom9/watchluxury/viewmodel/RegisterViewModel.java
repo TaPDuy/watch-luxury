@@ -1,9 +1,7 @@
 package nhom9.watchluxury.viewmodel;
 
 import android.text.TextUtils;
-import android.util.Log;
 
-import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -12,11 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import nhom9.watchluxury.data.model.User;
-import nhom9.watchluxury.data.remote.service.AuthService;
-import nhom9.watchluxury.util.APIUtils;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import nhom9.watchluxury.data.repo.UserRepository;
 
 public class RegisterViewModel extends ViewModel {
 
@@ -35,10 +29,10 @@ public class RegisterViewModel extends ViewModel {
     private final MutableLiveData<String> password2;
     private final MutableLiveData<Status> status;
 
-    private final AuthService authService;
+    private final UserRepository userRepo;
 
     public RegisterViewModel() {
-        authService = APIUtils.getAuthenticationService();
+        userRepo = new UserRepository();
 
         this.username = new MutableLiveData<>("");
         this.email = new MutableLiveData<>("");
@@ -50,55 +44,43 @@ public class RegisterViewModel extends ViewModel {
 
     public void onRegisterClicked() {
 
-        String username = this.username.getValue();
-        String email = this.email.getValue();
-        String address = this.address.getValue();
-        String password1 = this.password1.getValue();
-        String password2 = this.password2.getValue();
+        if (!isValidated())
+            return;
+
+        userRepo.createUser(
+                new User.Builder()
+                        .username(username.getValue())
+                        .email(email.getValue())
+                        .address(address.getValue())
+                        .password(password1.getValue())
+                        .build(),
+                (responseCode, res) -> {
+                    if (res != null)
+                        status.setValue(Status.SUCCESS);
+                    else
+                        status.setValue(Status.ERROR);
+        });
+    }
+
+    private boolean isValidated() {
 
         List<String> inputs = new ArrayList<>(Arrays.asList(
-                username, email, address, password1, password2
+                username.getValue(), email.getValue(),
+                address.getValue(),
+                password1.getValue(), password2.getValue()
         ));
 
         if (inputs.stream().anyMatch(TextUtils::isEmpty)) {
             status.setValue(Status.EMPTY_FIELDS);
-            return;
+            return false;
         }
 
-        if (!password1.equals(password2)) {
+        if (!password1.getValue().equals(password2.getValue())) {
             status.setValue(Status.UNMATCHED_PASSWORD);
-            return;
+            return false;
         }
 
-        authService.register(
-                new User.Builder()
-                        .username(username)
-                        .email(email)
-                        .address(address)
-                        .password(password1)
-                        .build()
-        ).enqueue(new Callback<User>() {
-            @Override
-            public void onResponse(@NonNull Call<User> call, @NonNull Response<User> response) {
-                if (response.isSuccessful()) {
-                    User data = response.body();
-                    status.setValue(Status.SUCCESS);
-                    Log.d("RegisterActivity", data.toString());
-                } else {
-                    status.setValue(Status.ERROR);
-                    Log.d("RegisterActivity", "Couldn't register (" + response.code() + ")");
-                    Log.d("RegisterActivity", call.toString());
-                }
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<User> call, @NonNull Throwable t) {
-                status.setValue(Status.ERROR);
-                Log.d("LoginActivity", "Couldn't register");
-                Log.d("LoginActivity", call.toString());
-                Log.d("LoginActivity", t.getMessage());
-            }
-        });
+        return true;
     }
 
     public MutableLiveData<String> getUsername() {

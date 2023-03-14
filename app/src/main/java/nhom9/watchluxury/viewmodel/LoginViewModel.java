@@ -1,20 +1,11 @@
 package nhom9.watchluxury.viewmodel;
 
 import android.text.TextUtils;
-import android.util.Log;
 
-import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import nhom9.watchluxury.data.model.LoginInfo;
-import nhom9.watchluxury.data.model.LoginResponse;
-import nhom9.watchluxury.data.remote.TokenManager;
-import nhom9.watchluxury.data.remote.service.AuthService;
-import nhom9.watchluxury.util.APIUtils;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import nhom9.watchluxury.data.repo.UserRepository;
 
 public class LoginViewModel extends ViewModel {
 
@@ -30,10 +21,12 @@ public class LoginViewModel extends ViewModel {
     private final MutableLiveData<String> username;
     private final MutableLiveData<String> password;
     private final MutableLiveData<Status> status;
-    private final AuthService authService;
+
+    private final UserRepository userRepo;
 
     public LoginViewModel() {
-        authService = APIUtils.getAuthenticationService();
+        userRepo = new UserRepository();
+
         this.username = new MutableLiveData<>("");
         this.password = new MutableLiveData<>("");
         this.status = new MutableLiveData<>(Status.NONE);
@@ -52,6 +45,7 @@ public class LoginViewModel extends ViewModel {
     }
 
     public void onLoginClicked() {
+
         String user = username.getValue();
         String pass = password.getValue();
 
@@ -64,38 +58,13 @@ public class LoginViewModel extends ViewModel {
             return;
         }
 
-        authService.login(new LoginInfo(user, pass)).enqueue(new Callback<LoginResponse>() {
-            @Override
-            public void onResponse(@NonNull Call<LoginResponse> call, @NonNull Response<LoginResponse> response) {
-                if (response.isSuccessful()) {
-                    LoginResponse data = response.body();
-                    TokenManager.save(
-                            data.getAccessToken(),
-                            data.getRefreshToken(),
-                            data.getLoggedInUserID()
-                    );
-
-                    status.setValue(Status.SUCCESS);
-                    Log.d("LoginActivity", data.toString());
-                } else if (response.code() >= 400 && response.code() < 500) {
-                    status.setValue(Status.WRONG_LOGIN);
-                    Log.d("LoginActivity", "Couldn't login (401)");
-                    Log.d("LoginActivity", call.toString());
-                    Log.d("LoginActivity", response.message());
-                } else {
-                    status.setValue(Status.ERROR);
-                    Log.d("LoginActivity", "Couldn't login (" + response.code() + ")");
-                    Log.d("LoginActivity", call.toString());
-                }
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<LoginResponse> call, @NonNull Throwable t) {
-                status.setValue(Status.ERROR);
-                Log.d("LoginActivity", "Couldn't login");
-                Log.d("LoginActivity", call.toString());
-                Log.d("LoginActivity", t.getMessage());
-            }
+        userRepo.authenticate(user, pass, (responseCode, id) -> {
+            if (id != null)
+                status.setValue(LoginViewModel.Status.SUCCESS);
+            else if (responseCode >= 400 && responseCode < 500)
+                status.setValue(LoginViewModel.Status.WRONG_LOGIN);
+            else
+                status.setValue(LoginViewModel.Status.ERROR);
         });
     }
 }

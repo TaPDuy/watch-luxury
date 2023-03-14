@@ -1,22 +1,12 @@
 package nhom9.watchluxury.viewmodel;
 
 import android.text.TextUtils;
-import android.util.Log;
 
-import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import nhom9.watchluxury.data.model.User;
-import nhom9.watchluxury.data.remote.service.UserService;
-import nhom9.watchluxury.util.APIUtils;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import nhom9.watchluxury.data.repo.UserRepository;
 
 public class EditUserViewModel extends ViewModel {
 
@@ -37,11 +27,12 @@ public class EditUserViewModel extends ViewModel {
     private final MutableLiveData<String> phoneNumber;
 
     private final MutableLiveData<Status> status;
-    private final UserService userService;
+
+    private final UserRepository userRepo;
     private User user;
 
     public EditUserViewModel(User user) {
-        userService = APIUtils.getUserService();
+        userRepo = new UserRepository();
         this.status = new MutableLiveData<>(Status.NONE);
 
         this.firstName = new MutableLiveData<>("");
@@ -91,34 +82,23 @@ public class EditUserViewModel extends ViewModel {
         if (!isValidated())
             return;
 
-        userService.updateUser(user.getId(),
+        userRepo.updateUser(
+                user.getId(),
                 new User.Builder()
                         .firstName(firstName.getValue())
                         .lastName(lastName.getValue())
                         .email(email.getValue())
                         .address(address.getValue())
                         .phoneNumber(phoneNumber.getValue())
-                        .build()
-        ).enqueue(new Callback<User>() {
-            @Override
-            public void onResponse(@NonNull Call<User> call, @NonNull Response<User> response) {
-                if (response.isSuccessful()) {
-                    status.setValue(Status.SUCCESS);
-                } else {
-                    status.setValue(Status.ERROR);
-                    Log.d("EditUserActivity", "Couldn't register (" + response.code() + ")");
-                    Log.d("EditUserActivity", call.toString());
+                        .build(),
+                (responseCode, res) -> {
+                    if (res != null) {
+                        status.setValue(Status.SUCCESS);
+                    } else {
+                        status.setValue(Status.ERROR);
+                    }
                 }
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<User> call, @NonNull Throwable t) {
-                status.setValue(Status.ERROR);
-                Log.d("EditUserActivity", "Couldn't register");
-                Log.d("EditUserActivity", call.toString());
-                Log.d("EditUserActivity", t.getMessage());
-            }
-        });
+        );
     }
 
     public MutableLiveData<Status> getStatus() {
