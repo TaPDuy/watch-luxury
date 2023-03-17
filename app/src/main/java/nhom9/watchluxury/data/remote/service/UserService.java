@@ -1,8 +1,8 @@
 package nhom9.watchluxury.data.remote.service;
 
-import java.util.List;
-
 import nhom9.watchluxury.data.model.User;
+import nhom9.watchluxury.data.model.api.APIResponse;
+import nhom9.watchluxury.data.model.api.ChangePasswordRequest;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -13,11 +13,11 @@ import retrofit2.http.Path;
 public interface UserService {
 
     @GET("users/{id}")
-    Call<User> getUser(@Path("id") int id, @Header("Authorization") String accessToken);
-
-    @GET("users/")
-    Call<List<User>> getUsers();
+    Call<APIResponse<User>> getUser(@Path("id") int id, @Header("Authorization") String accessToken);
 
     @PUT("users/{id}/")
-    Call<User> updateUser(@Path("id") int id, @Body User user);
+    Call<APIResponse<User>> updateUser(@Path("id") int id, @Body User user, @Header("Authorization") String accessToken);
+
+    @PUT("users/{id}/change_password/")
+    Call<APIResponse<Object>> changePassword(@Path("id") int id, @Body ChangePasswordRequest request, @Header("Authorization") String accessToken);
 }
