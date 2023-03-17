@@ -12,6 +12,7 @@ import java.io.IOException;
 import nhom9.watchluxury.data.model.LoginCredentials;
 import nhom9.watchluxury.data.model.User;
 import nhom9.watchluxury.data.model.api.APIResponse;
+import nhom9.watchluxury.data.model.api.ChangePasswordRequest;
 import nhom9.watchluxury.data.model.api.LoginRequest;
 import nhom9.watchluxury.data.model.api.RegisterRequest;
 import nhom9.watchluxury.data.model.api.ResponseCode;
@@ -153,6 +154,38 @@ public class UserRepository {
             @Override
             public void onFailure(@NonNull Call<APIResponse<LoginCredentials>> call, @NonNull Throwable t) {
                 Log.d("UserRepo", "Couldn't authenticate");
+                Log.d("UserRepo", call.toString());
+                Log.d("UserRepo", t.getMessage());
+                callback.onResponse(ResponseCode.FAILURE, null, FAIL_MSG);
+            }
+        });
+    }
+
+    public void updatePassword(int id, String oldPassword, String newPassword, Callback<Object> callback) {
+
+        USER_SERVICE.changePassword(
+                id, new ChangePasswordRequest(oldPassword, newPassword),
+                "Bearer " + TokenManager.getAccessToken()
+        ).enqueue(new retrofit2.Callback<APIResponse<Object>>() {
+            @Override
+            public void onResponse(@NonNull Call<APIResponse<Object>> call, @NonNull Response<APIResponse<Object>> responsePackage) {
+
+                APIResponse<Object> response = handleResponse(responsePackage);
+
+                if (response.getResponseCode() == ResponseCode.SUCCESS)
+                    Log.d("UserRepo", response.toString());
+                else {
+                    Log.d("UserRepo", "Couldn't change password (" + response.getResponseCode() + ")");
+                    Log.d("UserRepo", response.getMessage());
+                    Log.d("UserRepo", call.toString());
+                }
+
+                callback.onResponse(response.getResponseCode(), response.getData(), response.getMessage());
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<APIResponse<Object>> call, @NonNull Throwable t) {
+                Log.d("UserRepo", "Couldn't change password");
                 Log.d("UserRepo", call.toString());
                 Log.d("UserRepo", t.getMessage());
                 callback.onResponse(ResponseCode.FAILURE, null, FAIL_MSG);
