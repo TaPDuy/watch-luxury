@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import nhom9.watchluxury.data.model.User;
+import nhom9.watchluxury.data.model.api.RegisterRequest;
 import nhom9.watchluxury.data.repo.UserRepository;
 
 public class RegisterViewModel extends ViewModel {
@@ -48,13 +48,11 @@ public class RegisterViewModel extends ViewModel {
             return;
 
         userRepo.createUser(
-                new User.Builder()
-                        .username(username.getValue())
-                        .email(email.getValue())
-                        .address(address.getValue())
-                        .password(password1.getValue())
-                        .build(),
-                (responseCode, res) -> {
+                new RegisterRequest(
+                        username.getValue(), password1.getValue(),
+                        email.getValue(), address.getValue()
+                ),
+                (responseCode, res, msg) -> {
                     if (res != null)
                         status.setValue(Status.SUCCESS);
                     else
