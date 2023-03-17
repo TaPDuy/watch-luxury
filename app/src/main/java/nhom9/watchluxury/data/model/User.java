@@ -5,7 +5,6 @@ import androidx.annotation.NonNull;
 import com.squareup.moshi.Json;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import nhom9.watchluxury.util.JsonUtils;
 
@@ -13,7 +12,6 @@ public class User implements Serializable {
 
     private int id;
     private String username;
-    private String password;
     private String email;
     private String address;
     @Json(name="first_name")
@@ -22,10 +20,6 @@ public class User implements Serializable {
     private String lastName;
     @Json(name="phone_number")
     private String phoneNumber;
-    @Json(name="is_admin")
-    private boolean isAdmin;
-    @Json(name="is_active")
-    private boolean isActive;
 
     public String getFirstName() {
         return firstName;
@@ -47,10 +41,6 @@ public class User implements Serializable {
         return username;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -63,14 +53,6 @@ public class User implements Serializable {
         return phoneNumber;
     }
 
-    public boolean isAdmin() {
-        return isAdmin;
-    }
-
-    public boolean isActive() {
-        return isActive;
-    }
-
     @NonNull
     @Override
     public String toString() {
@@ -79,7 +61,7 @@ public class User implements Serializable {
 
     public static class Builder {
 
-        User user;
+        final User user;
 
         public Builder() {
             user = new User();
@@ -96,11 +78,6 @@ public class User implements Serializable {
 
         public Builder username(String username) {
             user.username = username;
-            return this;
-        }
-
-        public Builder password(String password) {
-            user.password = password;
             return this;
         }
 
@@ -126,16 +103,6 @@ public class User implements Serializable {
 
         public Builder phoneNumber(String phoneNumber) {
             user.phoneNumber = phoneNumber;
-            return this;
-        }
-
-        public Builder isAdmin(boolean isAdmin) {
-            user.isAdmin = isAdmin;
-            return this;
-        }
-
-        public Builder isActive(boolean isActive) {
-            user.isActive = isActive;
             return this;
         }
     }
