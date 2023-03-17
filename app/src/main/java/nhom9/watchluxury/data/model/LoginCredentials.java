@@ -3,12 +3,10 @@ package nhom9.watchluxury.data.model;
 import androidx.annotation.NonNull;
 
 import com.squareup.moshi.Json;
-import com.squareup.moshi.JsonAdapter;
-import com.squareup.moshi.Moshi;
 
 import nhom9.watchluxury.util.JsonUtils;
 
-public class LoginResponse {
+public class LoginCredentials {
 
     @Json(name="access")
     private String accessToken;
@@ -17,11 +15,11 @@ public class LoginResponse {
     @Json(name="user_id")
     private int userID;
 
-    public LoginResponse(String refreshToken) {
+    public LoginCredentials(String refreshToken) {
         this("", refreshToken, -1);
     }
 
-    public LoginResponse(String accessToken, String refreshToken, int userID) {
+    public LoginCredentials(String accessToken, String refreshToken, int userID) {
         this.accessToken = accessToken;
         this.refreshToken = refreshToken;
         this.userID = userID;
@@ -54,6 +52,6 @@ public class LoginResponse {
     @NonNull
     @Override
     public String toString() {
-        return "LoginResponse: " + JsonUtils.toJson(this, LoginResponse.class);
+        return "LoginCredentials: " + JsonUtils.toJson(this, LoginCredentials.class);
     }
 }

@@ -1,17 +1,19 @@
-package nhom9.watchluxury.data.model;
+package nhom9.watchluxury.data.model.api;
 
 import androidx.annotation.NonNull;
 
-public class LoginInfo {
+import nhom9.watchluxury.util.JsonUtils;
+
+public class LoginRequest {
 
     private String username;
     private String password;
 
-    public LoginInfo() {
+    public LoginRequest() {
         this("", "");
     }
 
-    public LoginInfo(String username, String password) {
+    public LoginRequest(String username, String password) {
         this.username = username;
         this.password = password;
     }
@@ -35,6 +37,6 @@ public class LoginInfo {
     @NonNull
     @Override
     public String toString() {
-        return this.username + " - " + this.password;
+        return "LoginRequest: " + JsonUtils.toJson(this, LoginRequest.class);
     }
 }
