@@ -9,11 +9,11 @@ import java.io.Serializable;
 public class APIResponse<T> implements Serializable {
 
     @Json(name="code")
-    private int code;
+    private final int code;
     @Json(name="msg")
-    private String message;
+    private final String message;
     @Json(name="data")
-    private T data;
+    private final T data;
 
     public APIResponse(int code, String message, T data) {
         this.code = code;
@@ -25,24 +25,12 @@ public class APIResponse<T> implements Serializable {
         return code;
     }
 
-    public void setResponseCode(int code) {
-        this.code = code;
-    }
-
     public String getMessage() {
         return message;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
     public T getData() {
         return data;
-    }
-
-    public void setData(T data) {
-        this.data = data;
     }
 
     @NonNull
