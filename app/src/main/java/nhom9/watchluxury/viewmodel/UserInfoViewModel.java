@@ -43,7 +43,7 @@ public class UserInfoViewModel extends ViewModel {
         if (!TokenManager.isAuthenticated())
             return;
 
-        userRepo.getUser(TokenManager.getUserId(), (responseCode, res) -> {
+        userRepo.getUser(TokenManager.getUserId(), (responseCode, res, msg) -> {
             if (res != null) {
                 user.setValue(res);
                 status.setValue(Status.SUCCESS);

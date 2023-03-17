@@ -14,7 +14,6 @@ import nhom9.watchluxury.R;
 import nhom9.watchluxury.data.remote.TokenManager;
 import nhom9.watchluxury.databinding.ActivityLoginBinding;
 import nhom9.watchluxury.viewmodel.LoginViewModel;
-import nhom9.watchluxury.viewmodel.LoginViewModel.Status;
 
 public class LoginActivity extends AppCompatActivity {
 

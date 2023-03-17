@@ -58,7 +58,7 @@ public class LoginViewModel extends ViewModel {
             return;
         }
 
-        userRepo.authenticate(user, pass, (responseCode, id) -> {
+        userRepo.authenticate(user, pass, (responseCode, id, msg) -> {
             if (id != null)
                 status.setValue(LoginViewModel.Status.SUCCESS);
             else if (responseCode >= 400 && responseCode < 500)

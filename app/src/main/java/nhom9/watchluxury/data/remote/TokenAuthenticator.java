@@ -6,11 +6,10 @@ import androidx.annotation.NonNull;
 
 import java.io.IOException;
 
-import nhom9.watchluxury.data.model.LoginInfo;
-import nhom9.watchluxury.data.model.LoginResponse;
+import nhom9.watchluxury.data.model.LoginCredentials;
+import nhom9.watchluxury.data.model.api.APIResponse;
 import nhom9.watchluxury.data.remote.service.AuthService;
 import nhom9.watchluxury.data.remote.service.ServiceHolder;
-import nhom9.watchluxury.util.APIUtils;
 import okhttp3.Authenticator;
 import okhttp3.Request;
 import okhttp3.Route;
@@ -45,15 +44,19 @@ public class TokenAuthenticator implements Authenticator {
 
         Log.d("RetrofitClient", "Refreshing tokens...");
         AuthService service = (AuthService) serviceHolder.getService();
-        Response<LoginResponse> response = service.refresh(
-                new LoginResponse(TokenManager.getRefreshToken())
+        Response<APIResponse<LoginCredentials>> responsePackage = service.refresh(
+                TokenManager.getRefreshToken()
         ).execute();
 
-        if (response.isSuccessful()) {
-            TokenManager.saveTokens(response.body().getAccessToken(), response.body().getRefreshToken());
+        APIResponse<LoginCredentials> response = responsePackage.body();
+        assert response != null;
+
+        if (responsePackage.isSuccessful()) {
+            LoginCredentials tokens = response.getData();
+            TokenManager.saveTokens(tokens.getAccessToken(), tokens.getRefreshToken());
             return true;
         } else {
-            Log.d("RetrofitClient", response.message());
+            Log.d("RetrofitClient", response.getMessage());
             return false;
         }
     }

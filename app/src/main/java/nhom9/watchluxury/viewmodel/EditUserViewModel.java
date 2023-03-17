@@ -91,7 +91,7 @@ public class EditUserViewModel extends ViewModel {
                         .address(address.getValue())
                         .phoneNumber(phoneNumber.getValue())
                         .build(),
-                (responseCode, res) -> {
+                (responseCode, res, msg) -> {
                     if (res != null) {
                         status.setValue(Status.SUCCESS);
                     } else {
