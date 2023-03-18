@@ -49,6 +49,8 @@ public class EditUserActivity extends AppCompatActivity {
         binding.executePendingBindings();
 
         initObserver();
+
+        binding.topBar.setNavigationOnClickListener(view -> finish());
     }
 
     private void initObserver() {
