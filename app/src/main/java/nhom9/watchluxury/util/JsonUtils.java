@@ -4,6 +4,7 @@ import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 
 public class JsonUtils {
 
@@ -22,6 +23,14 @@ public class JsonUtils {
             moshi = new Moshi.Builder().build();
         }
         JsonAdapter<T> adapter = moshi.adapter(clazz);
+        return adapter.fromJson(json);
+    }
+
+    public static <T> T fromJson(String json, Type type) throws IOException {
+        if(moshi == null) {
+            moshi = new Moshi.Builder().build();
+        }
+        JsonAdapter<T> adapter = moshi.adapter(type);
         return adapter.fromJson(json);
     }
 }
