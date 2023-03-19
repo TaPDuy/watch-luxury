@@ -3,6 +3,8 @@ package nhom9.watchluxury.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -12,6 +14,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
+
+import java.util.Objects;
 
 import nhom9.watchluxury.R;
 import nhom9.watchluxury.data.model.User;
@@ -38,21 +42,20 @@ public class UserInfoActivity extends AppCompatActivity {
         initObserver();
         initLauncher();
 
-        binding.btnEdit.setOnClickListener(view -> editUserLauncher.launch(viewModel.getUser().getValue()));
+        binding.topBar.setNavigationOnClickListener(view -> finish());
+        binding.topBar.setOnMenuItemClickListener(item -> {
+            if(item.getItemId() == R.id.edit) {
+                editUserLauncher.launch(viewModel.getUser().getValue());
+                return true;
+            }
+            return false;
+        });
     }
 
     private void initObserver() {
         viewModel.getStatus().observe(this, status -> {
-            switch (status) {
-                case SUCCESS:
-                    binding.btnEdit.setClickable(true);
-                    break;
-                case ERROR:
-                    Toast.makeText(UserInfoActivity.this, "Oops, something went wrong!", Toast.LENGTH_SHORT).show();
-                    binding.btnEdit.setClickable(false);
-                    break;
-                default:
-                    break;
+            if (Objects.requireNonNull(status) == UserInfoViewModel.Status.ERROR) {
+                Toast.makeText(UserInfoActivity.this, "Oops, something went wrong!", Toast.LENGTH_SHORT).show();
             }
         });
     }
