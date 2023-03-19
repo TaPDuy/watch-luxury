@@ -21,221 +21,231 @@
 
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/topBar"
-                style="@style/Widget.Material3.Toolbar.OnSurface"
+                style="@style/Widget.Material3.Toolbar.Surface"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:navigationIcon="@drawable/ic_arrow_back" />
 
         </com.google.android.material.appbar.AppBarLayout>
 
-        <com.google.android.flexbox.FlexboxLayout
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingHorizontal="16dp"
-            bind:flexDirection="column">
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize" />
-
-            <!--User info-->
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-condensed"
-                android:text="User info"
-                android:textSize="32sp"
-                android:textStyle="bold"
-                android:background="@drawable/bg_header_underline"
-                android:textColor="?android:textColorPrimary"/>
+            android:layout_height="match_parent"
+            android:layout_marginTop="?attr/actionBarSize">
 
             <com.google.android.flexbox.FlexboxLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingVertical="16dp"
+                android:paddingHorizontal="16dp"
                 bind:flexDirection="column">
+
+                <!--User info-->
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_header_underline"
+                    android:fontFamily="sans-serif-condensed"
+                    android:text="User info"
+                    android:textColor="?android:textColorPrimary"
+                    android:textSize="32sp"
+                    android:textStyle="bold" />
 
                 <com.google.android.flexbox.FlexboxLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    bind:flexDirection="row"
-                    bind:justifyContent="space_evenly">
+                    android:paddingVertical="16dp"
+                    bind:flexDirection="column">
+
+                    <com.google.android.flexbox.FlexboxLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        bind:flexDirection="row"
+                        bind:justifyContent="space_evenly">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/ThemeOverlay.Material3.TextInputEditText.OutlinedBox"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:hint="First name"
+                            bind:layout_flexGrow="1">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@={viewModel.user.firstName}" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <Space
+                            android:layout_width="16dp"
+                            android:layout_height="match_parent" />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/ThemeOverlay.Material3.TextInputEditText.OutlinedBox"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:hint="Last name"
+                            bind:layout_flexGrow="1">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@={viewModel.user.lastName}" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+
+                    </com.google.android.flexbox.FlexboxLayout>
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="16dp" />
 
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tf_updateEmail"
                         style="@style/ThemeOverlay.Material3.TextInputEditText.OutlinedBox"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="First name"
-                        bind:layout_flexGrow="1">
+                        android:hint="Email"
+                        app:error='@{viewModel.errors["email"]}'
+                        app:errorEnabled="true">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@={viewModel.firstName}" />
+                            android:text="@={viewModel.user.email}" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <Space
-                        android:layout_width="16dp"
-                        android:layout_height="match_parent" />
+                        android:layout_width="match_parent"
+                        android:layout_height="16dp" />
 
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tf_updateAddress"
                         style="@style/ThemeOverlay.Material3.TextInputEditText.OutlinedBox"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Last name"
-                        bind:layout_flexGrow="1">
+                        android:hint="Address"
+                        app:error='@{viewModel.errors["address"]}'
+                        app:errorEnabled="true">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@={viewModel.lastName}" />
+                            android:text="@={viewModel.user.address}" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="16dp" />
 
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tf_updatePhone"
+                        style="@style/ThemeOverlay.Material3.TextInputEditText.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Phone number"
+                        app:error='@{viewModel.errors["phoneNumber"]}'
+                        app:errorEnabled="true">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@={viewModel.user.phoneNumber}" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
                 </com.google.android.flexbox.FlexboxLayout>
 
-                <Space
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="16dp" />
+                    android:layout_height="wrap_content">
 
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/ThemeOverlay.Material3.TextInputEditText.OutlinedBox"
+                    <com.google.android.material.button.MaterialButton
+                        style="@style/Widget.Material3.Button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="@{() -> viewModel.onSaveClicked()}"
+                        android:text="Save"
+                        android:textSize="16sp"
+                        app:cornerRadius="6dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!--Change password-->
+
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Email">
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_header_underline"
+                    android:fontFamily="sans-serif-condensed"
+                    android:text="Change password"
+                    android:textColor="?android:textColorPrimary"
+                    android:textSize="32sp"
+                    android:textStyle="bold" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@={viewModel.email}" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="16dp" />
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/ThemeOverlay.Material3.TextInputEditText.OutlinedBox"
+                <com.google.android.flexbox.FlexboxLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Address">
+                    android:paddingVertical="16dp"
+                    bind:flexDirection="column">
 
-                    <com.google.android.material.textfield.TextInputEditText
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/ThemeOverlay.Material3.TextInputEditText.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@={viewModel.address}" />
+                        android:hint="Old password"
+                        app:endIconMode="password_toggle">
 
-                </com.google.android.material.textfield.TextInputLayout>
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textPassword"
+                            android:text="" />
 
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="16dp" />
+                    </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/ThemeOverlay.Material3.TextInputEditText.OutlinedBox"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Phone number">
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="16dp" />
 
-                    <com.google.android.material.textfield.TextInputEditText
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/ThemeOverlay.Material3.TextInputEditText.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@={viewModel.phoneNumber}" />
+                        android:hint="New password"
+                        app:endIconMode="password_toggle">
 
-                </com.google.android.material.textfield.TextInputLayout>
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textPassword"
+                            android:text="" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+                </com.google.android.flexbox.FlexboxLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.button.MaterialButton
+                        style="@style/Widget.Material3.Button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Update"
+                        android:textSize="16sp"
+                        app:cornerRadius="6dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
             </com.google.android.flexbox.FlexboxLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <com.google.android.material.button.MaterialButton
-                    style="@style/Widget.Material3.Button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:onClick="@{() -> viewModel.onSaveClicked()}"
-                    android:text="Save"
-                    android:textSize="16sp"
-                    app:cornerRadius="6dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <!--Change password-->
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-condensed"
-                android:text="Change password"
-                android:textSize="32sp"
-                android:textStyle="bold"
-                android:background="@drawable/bg_header_underline"
-                android:textColor="?android:textColorPrimary"
-                android:layout_marginTop="8dp"/>
-
-            <com.google.android.flexbox.FlexboxLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingVertical="16dp"
-                bind:flexDirection="column">
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/ThemeOverlay.Material3.TextInputEditText.OutlinedBox"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Old password"
-                    app:endIconMode="password_toggle">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="textPassword"
-                        android:text="" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="16dp" />
-
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/ThemeOverlay.Material3.TextInputEditText.OutlinedBox"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="New password"
-                    app:endIconMode="password_toggle">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="textPassword"
-                        android:text="" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-            </com.google.android.flexbox.FlexboxLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <com.google.android.material.button.MaterialButton
-                    style="@style/Widget.Material3.Button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Update"
-                    android:textSize="16sp"
-                    app:cornerRadius="6dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </com.google.android.flexbox.FlexboxLayout>
-
+        </androidx.core.widget.NestedScrollView>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

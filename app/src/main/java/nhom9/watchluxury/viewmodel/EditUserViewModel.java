@@ -5,6 +5,9 @@ import android.text.TextUtils;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import java.util.HashMap;
+import java.util.Objects;
+
 import nhom9.watchluxury.data.model.User;
 import nhom9.watchluxury.data.repo.UserRepository;
 
@@ -15,113 +18,83 @@ public class EditUserViewModel extends ViewModel {
         SUCCESS,
         ERROR,
         NO_USER,
-        EMPTY_ADDRESS,
-        EMPTY_EMAIL,
-        INVALID_PHONE,
     }
 
-    private final MutableLiveData<String> firstName;
-    private final MutableLiveData<String> lastName;
-    private final MutableLiveData<String> email;
-    private final MutableLiveData<String> address;
-    private final MutableLiveData<String> phoneNumber;
+    private final HashMap<String, MutableLiveData<String>> errors;
 
     private final MutableLiveData<Status> status;
 
     private final UserRepository userRepo;
-    private User user;
+    private final MutableLiveData<User> user;
 
     public EditUserViewModel(User user) {
         userRepo = new UserRepository();
         this.status = new MutableLiveData<>(Status.NONE);
+        this.user = new MutableLiveData<>(null);
 
-        this.firstName = new MutableLiveData<>("");
-        this.lastName = new MutableLiveData<>("");
-        this.email = new MutableLiveData<>("");
-        this.address = new MutableLiveData<>("");
-        this.phoneNumber = new MutableLiveData<>("");
+        this.errors = new HashMap<>();
+        this.errors.put("email", new MutableLiveData<>(null));
+        this.errors.put("address", new MutableLiveData<>(null));
+        this.errors.put("phoneNumber", new MutableLiveData<>(null));
 
         if (user == null) {
             this.status.setValue(Status.NO_USER);
         } else {
-            this.user = user;
-            this.firstName.setValue(user.getFirstName());
-            this.lastName.setValue(user.getLastName());
-            this.email.setValue(user.getEmail());
-            this.address.setValue(user.getAddress());
-            this.phoneNumber.setValue(user.getPhoneNumber());
+            this.user.setValue(user);
         }
     }
 
     private boolean isValidated() {
 
-        if (TextUtils.isEmpty(address.getValue())) {
-            status.setValue(Status.EMPTY_ADDRESS);
-            return false;
+        String email = Objects.requireNonNull(this.user.getValue()).getEmail();
+        String address = Objects.requireNonNull(this.user.getValue().getAddress());
+        String phone = Objects.requireNonNull(this.user.getValue().getPhoneNumber());
+
+        if (TextUtils.isEmpty(email)) {
+            errors.get("email").setValue("Email is required");
+        } else {
+            if (!email.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
+                errors.get("email").setValue("Invalid email");
+            } else {
+                errors.get("email").setValue(null);
+            }
         }
 
-        if (TextUtils.isEmpty(email.getValue())) {
-            status.setValue(Status.EMPTY_EMAIL);
-            return false;
+        if (TextUtils.isEmpty(address)) {
+            errors.get("address").setValue("Address is required");
+        } else {
+            errors.get("address").setValue(null);
         }
 
-        if (!TextUtils.isDigitsOnly(phoneNumber.getValue())) {
-            status.setValue(Status.INVALID_PHONE);
-            return false;
+        if (!TextUtils.isDigitsOnly(phone)) {
+            errors.get("phoneNumber").setValue("Invalid phone number");
+        } else {
+            errors.get("phoneNumber").setValue(null);
         }
 
-        return !firstName.getValue().equals(user.getFirstName()) ||
-                !lastName.getValue().equals(user.getLastName()) ||
-                !email.getValue().equals(user.getEmail()) ||
-                !address.getValue().equals(user.getAddress()) ||
-                !phoneNumber.getValue().equals(user.getPhoneNumber());
+        return errors.values().stream().allMatch(data -> data.getValue() == null);
     }
 
     public void onSaveClicked() {
 
-        if (!isValidated())
-            return;
-
-        userRepo.updateUser(
-                user.getId(),
-                new User.Builder()
-                        .firstName(firstName.getValue())
-                        .lastName(lastName.getValue())
-                        .email(email.getValue())
-                        .address(address.getValue())
-                        .phoneNumber(phoneNumber.getValue())
-                        .build(),
-                (responseCode, res, msg) -> {
-                    if (res != null) {
-                        status.setValue(Status.SUCCESS);
-                    } else {
-                        status.setValue(Status.ERROR);
-                    }
-                }
-        );
+        if(isValidated()) {
+            userRepo.updateUser(
+                    Objects.requireNonNull(user.getValue()).getId(),
+                    this.user.getValue(),
+                    (responseCode, res, msg) -> status.setValue(res != null ? Status.SUCCESS : Status.ERROR)
+            );
+        }
     }
 
     public MutableLiveData<Status> getStatus() {
         return status;
     }
 
-    public MutableLiveData<String> getFirstName() {
-        return firstName;
+    public MutableLiveData<User> getUser() {
+        return user;
     }
 
-    public MutableLiveData<String> getLastName() {
-        return lastName;
-    }
-
-    public MutableLiveData<String> getEmail() {
-        return email;
-    }
-
-    public MutableLiveData<String> getAddress() {
-        return address;
-    }
-
-    public MutableLiveData<String> getPhoneNumber() {
-        return phoneNumber;
+    public HashMap<String, MutableLiveData<String>> getErrors() {
+        return errors;
     }
 }

@@ -3,6 +3,7 @@ package nhom9.watchluxury.activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -11,6 +12,7 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.Map;
 
 import nhom9.watchluxury.R;
 import nhom9.watchluxury.data.model.User;
@@ -70,18 +72,23 @@ public class EditUserActivity extends AppCompatActivity {
                     setResult(RESULT_OK, intent);
                     finish();
                     break;
-                case EMPTY_EMAIL:
-                    Toast.makeText(EditUserActivity.this, "Email is required", Toast.LENGTH_SHORT).show();
-                    break;
-                case EMPTY_ADDRESS:
-                    Toast.makeText(EditUserActivity.this, "Address is required", Toast.LENGTH_SHORT).show();
-                    break;
-                case INVALID_PHONE:
-                    Toast.makeText(EditUserActivity.this, "Invalid phone number", Toast.LENGTH_SHORT).show();
-                    break;
+//                case EMPTY_EMAIL:
+//                    Toast.makeText(EditUserActivity.this, "Email is required", Toast.LENGTH_SHORT).show();
+//                    break;
+//                case EMPTY_ADDRESS:
+//                    Toast.makeText(EditUserActivity.this, "Address is required", Toast.LENGTH_SHORT).show();
+//                    break;
+//                case INVALID_PHONE:
+//                    Toast.makeText(EditUserActivity.this, "Invalid phone number", Toast.LENGTH_SHORT).show();
+//                    break;
                 default:
                     break;
             }
         });
+
+        Map<String, MutableLiveData<String>> errors = viewModel.getErrors();
+        errors.get("email").observe(this, msg -> binding.tfUpdateEmail.setErrorEnabled(msg != null));
+        errors.get("address").observe(this, msg -> binding.tfUpdateAddress.setErrorEnabled(msg != null));
+        errors.get("phoneNumber").observe(this, msg -> binding.tfUpdatePhone.setErrorEnabled(msg != null));
     }
 }
