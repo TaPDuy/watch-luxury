@@ -72,15 +72,6 @@ public class EditUserActivity extends AppCompatActivity {
                     setResult(RESULT_OK, intent);
                     finish();
                     break;
-//                case EMPTY_EMAIL:
-//                    Toast.makeText(EditUserActivity.this, "Email is required", Toast.LENGTH_SHORT).show();
-//                    break;
-//                case EMPTY_ADDRESS:
-//                    Toast.makeText(EditUserActivity.this, "Address is required", Toast.LENGTH_SHORT).show();
-//                    break;
-//                case INVALID_PHONE:
-//                    Toast.makeText(EditUserActivity.this, "Invalid phone number", Toast.LENGTH_SHORT).show();
-//                    break;
                 default:
                     break;
             }
@@ -90,5 +81,9 @@ public class EditUserActivity extends AppCompatActivity {
         errors.get("email").observe(this, msg -> binding.tfUpdateEmail.setErrorEnabled(msg != null));
         errors.get("address").observe(this, msg -> binding.tfUpdateAddress.setErrorEnabled(msg != null));
         errors.get("phoneNumber").observe(this, msg -> binding.tfUpdatePhone.setErrorEnabled(msg != null));
+
+        errors = viewModel.getPasswordErrors();
+        errors.get("password1").observe(this, msg -> binding.tfUpdatePassword1.setErrorEnabled(msg != null));
+        errors.get("password2").observe(this, msg -> binding.tfUpdatePassword2.setErrorEnabled(msg != null));
     }
 }

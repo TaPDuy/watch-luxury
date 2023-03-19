@@ -28,7 +28,12 @@ public class TokenAuthenticator implements Authenticator {
     @Override
     public Request authenticate(Route route, @NonNull okhttp3.Response response) throws IOException {
 
-        if (response.request().url().encodedPath().equals("/login/refresh/")) {
+        String path = response.request().url().encodedPath();
+
+        if (path.equals("/login/"))
+            return null;
+
+        if (path.equals("/login/refresh/")) {
             TokenManager.deleteTokens();
             return null;
         }

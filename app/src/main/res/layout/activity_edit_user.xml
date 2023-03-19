@@ -108,8 +108,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Email"
-                        app:error='@{viewModel.errors["email"]}'
-                        app:errorEnabled="true">
+                        app:error='@{viewModel.errors["email"]}'>
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
@@ -128,8 +127,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Address"
-                        app:error='@{viewModel.errors["address"]}'
-                        app:errorEnabled="true">
+                        app:error='@{viewModel.errors["address"]}'>
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
@@ -148,8 +146,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Phone number"
-                        app:error='@{viewModel.errors["phoneNumber"]}'
-                        app:errorEnabled="true">
+                        app:error='@{viewModel.errors["phoneNumber"]}'>
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
@@ -195,17 +192,19 @@
                     bind:flexDirection="column">
 
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tf_updatePassword1"
                         style="@style/ThemeOverlay.Material3.TextInputEditText.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Old password"
-                        app:endIconMode="password_toggle">
+                        app:endIconMode="password_toggle"
+                        app:error='@{viewModel.passwordErrors["password1"]}'>
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="textPassword"
-                            android:text="" />
+                            android:text="@={viewModel.passwords.oldPassword}" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -214,17 +213,19 @@
                         android:layout_height="16dp" />
 
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tf_updatePassword2"
                         style="@style/ThemeOverlay.Material3.TextInputEditText.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="New password"
-                        app:endIconMode="password_toggle">
+                        app:endIconMode="password_toggle"
+                        app:error='@{viewModel.passwordErrors["password2"]}'>
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="textPassword"
-                            android:text="" />
+                            android:text="@={viewModel.passwords.newPassword}" />
 
                     </com.google.android.material.textfield.TextInputLayout>
                 </com.google.android.flexbox.FlexboxLayout>
@@ -241,7 +242,8 @@
                         android:textSize="16sp"
                         app:cornerRadius="6dp"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:onClick="@{() -> viewModel.onPasswordSaveClicked()}"/>
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </com.google.android.flexbox.FlexboxLayout>
