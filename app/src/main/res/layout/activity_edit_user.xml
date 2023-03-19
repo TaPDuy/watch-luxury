@@ -73,6 +73,7 @@
                             <com.google.android.material.textfield.TextInputEditText
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:maxLines="1"
                                 android:text="@={viewModel.user.firstName}" />
 
                         </com.google.android.material.textfield.TextInputLayout>
@@ -91,6 +92,7 @@
                             <com.google.android.material.textfield.TextInputEditText
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:maxLines="1"
                                 android:text="@={viewModel.user.lastName}" />
 
                         </com.google.android.material.textfield.TextInputLayout>
@@ -113,6 +115,7 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:maxLines="1"
                             android:text="@={viewModel.user.email}" />
 
                     </com.google.android.material.textfield.TextInputLayout>
@@ -132,6 +135,7 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:maxLines="1"
                             android:text="@={viewModel.user.address}" />
 
                     </com.google.android.material.textfield.TextInputLayout>
@@ -151,6 +155,7 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:maxLines="1"
                             android:text="@={viewModel.user.phoneNumber}" />
 
                     </com.google.android.material.textfield.TextInputLayout>
@@ -204,6 +209,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="textPassword"
+                            android:maxLines="1"
                             android:text="@={viewModel.passwords.oldPassword}" />
 
                     </com.google.android.material.textfield.TextInputLayout>
@@ -225,6 +231,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="textPassword"
+                            android:maxLines="1"
                             android:text="@={viewModel.passwords.newPassword}" />
 
                     </com.google.android.material.textfield.TextInputLayout>
@@ -238,12 +245,12 @@
                         style="@style/Widget.Material3.Button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:onClick="@{() -> viewModel.onPasswordSaveClicked()}"
                         android:text="Update"
                         android:textSize="16sp"
                         app:cornerRadius="6dp"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        android:onClick="@{() -> viewModel.onPasswordSaveClicked()}"/>
+                        app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </com.google.android.flexbox.FlexboxLayout>
