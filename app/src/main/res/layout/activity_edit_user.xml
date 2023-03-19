@@ -73,6 +73,7 @@
                             <com.google.android.material.textfield.TextInputEditText
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:inputType="textPersonName"
                                 android:maxLines="1"
                                 android:text="@={viewModel.user.firstName}" />
 
@@ -92,6 +93,7 @@
                             <com.google.android.material.textfield.TextInputEditText
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:inputType="textPersonName"
                                 android:maxLines="1"
                                 android:text="@={viewModel.user.lastName}" />
 
@@ -115,6 +117,7 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:inputType="textEmailAddress"
                             android:maxLines="1"
                             android:text="@={viewModel.user.email}" />
 
@@ -135,6 +138,7 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:inputType="textPostalAddress"
                             android:maxLines="1"
                             android:text="@={viewModel.user.address}" />
 
@@ -155,6 +159,7 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:inputType="phone"
                             android:maxLines="1"
                             android:text="@={viewModel.user.phoneNumber}" />
 
