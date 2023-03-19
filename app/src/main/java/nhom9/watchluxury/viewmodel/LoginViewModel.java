@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import nhom9.watchluxury.data.model.api.ResponseCode;
 import nhom9.watchluxury.data.repo.UserRepository;
 
 public class LoginViewModel extends ViewModel {
@@ -59,9 +60,9 @@ public class LoginViewModel extends ViewModel {
         }
 
         userRepo.authenticate(user, pass, (responseCode, id, msg) -> {
-            if (id != null)
+            if (responseCode == ResponseCode.SUCCESS)
                 status.setValue(LoginViewModel.Status.SUCCESS);
-            else if (responseCode >= 400 && responseCode < 500)
+            else if (responseCode == ResponseCode.INVALID_LOGIN)
                 status.setValue(LoginViewModel.Status.WRONG_LOGIN);
             else
                 status.setValue(LoginViewModel.Status.ERROR);
