@@ -9,6 +9,10 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
+import io.reactivex.rxjava3.core.Flowable;
+import io.reactivex.rxjava3.core.Single;
+import nhom9.watchluxury.data.local.AppDatabase;
+import nhom9.watchluxury.data.local.UserDAO;
 import nhom9.watchluxury.data.model.LoginCredentials;
 import nhom9.watchluxury.data.model.User;
 import nhom9.watchluxury.data.model.api.APIResponse;
@@ -17,6 +21,7 @@ import nhom9.watchluxury.data.model.api.LoginRequest;
 import nhom9.watchluxury.data.model.api.RegisterRequest;
 import nhom9.watchluxury.data.model.api.ResponseCode;
 import nhom9.watchluxury.data.remote.TokenManager;
+import nhom9.watchluxury.data.remote.UserRemoteSource;
 import nhom9.watchluxury.data.remote.service.AuthService;
 import nhom9.watchluxury.data.remote.service.UserService;
 import nhom9.watchluxury.util.APIUtils;
@@ -28,36 +33,25 @@ public class UserRepository {
     private static final UserService USER_SERVICE = APIUtils.getUserService();
     private static final AuthService AUTH_SERVICE = APIUtils.getAuthenticationService();
     private static final String FAIL_MSG = "Request failed";
+    private static final UserRemoteSource userAPI = UserRemoteSource.get();
+    private static final UserDAO userDB = AppDatabase.getInstance().userDAO();
 
-    public void getUser(int id, Callback<User> callback) {
+    public Flowable<User> getUser(int id) {
 
-        USER_SERVICE.getUser(id, "Bearer " + TokenManager.getAccessToken()).enqueue(new retrofit2.Callback<APIResponse<User>>() {
+        Single<User> localData = userDB.get(id)
+                .doOnSuccess(user -> Log.d(this.getClass().getName(), "Query: " + user))
+                .doOnError(throwable -> Log.e(this.getClass().getName(), throwable.getMessage()));
 
-            @Override
-            public void onResponse(@NonNull Call<APIResponse<User>> call, @NonNull Response<APIResponse<User>> responsePackage) {
+        Single<User> remoteData = userAPI.getUser(id)
+                .doOnSuccess(
+                        response -> userDB.insert(response.getData()).subscribe(
+                                () -> Log.d(this.getClass().getName(), "Cached " + response.getData())
+                        ).dispose()
+                )
+                .doOnError(throwable -> Log.e(this.getClass().getName(), throwable.getMessage()))
+                .map(APIResponse::getData);
 
-                APIResponse<User> response = handleResponse(responsePackage);
-                User user = response.getData();
-
-                if (responsePackage.isSuccessful())
-                    Log.d("UserRepo", "Retrieved user: \n" + user.toString());
-                else {
-                    Log.d("UserRepo", "Couldn't get user (" + response.getResponseCode() + ")");
-                    Log.d("UserRepo", response.getMessage());
-                    Log.d("UserRepo", call.toString());
-                }
-
-                callback.onResponse(response.getResponseCode(), user, response.getMessage());
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<APIResponse<User>> call, @NonNull Throwable t) {
-                Log.d("UserRepo", "Couldn't get user");
-                Log.d("UserRepo", call.toString());
-                Log.d("UserRepo", t.getMessage());
-                callback.onResponse(ResponseCode.FAILURE, null, FAIL_MSG);
-            }
-        });
+        return Single.concat(localData, remoteData);
     }
 
     public void createUser(RegisterRequest request, Callback<User> callback) {

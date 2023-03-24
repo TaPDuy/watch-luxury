@@ -1,5 +1,6 @@
 package nhom9.watchluxury.data.remote.service;
 
+import io.reactivex.rxjava3.core.Single;
 import nhom9.watchluxury.data.model.User;
 import nhom9.watchluxury.data.model.api.APIResponse;
 import nhom9.watchluxury.data.model.api.ChangePasswordRequest;
@@ -13,7 +14,7 @@ import retrofit2.http.Path;
 public interface UserService {
 
     @GET("users/{id}")
-    Call<APIResponse<User>> getUser(@Path("id") int id, @Header("Authorization") String accessToken);
+    Single<APIResponse<User>> getUser(@Path("id") int id, @Header("Authorization") String accessToken);
 
     @PUT("users/{id}/")
     Call<APIResponse<User>> updateUser(@Path("id") int id, @Body User user, @Header("Authorization") String accessToken);

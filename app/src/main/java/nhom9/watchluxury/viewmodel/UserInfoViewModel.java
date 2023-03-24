@@ -1,13 +1,22 @@
 package nhom9.watchluxury.viewmodel;
 
+import android.util.Log;
+
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.annotations.NonNull;
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
+import io.reactivex.rxjava3.subscribers.DisposableSubscriber;
 import nhom9.watchluxury.data.model.User;
 import nhom9.watchluxury.data.remote.TokenManager;
 import nhom9.watchluxury.data.repo.UserRepository;
 
 public class UserInfoViewModel extends ViewModel {
+
+    private final CompositeDisposable disposables = new CompositeDisposable();
 
     public enum Status {
         NONE,
@@ -21,10 +30,10 @@ public class UserInfoViewModel extends ViewModel {
 
     public UserInfoViewModel() {
         userRepo = new UserRepository();
-        loadUserInfo();
-
         user = new MutableLiveData<>(null);
         status = new MutableLiveData<>(Status.NONE);
+
+        loadUserInfo();
     }
 
     public MutableLiveData<User> getUser() {
@@ -43,14 +52,39 @@ public class UserInfoViewModel extends ViewModel {
         if (!TokenManager.isAuthenticated())
             return;
 
-        userRepo.getUser(TokenManager.getUserId(), (responseCode, res, msg) -> {
-            if (res != null) {
-                user.setValue(res);
-                status.setValue(Status.SUCCESS);
-            } else {
-                user.setValue(null);
-                status.setValue(Status.ERROR);
-            }
-        });
+        disposables.add(
+                userRepo.getUser(TokenManager.getUserId())
+                        .observeOn(AndroidSchedulers.mainThread(), true)
+                        .subscribeOn(Schedulers.io())
+                        .subscribeWith(new UserObserver())
+        );
+    }
+
+    private class UserObserver extends DisposableSubscriber<User> {
+
+        @Override
+        public void onNext(@NonNull User response) {
+            user.setValue(response);
+            status.setValue(Status.SUCCESS);
+            Log.d("UserInfoViewModel", "onNext: " + response);
+        }
+
+        @Override
+        public void onError(@NonNull Throwable e) {
+//            user.setValue(null);
+            status.setValue(Status.ERROR);
+            Log.e("UserInfoViewModel", "onError: " + e);
+        }
+
+        @Override
+        public void onComplete() {
+
+        }
+    }
+
+    @Override
+    protected void onCleared() {
+        disposables.clear();
+        super.onCleared();
     }
 }
