@@ -1,60 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".activity.HomeActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <RelativeLayout
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/sidebarLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tvTemp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Day là trang HomePage , khi Login thành công
-với được truy cập vào!"
-                android:textSize="20dp" />
-
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/btnLogout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginEnd="12dp"
-            android:layout_marginBottom="14dp"
-            android:text="Logout" />
-
-        <TextView
-            android:id="@+id/tvUserInfo"
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
-            android:layout_height="721dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="0dp"
-            android:layout_marginTop="37dp"
-            android:layout_marginEnd="0dp"
-            android:layout_marginBottom="82dp"
-            android:text="TextView" />
+            android:layout_height="match_parent"
+            android:layout_marginTop="?attr/actionBarSize"
+            android:fitsSystemWindows="true">
 
-        <Button
-            android:id="@+id/btnUserInfo"
+            <ListView
+                android:id="@+id/listMainView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <!--                <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+                <!--                    android:id="@+id/floatingSend"-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_above="@+id/floatingLucky"-->
+
+                <!--                    android:layout_alignParentEnd="true"-->
+                <!--                    android:layout_marginRight="30px"-->
+                <!--                    android:layout_marginBottom="20px"-->
+                <!--                    android:background="@color/floatSon"-->
+                <!--                    android:src="@drawable/base_send"-->
+                <!--                    android:visibility="gone"-->
+                <!--                    app:fabSize="mini">-->
+
+                <!--                </com.google.android.material.floatingactionbutton.FloatingActionButton>-->
+
+                <!--                <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+                <!--                    android:id="@+id/floatingLucky"-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_above="@+id/floatingCart"-->
+                <!--                    android:layout_alignParentEnd="true"-->
+
+                <!--                    android:layout_marginRight="30px"-->
+                <!--                    android:layout_marginBottom="20px"-->
+                <!--                    android:background="@color/floatSon"-->
+                <!--                    android:src="@drawable/base_lucky"-->
+                <!--                    android:visibility="gone"-->
+                <!--                    app:fabSize="mini">-->
+
+                <!--                </com.google.android.material.floatingactionbutton.FloatingActionButton>-->
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/floatingCart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/floatingFavorite"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginRight="32px"
+                    android:layout_marginBottom="32px"
+                    android:src="@drawable/ic_cart"
+                    android:visibility="gone"
+                    app:fabSize="mini">
+
+                </com.google.android.material.floatingactionbutton.FloatingActionButton>
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/floatingFavorite"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/floatingHome"
+
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginRight="32px"
+                    android:layout_marginBottom="32px"
+                    android:src="@drawable/ic_favorite"
+                    android:visibility="gone"
+                    app:fabSize="mini">
+
+                </com.google.android.material.floatingactionbutton.FloatingActionButton>
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/floatingHome"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/floatingBtn"
+
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginRight="32px"
+                    android:layout_marginBottom="32px"
+                    android:src="@drawable/ic_home"
+                    android:visibility="gone"
+                    app:fabSize="mini">
+
+                </com.google.android.material.floatingactionbutton.FloatingActionButton>
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/floatingBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginRight="32px"
+                    android:layout_marginBottom="32px"
+                    android:src="@drawable/ic_menu"
+                    android:tint="@color/white">
+
+                </com.google.android.material.floatingactionbutton.FloatingActionButton>
+            </RelativeLayout>
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/sidebar"
+            style="@style/Widget.Material3.NavigationView"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginEnd="19dp"
-            android:layout_marginBottom="14dp"
-            android:layout_toStartOf="@+id/btnLogout"
-            android:text="User Info" />
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:background="@color/white"
+            app:headerLayout="@layout/sidebar_header"
+            app:itemHorizontalPadding="16dp"
+            app:menu="@menu/sidebar" />
 
-    </RelativeLayout>
+    </androidx.drawerlayout.widget.DrawerLayout>
 </layout>
