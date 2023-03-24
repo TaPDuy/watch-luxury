@@ -1,6 +1,8 @@
 package nhom9.watchluxury.data.model;
 
 import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
 import com.squareup.moshi.Json;
 
@@ -8,8 +10,10 @@ import java.io.Serializable;
 
 import nhom9.watchluxury.util.JsonUtils;
 
+@Entity(tableName = "tbl_user")
 public class User implements Serializable {
 
+    @PrimaryKey
     private int id;
     private String username;
     private String email;
@@ -18,6 +22,14 @@ public class User implements Serializable {
     private String firstName;
     @Json(name="last_name")
     private String lastName;
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
     public void setEmail(String email) {
         this.email = email;
