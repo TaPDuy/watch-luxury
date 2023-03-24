@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider;
 import org.jetbrains.annotations.Nullable;
 
 import nhom9.watchluxury.R;
+import nhom9.watchluxury.data.local.AppDatabase;
 import nhom9.watchluxury.data.remote.TokenManager;
 import nhom9.watchluxury.databinding.ActivityLoginBinding;
 import nhom9.watchluxury.viewmodel.LoginViewModel;
@@ -24,6 +25,9 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        TokenManager.init(getApplicationContext());
+        AppDatabase.init(getApplicationContext());
+
         viewModel = new ViewModelProvider(this).get(LoginViewModel.class);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
         binding.setLifecycleOwner(this);
@@ -32,7 +36,6 @@ public class LoginActivity extends AppCompatActivity {
 
         initObserver();
 
-        TokenManager.init(getApplicationContext());
 
         binding.btnRegister.setOnClickListener(view -> {
             Intent intent = new Intent();
