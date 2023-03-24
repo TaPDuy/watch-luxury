@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+
+    tools:context=".activity.AboutActivity">
+
+
+    <ImageView
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_gravity="center|top"
+        android:src="@drawable/logo3" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="40dp"
+        android:textColor="#A18151"
+        android:text="When we see someone give the most engaging,
+        impressive and rapport-building introduction,
+         we immediately think they’re gifted.
+
+But in reality, there’s usually a lot of work behind it.
+
+When writing your sample introduction in English,
+ ask yourself: Who exactly am I talking to?
+ Depending on your answer, there will be different things to
+ include in your introduction.
+
+So, what makes an introduction effective? First,
+it needs to be appropriate for the given setting.
+
+Consider, is it a formal or an informal situation?
+
+Because you know that saying “Hey there! How’s it going?”
+is perfectly okay if you’re with a group of friends, but of course, it might come across a bit odd in a meeting with your boss. So knowing the context is important. "
+        android:textSize="25dp" />
+</LinearLayout>
