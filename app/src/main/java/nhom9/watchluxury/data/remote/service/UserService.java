@@ -17,8 +17,8 @@ public interface UserService {
     Single<APIResponse<User>> getUser(@Path("id") int id, @Header("Authorization") String accessToken);
 
     @PUT("users/{id}/")
-    Call<APIResponse<User>> updateUser(@Path("id") int id, @Body User user, @Header("Authorization") String accessToken);
+    Single<APIResponse<User>> updateUser(@Path("id") int id, @Body User user, @Header("Authorization") String accessToken);
 
     @PUT("users/{id}/change_password/")
-    Call<APIResponse<Object>> changePassword(@Path("id") int id, @Body ChangePasswordRequest request, @Header("Authorization") String accessToken);
+    Single<APIResponse<Object>> changePassword(@Path("id") int id, @Body ChangePasswordRequest request, @Header("Authorization") String accessToken);
 }

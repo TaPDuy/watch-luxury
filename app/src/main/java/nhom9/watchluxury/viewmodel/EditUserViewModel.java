@@ -1,6 +1,7 @@
 package nhom9.watchluxury.viewmodel;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -8,9 +9,13 @@ import androidx.lifecycle.ViewModel;
 import java.util.HashMap;
 import java.util.Objects;
 
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.annotations.NonNull;
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
+import io.reactivex.rxjava3.observers.DisposableSingleObserver;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 import nhom9.watchluxury.data.model.User;
 import nhom9.watchluxury.data.model.api.ChangePasswordRequest;
-import nhom9.watchluxury.data.model.api.ResponseCode;
 import nhom9.watchluxury.data.repo.UserRepository;
 
 public class EditUserViewModel extends ViewModel {
@@ -30,6 +35,8 @@ public class EditUserViewModel extends ViewModel {
     private final UserRepository userRepo;
     private final MutableLiveData<User> user;
     private final MutableLiveData<ChangePasswordRequest> changePassword;
+
+    private final CompositeDisposable disposables = new CompositeDisposable();
 
     public EditUserViewModel(User user) {
 
@@ -88,12 +95,32 @@ public class EditUserViewModel extends ViewModel {
 
     public void onSaveClicked() {
 
-        if(isValidated()) {
-            userRepo.updateUser(
-                    Objects.requireNonNull(user.getValue()).getId(),
-                    this.user.getValue(),
-                    (responseCode, res, msg) -> status.setValue(res != null ? Status.SUCCESS : Status.ERROR)
-            );
+        if (!isValidated())
+            return;
+
+        disposables.add(
+                userRepo.updateUser(
+                                Objects.requireNonNull(user.getValue()).getId(),
+                                this.user.getValue()
+                        )
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribeOn(Schedulers.io())
+                        .subscribeWith(new UserObserver())
+        );
+    }
+
+    private class UserObserver extends DisposableSingleObserver<User> {
+
+        @Override
+        public void onSuccess(@NonNull User user) {
+            status.setValue(Status.SUCCESS);
+            Log.d("EditUserViewModel", "onSuccess: " + user);
+        }
+
+        @Override
+        public void onError(@NonNull Throwable e) {
+            status.setValue(Status.ERROR);
+            Log.e("EditUserViewModel", "onError: " + e);
         }
     }
 
@@ -122,22 +149,43 @@ public class EditUserViewModel extends ViewModel {
 
     public void onPasswordSaveClicked() {
 
-        if (validatePasswords()) {
+        if (!validatePasswords())
+            return;
 
-            userRepo.updatePassword(
-                    Objects.requireNonNull(user.getValue()).getId(),
-                    changePassword.getValue().getOldPassword(),
-                    changePassword.getValue().getNewPassword(),
-                    (code, data, msg) -> {
+//        (code, data, msg) -> {
+//
+//            if (code == ResponseCode.WRONG_PASSWORD)
+//                passwordErrors.get("password1").setValue("Wrong password");
+//            else {
+//                passwordErrors.get("password1").setValue(null);
+//                status.setValue(code == ResponseCode.SUCCESS ? Status.SUCCESS : Status.ERROR);
+//            }
+//        }
 
-                        if (code == ResponseCode.WRONG_PASSWORD)
-                            passwordErrors.get("password1").setValue("Wrong password");
-                        else {
-                            passwordErrors.get("password1").setValue(null);
-                            status.setValue(code == ResponseCode.SUCCESS ? Status.SUCCESS : Status.ERROR);
-                        }
-                    }
-            );
+        disposables.add(
+                userRepo.updatePassword(
+                                Objects.requireNonNull(user.getValue()).getId(),
+                                changePassword.getValue().getOldPassword(),
+                                changePassword.getValue().getNewPassword()
+                        )
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribeOn(Schedulers.io())
+                        .subscribeWith(new PasswordObserver())
+        );
+    }
+
+    private class PasswordObserver extends DisposableSingleObserver<Object> {
+
+        @Override
+        public void onSuccess(@NonNull Object object) {
+            status.setValue(Status.SUCCESS);
+            Log.d("EditUserViewModel", "onSuccess: " + object);
+        }
+
+        @Override
+        public void onError(@NonNull Throwable e) {
+            status.setValue(Status.ERROR);
+            Log.e("EditUserViewModel", "onError: " + e);
         }
     }
 

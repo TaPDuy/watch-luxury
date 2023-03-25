@@ -1,6 +1,7 @@
 package nhom9.watchluxury.viewmodel;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -9,7 +10,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import nhom9.watchluxury.data.model.api.RegisterRequest;
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.annotations.NonNull;
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
+import io.reactivex.rxjava3.observers.DisposableSingleObserver;
+import io.reactivex.rxjava3.schedulers.Schedulers;
+import nhom9.watchluxury.data.model.User;
 import nhom9.watchluxury.data.repo.UserRepository;
 
 public class RegisterViewModel extends ViewModel {
@@ -31,6 +37,8 @@ public class RegisterViewModel extends ViewModel {
 
     private final UserRepository userRepo;
 
+    private final CompositeDisposable disposables = new CompositeDisposable();
+
     public RegisterViewModel() {
         userRepo = new UserRepository();
 
@@ -47,17 +55,30 @@ public class RegisterViewModel extends ViewModel {
         if (!isValidated())
             return;
 
-        userRepo.createUser(
-                new RegisterRequest(
-                        username.getValue(), password1.getValue(),
-                        email.getValue(), address.getValue()
-                ),
-                (responseCode, res, msg) -> {
-                    if (res != null)
-                        status.setValue(Status.SUCCESS);
-                    else
-                        status.setValue(Status.ERROR);
-        });
+        disposables.add(
+                userRepo.createUser(
+                                username.getValue(), password1.getValue(),
+                                email.getValue(), address.getValue()
+                        )
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribeOn(Schedulers.io())
+                        .subscribeWith(new UserObserver())
+        );
+    }
+
+    private class UserObserver extends DisposableSingleObserver<User> {
+
+        @Override
+        public void onSuccess(@NonNull User user) {
+            status.setValue(Status.SUCCESS);
+            Log.d("RegisterViewModel", "onSuccess: " + user);
+        }
+
+        @Override
+        public void onError(@NonNull Throwable e) {
+            status.setValue(Status.ERROR);
+            Log.e("RegisterViewModel", "onError: " + e);
+        }
     }
 
     private boolean isValidated() {
@@ -79,6 +100,12 @@ public class RegisterViewModel extends ViewModel {
         }
 
         return true;
+    }
+
+    @Override
+    protected void onCleared() {
+        disposables.clear();
+        super.onCleared();
     }
 
     public MutableLiveData<String> getUsername() {

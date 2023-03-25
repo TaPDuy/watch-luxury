@@ -1,5 +1,6 @@
 package nhom9.watchluxury.data.remote.service;
 
+import io.reactivex.rxjava3.core.Single;
 import nhom9.watchluxury.data.model.api.LoginRequest;
 import nhom9.watchluxury.data.model.LoginCredentials;
 import nhom9.watchluxury.data.model.User;
@@ -12,11 +13,8 @@ import retrofit2.http.POST;
 public interface AuthService extends Service {
 
     @POST("login/")
-    Call<APIResponse<LoginCredentials>> login(@Body LoginRequest info);
+    Single<APIResponse<LoginCredentials>> login(@Body LoginRequest info);
 
     @POST("register/")
-    Call<APIResponse<User>> register(@Body RegisterRequest request);
-
-    @POST("login/refresh/")
-    Call<APIResponse<LoginCredentials>> refresh(@Body String refreshToken);
+    Single<APIResponse<User>> register(@Body RegisterRequest request);
 }
