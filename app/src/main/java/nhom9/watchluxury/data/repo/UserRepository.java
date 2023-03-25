@@ -4,65 +4,65 @@ import android.util.Log;
 
 import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Single;
-import nhom9.watchluxury.data.local.AppDatabase;
-import nhom9.watchluxury.data.local.UserDAO;
+import nhom9.watchluxury.data.DataSource;
+import nhom9.watchluxury.data.local.UserLocalSource;
 import nhom9.watchluxury.data.model.LoginCredentials;
 import nhom9.watchluxury.data.model.User;
-import nhom9.watchluxury.data.model.api.APIResponse;
+import nhom9.watchluxury.data.model.api.APIResource;
+import nhom9.watchluxury.data.model.api.ResponseCode;
 import nhom9.watchluxury.data.remote.TokenManager;
 import nhom9.watchluxury.data.remote.UserRemoteSource;
 
 public class UserRepository {
 
-    private static final UserRemoteSource userAPI = UserRemoteSource.get();
-    private static final UserDAO userDB = AppDatabase.getInstance().userDAO();
+    private static final UserRemoteSource userAPI = DataSource.getRemoteUser();
+    private static final UserLocalSource userDB = DataSource.getLocalUser();
 
     // For logging
     private static final String CLASS_NAME = "UserRepo";
 
-    public Flowable<User> getUser(int id) {
+    public Flowable<APIResource<User>> getUser(int id) {
 
-        Single<User> localData = userDB.get(id)
-                .doOnSuccess(user -> Log.d(CLASS_NAME, "Query: " + user))
-                .doOnError(throwable -> Log.e(CLASS_NAME, throwable.getMessage()));
+        Single<APIResource<User>> localData = userDB.getUser(id)
+                .map(user -> new APIResource<>(ResponseCode.SUCCESS, "Local data", user));
 
-        Single<User> remoteData = userAPI.getUser(id)
-                .map(APIResponse::getData)
+        Single<APIResource<User>> remoteData = userAPI.getUser(id)
                 .doOnSuccess(
-                        user -> userDB.insert(user).subscribe(
-                                () -> Log.d(CLASS_NAME, "Cached: " + user)
-                        ).dispose()
+                        res -> {
+                            User user = res.getData();
+                            userDB.insertUser(user).subscribe().dispose();
+                        }
                 )
                 .doOnError(throwable -> Log.e(CLASS_NAME, throwable.getMessage()));
 
         return Single.concatArrayDelayError(localData, remoteData);
     }
 
-    public Single<User> createUser(String username, String password, String email, String address) {
+    public Single<APIResource<User>> createUser(String username, String password, String email, String address) {
 
         return userAPI.createUser(username, password, email, address)
-                .map(APIResponse::getData)
-                .doOnSuccess(user -> Log.d(CLASS_NAME, "Created: " + user))
+                .doOnSuccess(res -> Log.d(CLASS_NAME, "Created: " + res.getData()))
                 .doOnError(throwable -> Log.e(CLASS_NAME, throwable.getMessage()));
     }
 
-    public Single<User> updateUser(int id, User user) {
+    public Single<APIResource<User>> updateUser(int id, User user) {
 
         return userAPI.updateUser(id, user)
-                .map(APIResponse::getData)
                 .doOnSuccess(
-                        res -> userDB.insert(res).subscribe(
-                                () -> Log.d(CLASS_NAME, "Updated: " + res)
-                        ).dispose()
+                        res -> {
+                            User updated = res.getData();
+                            userDB.insertUser(updated).subscribe().dispose();
+                        }
                 )
                 .doOnError(throwable -> Log.e(CLASS_NAME, throwable.getMessage()));
     }
 
-    public Single<LoginCredentials> authenticate(String username, String password) {
+    public Single<APIResource<LoginCredentials>> authenticate(String username, String password) {
 
         return userAPI.authenticate(username, password)
-                .map(APIResponse::getData)
-                .doOnSuccess(credentials -> {
+                .doOnSuccess(res -> {
+
+                    LoginCredentials credentials = res.getData();
                     TokenManager.save(
                             credentials.getAccessToken(),
                             credentials.getRefreshToken(),
@@ -74,11 +74,10 @@ public class UserRepository {
                 .doOnError(throwable -> Log.e(CLASS_NAME, throwable.getMessage()));
     }
 
-    public Single<Object> updatePassword(int id, String oldPassword, String newPassword) {
+    public Single<APIResource<Object>> updatePassword(int id, String oldPassword, String newPassword) {
 
         return userAPI.updatePassword(id, oldPassword, newPassword)
-                .map(APIResponse::getData)
-                .doOnSuccess(user -> Log.d(CLASS_NAME, "Updated password"))
+                .doOnSuccess(res -> Log.d(CLASS_NAME, "Updated password"))
                 .doOnError(throwable -> Log.e(CLASS_NAME, throwable.getMessage()));
     }
 }

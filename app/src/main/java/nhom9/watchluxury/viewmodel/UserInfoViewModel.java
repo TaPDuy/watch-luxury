@@ -11,6 +11,8 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import io.reactivex.rxjava3.subscribers.DisposableSubscriber;
 import nhom9.watchluxury.data.model.User;
+import nhom9.watchluxury.data.model.api.APIResource;
+import nhom9.watchluxury.data.model.api.ResponseCode;
 import nhom9.watchluxury.data.remote.TokenManager;
 import nhom9.watchluxury.data.repo.UserRepository;
 
@@ -60,13 +62,13 @@ public class UserInfoViewModel extends ViewModel {
         );
     }
 
-    private class UserObserver extends DisposableSubscriber<User> {
+    private class UserObserver extends DisposableSubscriber<APIResource<User>> {
 
         @Override
-        public void onNext(@NonNull User response) {
-            user.setValue(response);
-            status.setValue(Status.SUCCESS);
-            Log.d("UserInfoViewModel", "onNext: " + response);
+        public void onNext(@NonNull APIResource<User> res) {
+            user.setValue(res.getData());
+            status.setValue(res.getResponseCode() == ResponseCode.SUCCESS ? Status.SUCCESS : Status.ERROR);
+            Log.d("UserInfoViewModel", "onNext: " + res);
         }
 
         @Override

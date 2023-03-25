@@ -16,6 +16,8 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.observers.DisposableSingleObserver;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import nhom9.watchluxury.data.model.User;
+import nhom9.watchluxury.data.model.api.APIResource;
+import nhom9.watchluxury.data.model.api.ResponseCode;
 import nhom9.watchluxury.data.repo.UserRepository;
 
 public class RegisterViewModel extends ViewModel {
@@ -66,12 +68,12 @@ public class RegisterViewModel extends ViewModel {
         );
     }
 
-    private class UserObserver extends DisposableSingleObserver<User> {
+    private class UserObserver extends DisposableSingleObserver<APIResource<User>> {
 
         @Override
-        public void onSuccess(@NonNull User user) {
-            status.setValue(Status.SUCCESS);
-            Log.d("RegisterViewModel", "onSuccess: " + user);
+        public void onSuccess(@NonNull APIResource<User> res) {
+            status.setValue(res.getResponseCode() == ResponseCode.SUCCESS ? Status.SUCCESS : Status.ERROR);
+            Log.d("RegisterViewModel", "onSuccess: " + res);
         }
 
         @Override

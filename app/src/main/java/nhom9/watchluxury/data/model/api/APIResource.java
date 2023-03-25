@@ -6,7 +6,7 @@ import com.squareup.moshi.Json;
 
 import java.io.Serializable;
 
-public class APIResponse<T> implements Serializable {
+public class APIResource<T> implements Serializable {
 
     @Json(name="code")
     private final int code;
@@ -15,7 +15,7 @@ public class APIResponse<T> implements Serializable {
     @Json(name="data")
     private final T data;
 
-    public APIResponse(int code, String message, T data) {
+    public APIResource(int code, String message, T data) {
         this.code = code;
         this.message = message;
         this.data = data;

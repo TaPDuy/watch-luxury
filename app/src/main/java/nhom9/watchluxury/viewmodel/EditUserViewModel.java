@@ -15,7 +15,9 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.observers.DisposableSingleObserver;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import nhom9.watchluxury.data.model.User;
+import nhom9.watchluxury.data.model.api.APIResource;
 import nhom9.watchluxury.data.model.api.ChangePasswordRequest;
+import nhom9.watchluxury.data.model.api.ResponseCode;
 import nhom9.watchluxury.data.repo.UserRepository;
 
 public class EditUserViewModel extends ViewModel {
@@ -109,12 +111,12 @@ public class EditUserViewModel extends ViewModel {
         );
     }
 
-    private class UserObserver extends DisposableSingleObserver<User> {
+    private class UserObserver extends DisposableSingleObserver<APIResource<User>> {
 
         @Override
-        public void onSuccess(@NonNull User user) {
-            status.setValue(Status.SUCCESS);
-            Log.d("EditUserViewModel", "onSuccess: " + user);
+        public void onSuccess(@NonNull APIResource<User> res) {
+            status.setValue(res.getResponseCode() == ResponseCode.SUCCESS ? Status.SUCCESS : Status.ERROR);
+            Log.d("EditUserViewModel", "onSuccess: " + res);
         }
 
         @Override
@@ -152,16 +154,6 @@ public class EditUserViewModel extends ViewModel {
         if (!validatePasswords())
             return;
 
-//        (code, data, msg) -> {
-//
-//            if (code == ResponseCode.WRONG_PASSWORD)
-//                passwordErrors.get("password1").setValue("Wrong password");
-//            else {
-//                passwordErrors.get("password1").setValue(null);
-//                status.setValue(code == ResponseCode.SUCCESS ? Status.SUCCESS : Status.ERROR);
-//            }
-//        }
-
         disposables.add(
                 userRepo.updatePassword(
                                 Objects.requireNonNull(user.getValue()).getId(),
@@ -174,12 +166,19 @@ public class EditUserViewModel extends ViewModel {
         );
     }
 
-    private class PasswordObserver extends DisposableSingleObserver<Object> {
+    private class PasswordObserver extends DisposableSingleObserver<APIResource<Object>> {
 
         @Override
-        public void onSuccess(@NonNull Object object) {
-            status.setValue(Status.SUCCESS);
-            Log.d("EditUserViewModel", "onSuccess: " + object);
+        public void onSuccess(@NonNull APIResource<Object> res) {
+
+            if (res.getResponseCode() == ResponseCode.WRONG_PASSWORD) {
+                passwordErrors.get("password1").setValue("Wrong password");
+            } else {
+                passwordErrors.get("password1").setValue(null);
+                status.setValue(res.getResponseCode() == ResponseCode.SUCCESS ? Status.SUCCESS : Status.ERROR);
+            }
+
+            Log.d("EditUserViewModel", "onSuccess: " + res);
         }
 
         @Override

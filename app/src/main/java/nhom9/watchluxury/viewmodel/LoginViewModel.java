@@ -15,6 +15,7 @@ import io.reactivex.rxjava3.observers.DisposableSingleObserver;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import nhom9.watchluxury.data.model.LoginCredentials;
 import nhom9.watchluxury.data.model.User;
+import nhom9.watchluxury.data.model.api.APIResource;
 import nhom9.watchluxury.data.model.api.ResponseCode;
 import nhom9.watchluxury.data.repo.UserRepository;
 
@@ -71,15 +72,6 @@ public class LoginViewModel extends ViewModel {
             return;
         }
 
-//        userRepo.authenticate(user, pass, (responseCode, id, msg) -> {
-//            if (responseCode == ResponseCode.SUCCESS)
-//                status.setValue(LoginViewModel.Status.SUCCESS);
-//            else if (responseCode == ResponseCode.INVALID_LOGIN)
-//                status.setValue(LoginViewModel.Status.WRONG_LOGIN);
-//            else
-//                status.setValue(LoginViewModel.Status.ERROR);
-//        });
-
         disposables.add(
                 userRepo.authenticate(user, pass)
                         .observeOn(AndroidSchedulers.mainThread())
@@ -88,12 +80,20 @@ public class LoginViewModel extends ViewModel {
         );
     }
 
-    private class CredentialsObserver extends DisposableSingleObserver<LoginCredentials> {
+    private class CredentialsObserver extends DisposableSingleObserver<APIResource<LoginCredentials>> {
 
         @Override
-        public void onSuccess(@NonNull LoginCredentials cred) {
-            status.setValue(Status.SUCCESS);
-            Log.d("LoginViewModel", "onSuccess: " + cred);
+        public void onSuccess(@NonNull APIResource<LoginCredentials> res) {
+
+            int responseCode = res.getResponseCode();
+            if (responseCode == ResponseCode.SUCCESS)
+                status.setValue(LoginViewModel.Status.SUCCESS);
+            else if (responseCode == ResponseCode.INVALID_LOGIN)
+                status.setValue(LoginViewModel.Status.WRONG_LOGIN);
+            else
+                status.setValue(LoginViewModel.Status.ERROR);
+
+            Log.d("LoginViewModel", "onSuccess: " + res);
         }
 
         @Override

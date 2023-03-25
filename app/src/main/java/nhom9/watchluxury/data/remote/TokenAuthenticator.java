@@ -17,7 +17,7 @@ import java.nio.charset.StandardCharsets;
 
 import nhom9.watchluxury.BuildConfig;
 import nhom9.watchluxury.data.model.LoginCredentials;
-import nhom9.watchluxury.data.model.api.APIResponse;
+import nhom9.watchluxury.data.model.api.APIResource;
 import nhom9.watchluxury.util.JsonUtils;
 import okhttp3.Authenticator;
 import okhttp3.Request;
@@ -83,8 +83,8 @@ public class TokenAuthenticator implements Authenticator {
                 }
             }
 
-            Type type = Types.newParameterizedType(APIResponse.class, LoginCredentials.class);
-            APIResponse<LoginCredentials> res = JsonUtils.fromJson(response.toString(), type);
+            Type type = Types.newParameterizedType(APIResource.class, LoginCredentials.class);
+            APIResource<LoginCredentials> res = JsonUtils.fromJson(response.toString(), type);
             LoginCredentials tokens = res.getData();
             TokenManager.saveTokens(tokens.getAccessToken(), tokens.getRefreshToken());
             Log.d("TokenAuthenticator", "New credentials saved: " + tokens);
