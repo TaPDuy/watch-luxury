@@ -2,14 +2,13 @@ package nhom9.watchluxury.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ArrayAdapter;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 
 import nhom9.watchluxury.R;
-import nhom9.watchluxury.data.remote.TokenManager;
+import nhom9.watchluxury.data.local.TokenManager;
 import nhom9.watchluxury.databinding.ActivityHomePageBinding;
 
 public class HomeActivity extends AppCompatActivity {

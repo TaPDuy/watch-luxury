@@ -1,4 +1,4 @@
-package nhom9.watchluxury.data.remote;
+package nhom9.watchluxury.data.local;
 
 import android.content.Context;
 import android.content.SharedPreferences;

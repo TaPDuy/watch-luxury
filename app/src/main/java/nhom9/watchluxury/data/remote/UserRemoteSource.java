@@ -1,12 +1,13 @@
 package nhom9.watchluxury.data.remote;
 
 import io.reactivex.rxjava3.core.Single;
+import nhom9.watchluxury.data.local.TokenManager;
 import nhom9.watchluxury.data.model.LoginCredentials;
 import nhom9.watchluxury.data.model.User;
-import nhom9.watchluxury.data.model.api.APIResource;
-import nhom9.watchluxury.data.model.api.ChangePasswordRequest;
-import nhom9.watchluxury.data.model.api.LoginRequest;
-import nhom9.watchluxury.data.model.api.RegisterRequest;
+import nhom9.watchluxury.data.model.APIResource;
+import nhom9.watchluxury.data.remote.model.ChangePasswordRequest;
+import nhom9.watchluxury.data.remote.model.LoginRequest;
+import nhom9.watchluxury.data.remote.model.RegisterRequest;
 import nhom9.watchluxury.data.remote.service.AuthService;
 import nhom9.watchluxury.data.remote.service.UserService;
 import nhom9.watchluxury.util.APIUtils;

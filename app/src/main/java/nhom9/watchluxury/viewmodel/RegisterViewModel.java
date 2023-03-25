@@ -16,8 +16,8 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.observers.DisposableSingleObserver;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import nhom9.watchluxury.data.model.User;
-import nhom9.watchluxury.data.model.api.APIResource;
-import nhom9.watchluxury.data.model.api.ResponseCode;
+import nhom9.watchluxury.data.model.APIResource;
+import nhom9.watchluxury.data.model.ResponseCode;
 import nhom9.watchluxury.data.repo.UserRepository;
 
 public class RegisterViewModel extends ViewModel {

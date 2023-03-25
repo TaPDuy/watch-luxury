@@ -4,13 +4,13 @@ import android.util.Log;
 
 import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Single;
-import nhom9.watchluxury.data.DataSource;
+import nhom9.watchluxury.util.DataSource;
 import nhom9.watchluxury.data.local.UserLocalSource;
 import nhom9.watchluxury.data.model.LoginCredentials;
 import nhom9.watchluxury.data.model.User;
-import nhom9.watchluxury.data.model.api.APIResource;
-import nhom9.watchluxury.data.model.api.ResponseCode;
-import nhom9.watchluxury.data.remote.TokenManager;
+import nhom9.watchluxury.data.model.APIResource;
+import nhom9.watchluxury.data.model.ResponseCode;
+import nhom9.watchluxury.data.local.TokenManager;
 import nhom9.watchluxury.data.remote.UserRemoteSource;
 
 public class UserRepository {

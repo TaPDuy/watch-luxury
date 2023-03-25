@@ -1,4 +1,4 @@
-package nhom9.watchluxury.data.model.api;
+package nhom9.watchluxury.data.remote.model;
 
 public class RegisterRequest {
 

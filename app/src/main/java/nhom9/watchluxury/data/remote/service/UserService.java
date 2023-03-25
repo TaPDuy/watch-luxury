@@ -2,8 +2,8 @@ package nhom9.watchluxury.data.remote.service;
 
 import io.reactivex.rxjava3.core.Single;
 import nhom9.watchluxury.data.model.User;
-import nhom9.watchluxury.data.model.api.APIResource;
-import nhom9.watchluxury.data.model.api.ChangePasswordRequest;
+import nhom9.watchluxury.data.model.APIResource;
+import nhom9.watchluxury.data.remote.model.ChangePasswordRequest;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;

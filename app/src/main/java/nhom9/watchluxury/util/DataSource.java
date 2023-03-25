@@ -1,4 +1,4 @@
-package nhom9.watchluxury.data;
+package nhom9.watchluxury.util;
 
 import nhom9.watchluxury.data.local.UserLocalSource;
 import nhom9.watchluxury.data.remote.UserRemoteSource;
