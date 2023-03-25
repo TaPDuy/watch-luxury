@@ -9,7 +9,7 @@ import nhom9.watchluxury.data.remote.model.RegisterRequest;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
 
-public interface AuthService extends Service {
+public interface AuthService {
 
     @POST("login/")
     Single<APIResource<LoginCredentials>> login(@Body LoginRequest info);
