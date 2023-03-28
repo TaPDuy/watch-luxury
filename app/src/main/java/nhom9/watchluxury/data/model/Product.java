@@ -20,9 +20,9 @@ public class Product implements Serializable {
     private String brand;
     @Json(name="image")
     private String imagePath;
-    private float price;
+    private int price;
 
-    public Product(int id, String name, String description, String brand, String imagePath, float price) {
+    public Product(int id, String name, String description, String brand, String imagePath, int price) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -71,11 +71,11 @@ public class Product implements Serializable {
         this.imagePath = imagePath;
     }
 
-    public float getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 

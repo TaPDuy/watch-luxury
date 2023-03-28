@@ -11,7 +11,7 @@ import nhom9.watchluxury.data.local.dao.UserDAO;
 import nhom9.watchluxury.data.model.Product;
 import nhom9.watchluxury.data.model.User;
 
-@Database(entities = {User.class, Product.class}, version = 2, exportSchema = false)
+@Database(entities = {User.class, Product.class}, version = 3, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
 
     public static final String DB_NAME = "watchluxury";
