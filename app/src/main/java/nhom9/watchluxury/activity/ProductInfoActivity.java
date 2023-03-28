@@ -15,6 +15,7 @@ import nhom9.watchluxury.R;
 import nhom9.watchluxury.data.local.AppDatabase;
 import nhom9.watchluxury.data.local.TokenManager;
 import nhom9.watchluxury.databinding.ActivityProductInfoBinding;
+import nhom9.watchluxury.util.APIUtils;
 import nhom9.watchluxury.viewmodel.ProductInfoViewModel;
 
 public class ProductInfoActivity extends AppCompatActivity {
@@ -26,15 +27,15 @@ public class ProductInfoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // temp
-        TokenManager.init(getApplicationContext());
-        AppDatabase.init(getApplicationContext());
+        int id = getIntent().getIntExtra("productID", 0);
 
-        viewModel = new ViewModelProvider(this, new ViewModelFactory(3)).get(ProductInfoViewModel.class);
+        viewModel = new ViewModelProvider(this, new ViewModelFactory(id)).get(ProductInfoViewModel.class);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_product_info);
         binding.setViewModel(viewModel);
         binding.setLifecycleOwner(this);
         binding.executePendingBindings();
+
+        initObserver();
 
         binding.topBar.setNavigationOnClickListener(view -> finish());
         binding.topBar.setOnMenuItemClickListener(item -> {
@@ -44,6 +45,10 @@ public class ProductInfoActivity extends AppCompatActivity {
             }
             return false;
         });
+    }
+
+    private void initObserver() {
+        viewModel.getImageUrl().observe(this, url -> APIUtils.loadImage(url, binding.imgProduct));
     }
 
     private class ViewModelFactory implements ViewModelProvider.Factory {

@@ -48,24 +48,27 @@ public class HomeActivity extends AppCompatActivity {
         });
 
         binding.sidebar.setNavigationItemSelectedListener(item -> {
-            boolean res = false;
+            boolean res = true;
             switch (item.getItemId()) {
                 case R.id.logout:
                     TokenManager.deleteTokens();
                     finish();
-                    res = true;
                     break;
                 case R.id.account:
                     Intent i1 = new Intent(this, UserInfoActivity.class);
                     startActivity(i1);
-                    res = true;
                     break;
                 case R.id.about:
                     Intent i2 = new Intent(this, AboutActivity.class);
                     startActivity(i2);
-                    res = true;
+                    break;
+                case R.id.setting:
+                    Intent i3 = new Intent(this, ProductInfoActivity.class);
+                    i3.putExtra("productID", 3);
+                    startActivity(i3);
                     break;
                 default:
+                    res = false;
                     break;
             }
             binding.sidebarLayout.closeDrawer(GravityCompat.START);

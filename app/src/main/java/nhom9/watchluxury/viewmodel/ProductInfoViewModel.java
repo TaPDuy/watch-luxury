@@ -18,12 +18,14 @@ public class ProductInfoViewModel extends ViewModel {
     private final CompositeDisposable disposables = new CompositeDisposable();
 
     private final MutableLiveData<Product> product;
+    private final MutableLiveData<String> imageUrl;
     private final ProductRepository productRepo;
     private final int id;
 
     public ProductInfoViewModel(Integer productID) {
         this.productRepo = new ProductRepository();
         this.product = new MutableLiveData<>(null);
+        this.imageUrl = new MutableLiveData<>("");
         this.id = productID;
 
         loadProductInfo();
@@ -31,6 +33,10 @@ public class ProductInfoViewModel extends ViewModel {
 
     public MutableLiveData<Product> getProduct() {
         return this.product;
+    }
+
+    public MutableLiveData<String> getImageUrl() {
+        return this.imageUrl;
     }
 
     private void loadProductInfo() {
@@ -48,6 +54,7 @@ public class ProductInfoViewModel extends ViewModel {
         @Override
         public void onNext(APIResource<Product> res) {
             product.setValue(res.getData());
+            imageUrl.setValue(res.getData().getImagePath());
             Log.d("ProductInfoViewModel", "onNext: " + res);
         }
 
