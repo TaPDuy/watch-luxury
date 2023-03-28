@@ -4,7 +4,7 @@ import io.reactivex.rxjava3.core.Single;
 import nhom9.watchluxury.data.local.TokenManager;
 import nhom9.watchluxury.data.model.LoginCredentials;
 import nhom9.watchluxury.data.model.User;
-import nhom9.watchluxury.data.model.APIResource;
+import nhom9.watchluxury.data.remote.model.APIResource;
 import nhom9.watchluxury.data.remote.model.ChangePasswordRequest;
 import nhom9.watchluxury.data.remote.model.LoginRequest;
 import nhom9.watchluxury.data.remote.model.RegisterRequest;

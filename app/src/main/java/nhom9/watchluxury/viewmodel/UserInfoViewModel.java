@@ -11,8 +11,8 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import io.reactivex.rxjava3.subscribers.DisposableSubscriber;
 import nhom9.watchluxury.data.model.User;
-import nhom9.watchluxury.data.model.APIResource;
-import nhom9.watchluxury.data.model.ResponseCode;
+import nhom9.watchluxury.data.remote.model.APIResource;
+import nhom9.watchluxury.data.remote.model.ResponseCode;
 import nhom9.watchluxury.data.local.TokenManager;
 import nhom9.watchluxury.data.repo.UserRepository;
 

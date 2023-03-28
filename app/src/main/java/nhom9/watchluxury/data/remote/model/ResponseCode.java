@@ -1,4 +1,4 @@
-package nhom9.watchluxury.data.model;
+package nhom9.watchluxury.data.remote.model;
 
 public class ResponseCode {
 

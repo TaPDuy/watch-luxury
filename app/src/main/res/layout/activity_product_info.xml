@@ -71,7 +71,7 @@
                         android:layout_marginBottom="6dp"
                         android:background="@drawable/bg_header_underline"
                         android:fontFamily="sans-serif-condensed"
-                        android:text="A Very Very Very Long Title"
+                        android:text="@{viewModel.product.name}"
                         android:textSize="32sp"
                         android:textStyle="bold" />
 
@@ -79,7 +79,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="serif"
-                        android:text="Description"
+                        android:text="@{viewModel.product.description}"
                         android:textSize="20sp" />
 
 

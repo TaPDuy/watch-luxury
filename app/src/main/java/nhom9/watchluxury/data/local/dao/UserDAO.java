@@ -1,4 +1,4 @@
-package nhom9.watchluxury.data.local;
+package nhom9.watchluxury.data.local.dao;
 
 import androidx.room.Dao;
 import androidx.room.Delete;

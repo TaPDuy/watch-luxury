@@ -18,7 +18,7 @@ import java.nio.charset.StandardCharsets;
 import nhom9.watchluxury.BuildConfig;
 import nhom9.watchluxury.data.local.TokenManager;
 import nhom9.watchluxury.data.model.LoginCredentials;
-import nhom9.watchluxury.data.model.APIResource;
+import nhom9.watchluxury.data.remote.model.APIResource;
 import nhom9.watchluxury.util.JsonUtils;
 import okhttp3.Authenticator;
 import okhttp3.Request;

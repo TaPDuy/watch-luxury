@@ -8,8 +8,8 @@ import nhom9.watchluxury.util.DataSource;
 import nhom9.watchluxury.data.local.UserLocalSource;
 import nhom9.watchluxury.data.model.LoginCredentials;
 import nhom9.watchluxury.data.model.User;
-import nhom9.watchluxury.data.model.APIResource;
-import nhom9.watchluxury.data.model.ResponseCode;
+import nhom9.watchluxury.data.remote.model.APIResource;
+import nhom9.watchluxury.data.remote.model.ResponseCode;
 import nhom9.watchluxury.data.local.TokenManager;
 import nhom9.watchluxury.data.remote.UserRemoteSource;
 
