@@ -1,7 +1,10 @@
 package nhom9.watchluxury.data.remote;
 
+import java.util.List;
+
 import io.reactivex.rxjava3.core.Single;
 import nhom9.watchluxury.data.local.TokenManager;
+import nhom9.watchluxury.data.model.Category;
 import nhom9.watchluxury.data.model.Product;
 import nhom9.watchluxury.data.remote.model.APIResource;
 import nhom9.watchluxury.data.remote.service.ProductService;
@@ -13,6 +16,14 @@ public class ProductRemoteSource {
 
     public Single<APIResource<Product>> getProduct(int id) {
         return PRODUCT_SERVICE.getProduct(id, token());
+    }
+
+    public Single<APIResource<List<Category>>> getCategories() {
+        return PRODUCT_SERVICE.getCategories(token());
+    }
+
+    public Single<APIResource<List<Product>>> getProductByCategory(Category category) {
+        return PRODUCT_SERVICE.getProductsByCategory(category.getSlug());
     }
 
     private String token() {
