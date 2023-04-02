@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import com.github.vivchar.rendererrecyclerviewadapter.ViewModel;
 import com.squareup.moshi.Json;
 
 import java.io.Serializable;
@@ -11,7 +12,7 @@ import java.io.Serializable;
 import nhom9.watchluxury.util.JsonUtils;
 
 @Entity(tableName = "tbl_product")
-public class Product implements Serializable {
+public class Product implements Serializable, ViewModel {
 
     @PrimaryKey
     private int id;

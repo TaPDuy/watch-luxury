@@ -2,20 +2,26 @@ package nhom9.watchluxury.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
+import io.reactivex.rxjava3.disposables.Disposable;
 import nhom9.watchluxury.R;
 import nhom9.watchluxury.data.local.TokenManager;
 import nhom9.watchluxury.databinding.ActivityHomePageBinding;
+import nhom9.watchluxury.viewmodel.HomeViewModel;
+import nhom9.watchluxury.viewmodel.adapter.CategoryAdapter;
 
 public class HomeActivity extends AppCompatActivity {
 
     private ActivityHomePageBinding binding;
-
-    String[] nameWatch={"Rolex","Casio","Toyota","Guccy","Thụy Sĩ","Ekko","Quả lắc","Samsung"};
+    private HomeViewModel viewModel;
+    private CategoryAdapter adapter;
+    private Disposable disposable;
 
     private boolean check = true;
 
@@ -23,11 +29,17 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = ActivityHomePageBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        viewModel = new ViewModelProvider(this).get(HomeViewModel.class);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_home_page);
+        binding.setViewModel(viewModel);
+        binding.setLifecycleOwner(this);
+        binding.executePendingBindings();
 
-        ArrayAdapter<String> arrayAdapter=new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,nameWatch);
-        binding.listMainView.setAdapter(arrayAdapter);
+        adapter = new CategoryAdapter();
+        binding.rvCategoryList.setAdapter(adapter);
+        binding.rvCategoryList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+
+        initObserver();
 
         binding.floatingBtn.setOnClickListener(view -> {
             if(check){
@@ -45,6 +57,15 @@ public class HomeActivity extends AppCompatActivity {
                 binding.floatingCart.hide();
                 check=true;
             }
+        });
+
+        binding.topBar.setNavigationOnClickListener(view -> binding.sidebarLayout.open());
+        binding.topBar.setOnMenuItemClickListener(item -> {
+            if(item.getItemId() == R.id.search) {
+                // search
+                return true;
+            }
+            return false;
         });
 
         binding.sidebar.setNavigationItemSelectedListener(item -> {
@@ -75,16 +96,16 @@ public class HomeActivity extends AppCompatActivity {
             return res;
         });
 
-//        binding.btnLogout.setOnClickListener(view -> {
-//            TokenManager.deleteTokens();
-//            finish();
-//        });
-//
-//        binding.btnUserInfo.setOnClickListener(view -> {
-//            Intent i = new Intent(this, UserInfoActivity.class);
-//            startActivity(i);
-//        });
+        viewModel.loadData();
     }
 
+    @Override
+    protected void onDestroy() {
+        disposable.dispose();
+        super.onDestroy();
+    }
 
+    private void initObserver() {
+        disposable = viewModel.getCategories().subscribe(adapter::setItems);
+    }
 }
