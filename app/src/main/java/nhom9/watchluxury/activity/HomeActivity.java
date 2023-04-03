@@ -9,12 +9,16 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.github.vivchar.rendererrecyclerviewadapter.ViewRenderer;
+
 import io.reactivex.rxjava3.disposables.Disposable;
 import nhom9.watchluxury.R;
 import nhom9.watchluxury.data.local.TokenManager;
 import nhom9.watchluxury.data.model.Category;
+import nhom9.watchluxury.data.model.Product;
 import nhom9.watchluxury.databinding.ActivityHomePageBinding;
 import nhom9.watchluxury.databinding.ItemCategoryBinding;
+import nhom9.watchluxury.util.APIUtils;
 import nhom9.watchluxury.viewmodel.HomeViewModel;
 import nhom9.watchluxury.viewmodel.adapter.ProductAdapter;
 
@@ -39,26 +43,26 @@ public class HomeActivity extends AppCompatActivity {
         initObserver();
 
         binding.floatingBtn.setOnClickListener(view -> {
-            if(check){
+            if (check) {
 //                    send.show();
 //                    lucky.show();
                 binding.floatingHome.show();
                 binding.floatingFavorite.show();
                 binding.floatingCart.show();
-                check=false;
-            }else{
+                check = false;
+            } else {
                 binding.floatingHome.hide();
 //                    send.hide();
 //                    lucky.hide();
                 binding.floatingFavorite.hide();
                 binding.floatingCart.hide();
-                check=true;
+                check = true;
             }
         });
 
         binding.topBar.setNavigationOnClickListener(view -> binding.sidebarLayout.open());
         binding.topBar.setOnMenuItemClickListener(item -> {
-            if(item.getItemId() == R.id.search) {
+            if (item.getItemId() == R.id.search) {
                 // search
                 return true;
             }
@@ -81,9 +85,7 @@ public class HomeActivity extends AppCompatActivity {
                     startActivity(i2);
                     break;
                 case R.id.setting:
-                    Intent i3 = new Intent(this, ProductInfoActivity.class);
-                    i3.putExtra("productID", 3);
-                    startActivity(i3);
+
                     break;
                 default:
                     res = false;
@@ -108,7 +110,20 @@ public class HomeActivity extends AppCompatActivity {
         itemBinding.tvCategoryName.setText(category.getName());
 
         ProductAdapter productAdapter = new ProductAdapter();
+        productAdapter.registerRenderer(new ViewRenderer<>(R.layout.item_product,
+                Product.class,
+                (model, finder, payloads) -> {
+                    finder.setText(R.id.tv_itemLabel, model.getName());
+                    APIUtils.loadImage(model.getImagePath(), finder.find(R.id.img_itemThumbnail));
+                    finder.setOnClickListener(() -> {
+                        Intent i3 = new Intent(this, ProductInfoActivity.class);
+                        i3.putExtra("productID", model.getId());
+                        startActivity(i3);
+                    });
+                })
+        );
         productAdapter.setItems(category.getProducts());
+
         itemBinding.rvProductList.setAdapter(productAdapter);
         itemBinding.rvProductList.setLayoutManager(new LinearLayoutManager(getBaseContext(), LinearLayoutManager.HORIZONTAL, false));
     }
@@ -122,7 +137,8 @@ public class HomeActivity extends AppCompatActivity {
     private void initObserver() {
         disposable = viewModel.getCategories().subscribe(categories -> {
             for (Category cats : categories)
-                addCategory(cats);
+                if (cats.getProducts().size() > 0)
+                    addCategory(cats);
         });
     }
 }
