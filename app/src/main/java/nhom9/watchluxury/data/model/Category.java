@@ -2,14 +2,13 @@ package nhom9.watchluxury.data.model;
 
 import androidx.annotation.NonNull;
 
-import com.github.vivchar.rendererrecyclerviewadapter.CompositeViewModel;
 import com.github.vivchar.rendererrecyclerviewadapter.ViewModel;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Category implements Serializable, CompositeViewModel {
+public class Category implements Serializable {
 
     private int id;
     private String name;
@@ -58,10 +57,6 @@ public class Category implements Serializable, CompositeViewModel {
         this.description = description;
     }
 
-    public List<Product> getProducts() {
-        return products;
-    }
-
     public void setProducts(List<Product> products) {
         this.products = products;
     }
@@ -73,8 +68,7 @@ public class Category implements Serializable, CompositeViewModel {
     }
 
     @NonNull
-    @Override
-    public List<? extends ViewModel> getItems() {
+    public List<? extends ViewModel> getProducts() {
         if (this.products == null)
             this.products = new ArrayList<>();
         return this.products;

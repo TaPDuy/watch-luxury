@@ -12,15 +12,16 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import io.reactivex.rxjava3.disposables.Disposable;
 import nhom9.watchluxury.R;
 import nhom9.watchluxury.data.local.TokenManager;
+import nhom9.watchluxury.data.model.Category;
 import nhom9.watchluxury.databinding.ActivityHomePageBinding;
+import nhom9.watchluxury.databinding.ItemCategoryBinding;
 import nhom9.watchluxury.viewmodel.HomeViewModel;
-import nhom9.watchluxury.viewmodel.adapter.CategoryAdapter;
+import nhom9.watchluxury.viewmodel.adapter.ProductAdapter;
 
 public class HomeActivity extends AppCompatActivity {
 
     private ActivityHomePageBinding binding;
     private HomeViewModel viewModel;
-    private CategoryAdapter adapter;
     private Disposable disposable;
 
     private boolean check = true;
@@ -34,10 +35,6 @@ public class HomeActivity extends AppCompatActivity {
         binding.setViewModel(viewModel);
         binding.setLifecycleOwner(this);
         binding.executePendingBindings();
-
-        adapter = new CategoryAdapter();
-        binding.rvCategoryList.setAdapter(adapter);
-        binding.rvCategoryList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
         initObserver();
 
@@ -99,6 +96,23 @@ public class HomeActivity extends AppCompatActivity {
         viewModel.loadData();
     }
 
+    private void addCategory(Category category) {
+
+        ItemCategoryBinding itemBinding = DataBindingUtil.inflate(
+                getLayoutInflater(),
+                R.layout.item_category,
+                binding.llCategories,
+                true
+        );
+
+        itemBinding.tvCategoryName.setText(category.getName());
+
+        ProductAdapter productAdapter = new ProductAdapter();
+        productAdapter.setItems(category.getProducts());
+        itemBinding.rvProductList.setAdapter(productAdapter);
+        itemBinding.rvProductList.setLayoutManager(new LinearLayoutManager(getBaseContext(), LinearLayoutManager.HORIZONTAL, false));
+    }
+
     @Override
     protected void onDestroy() {
         disposable.dispose();
@@ -106,6 +120,9 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void initObserver() {
-        disposable = viewModel.getCategories().subscribe(adapter::setItems);
+        disposable = viewModel.getCategories().subscribe(categories -> {
+            for (Category cats : categories)
+                addCategory(cats);
+        });
     }
 }
