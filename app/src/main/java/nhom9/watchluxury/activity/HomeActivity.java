@@ -1,6 +1,7 @@
 package nhom9.watchluxury.activity;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -85,7 +86,8 @@ public class HomeActivity extends AppCompatActivity {
                     startActivity(i2);
                     break;
                 case R.id.setting:
-
+                    Intent i3 = new Intent(this, SettingsActivity.class);
+                    startActivity(i3);
                     break;
                 default:
                     res = false;

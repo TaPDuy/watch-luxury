@@ -14,6 +14,7 @@ import nhom9.watchluxury.R;
 import nhom9.watchluxury.data.local.AppDatabase;
 import nhom9.watchluxury.data.local.TokenManager;
 import nhom9.watchluxury.databinding.ActivityLoginBinding;
+import nhom9.watchluxury.util.SettingsUtils;
 import nhom9.watchluxury.viewmodel.LoginViewModel;
 
 public class LoginActivity extends AppCompatActivity {
@@ -27,6 +28,7 @@ public class LoginActivity extends AppCompatActivity {
 
         TokenManager.init(getApplicationContext());
         AppDatabase.init(getApplicationContext());
+        SettingsUtils.init(getApplicationContext());
 
         viewModel = new ViewModelProvider(this).get(LoginViewModel.class);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
