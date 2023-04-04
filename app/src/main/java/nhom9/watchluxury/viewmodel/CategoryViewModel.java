@@ -2,6 +2,7 @@ package nhom9.watchluxury.viewmodel;
 
 import android.util.Log;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -20,26 +21,30 @@ import nhom9.watchluxury.data.repo.ProductRepository;
 
 public class CategoryViewModel extends ViewModel {
 
-    private final Category category;
+    private final MutableLiveData<Category> category;
     private final MutableLiveData<List<Product>> products;
     private final ProductRepository productRepo;
     private final CompositeDisposable disposables;
 
     public CategoryViewModel(Category category) {
-        this.category = category;
         this.productRepo = new ProductRepository();
         this.disposables = new CompositeDisposable();
 
         this.products = new MutableLiveData<>(new ArrayList<>());
+        this.category = new MutableLiveData<>(category);
     }
 
     public MutableLiveData<List<Product>> getProducts() {
         return products;
     }
 
+    public LiveData<Category> getCategory() {
+        return this.category;
+    }
+
     public void loadProducts() {
         disposables.add(
-                productRepo.getProductByCategory(this.category)
+                productRepo.getProductByCategory(category.getValue())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribeOn(Schedulers.io())
                         .subscribeWith(new DisposableSingleObserver<APIResource<List<Product>>>() {

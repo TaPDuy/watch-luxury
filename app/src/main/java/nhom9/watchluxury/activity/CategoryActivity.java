@@ -14,6 +14,7 @@ import com.github.vivchar.rendererrecyclerviewadapter.LoadMoreViewBinder;
 import com.github.vivchar.rendererrecyclerviewadapter.RendererRecyclerViewAdapter;
 import com.github.vivchar.rendererrecyclerviewadapter.ViewFinder;
 import com.github.vivchar.rendererrecyclerviewadapter.ViewRenderer;
+import com.google.android.material.appbar.AppBarLayout;
 
 import java.lang.reflect.InvocationTargetException;
 
@@ -42,6 +43,25 @@ public class CategoryActivity extends AppCompatActivity {
         binding.setViewModel(viewModel);
         binding.setLifecycleOwner(this);
         binding.executePendingBindings();
+
+        binding.ablTopBar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            boolean isShow = true;
+            int scrollRange = -1;
+
+            @Override
+            public void onOffsetChanged(AppBarLayout layout, int vOff) {
+                if (scrollRange == -1) {
+                    scrollRange = layout.getTotalScrollRange();
+                }
+                if (scrollRange + vOff == 0) {
+                    binding.cblTopBar.setTitle(category.getName());
+                    isShow = true;
+                } else if(isShow) {
+                    binding.cblTopBar.setTitle(" ");
+                    isShow = false;
+                }
+            }
+        });
 
         adapter = new ProductAdapter();
         adapter.registerRenderer(new ViewRenderer<>(
