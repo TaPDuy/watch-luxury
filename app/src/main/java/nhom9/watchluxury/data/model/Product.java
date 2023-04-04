@@ -21,9 +21,9 @@ public class Product implements Serializable, ViewModel {
     private String brand;
     @Json(name="image")
     private String imagePath;
-    private int price;
+    private long price;
 
-    public Product(int id, String name, String description, String brand, String imagePath, int price) {
+    public Product(int id, String name, String description, String brand, String imagePath, long price) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -72,11 +72,11 @@ public class Product implements Serializable, ViewModel {
         this.imagePath = imagePath;
     }
 
-    public int getPrice() {
+    public long getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(long price) {
         this.price = price;
     }
 
