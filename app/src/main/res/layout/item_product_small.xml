@@ -6,8 +6,8 @@
     <androidx.cardview.widget.CardView
         android:layout_width="176dp"
         android:layout_height="297dp"
-        app:cardCornerRadius="16dp"
-        android:layout_marginRight="32dp">
+        android:layout_marginRight="32dp"
+        app:cardCornerRadius="16dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -25,18 +25,30 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <com.google.android.material.imageview.ShapeableImageView
-                        android:id="@+id/img_itemThumbnail"
+                    <androidx.cardview.widget.CardView
                         android:layout_width="0dp"
                         android:layout_height="0dp"
-                        android:background="@drawable/hero_bg"
-                        android:scaleType="centerInside"
-                        android:src="@drawable/googlelogo"
+                        app:cardCornerRadius="16dp"
                         app:layout_constraintDimensionRatio="H,1:1"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:shapeAppearanceOverlay="@style/rounded_corner" />
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/hero_bg" />
+
+                        <ImageView
+                            android:id="@+id/img_itemThumbnail"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="centerInside"
+                            android:scaleX="0.9"
+                            android:scaleY="0.9"
+                            android:src="@drawable/googlelogo" />
+                    </androidx.cardview.widget.CardView>
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <com.google.android.flexbox.FlexboxLayout
