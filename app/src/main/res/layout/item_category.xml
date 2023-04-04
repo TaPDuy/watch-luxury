@@ -1,26 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="16dp">
 
-        <TextView
-            android:id="@+id/tv_categoryName"
+        <com.google.android.flexbox.FlexboxLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:fontFamily="sans-serif-condensed"
-            android:text="Category name"
-            android:background="@drawable/bg_header_underline"/>
+            android:background="@drawable/bg_header_underline"
+            app:alignItems="center">
+
+            <TextView
+                android:id="@+id/tv_categoryName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="sans-serif-condensed"
+                android:text="Category name"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_flexGrow="1" />
+
+            <TextView
+                android:id="@+id/tv_seeMore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="See more"
+                android:textSize="16sp" />
+        </com.google.android.flexbox.FlexboxLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_productList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"/>
+            android:layout_marginTop="16dp" />
 
     </LinearLayout>
 </layout>

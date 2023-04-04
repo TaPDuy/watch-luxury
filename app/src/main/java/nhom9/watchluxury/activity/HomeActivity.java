@@ -110,6 +110,11 @@ public class HomeActivity extends AppCompatActivity {
         );
 
         itemBinding.tvCategoryName.setText(category.getName());
+        itemBinding.tvSeeMore.setOnClickListener(view -> {
+            Intent i = new Intent(this, CategoryActivity.class);
+            i.putExtra("category", category);
+            startActivity(i);
+        });
 
         ProductAdapter productAdapter = new ProductAdapter();
         productAdapter.registerRenderer(new ViewRenderer<>(R.layout.item_product,
