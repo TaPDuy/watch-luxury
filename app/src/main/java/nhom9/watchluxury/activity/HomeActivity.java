@@ -114,6 +114,7 @@ public class HomeActivity extends AppCompatActivity {
                 Product.class,
                 (model, finder, payloads) -> {
                     finder.setText(R.id.tv_itemLabel, model.getName());
+                    finder.setText(R.id.tv_itemPrice, String.format("%,d", model.getPrice()) + "đ");
                     APIUtils.loadImage(model.getImagePath(), finder.find(R.id.img_itemThumbnail));
                     finder.setOnClickListener(() -> {
                         Intent i3 = new Intent(this, ProductInfoActivity.class);
