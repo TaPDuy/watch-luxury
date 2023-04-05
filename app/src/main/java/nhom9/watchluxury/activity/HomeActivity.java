@@ -45,8 +45,47 @@ public class HomeActivity extends AppCompatActivity {
         binding.setLifecycleOwner(this);
         binding.executePendingBindings();
 
-        initObserver();
+        // Initializing views
+        initTopBar();
+        initSideBar();
+        initFloatingButtons();
 
+        // Binding data
+        initObserver();
+        viewModel.loadData();
+    }
+
+    private void initSideBar() {
+
+        binding.sidebar.setNavigationItemSelectedListener(item -> {
+            boolean res = true;
+            switch (item.getItemId()) {
+                case R.id.logout:
+                    TokenManager.deleteTokens();
+                    finish();
+                    break;
+                case R.id.account:
+                    Intent i1 = new Intent(this, UserInfoActivity.class);
+                    startActivity(i1);
+                    break;
+                case R.id.about:
+                    Intent i2 = new Intent(this, AboutActivity.class);
+                    startActivity(i2);
+                    break;
+                case R.id.setting:
+                    Intent i3 = new Intent(this, SettingsActivity.class);
+                    startActivity(i3);
+                    break;
+                default:
+                    res = false;
+                    break;
+            }
+            binding.sidebarLayout.closeDrawer(GravityCompat.START);
+            return res;
+        });
+    }
+
+    private void initFloatingButtons() {
         binding.floatingBtn.setOnClickListener(view -> {
 
             if (binding.svSearchView.isSearchOpen()) {
@@ -69,6 +108,9 @@ public class HomeActivity extends AppCompatActivity {
                 check = true;
             }
         });
+    }
+
+    private void initTopBar() {
 
         binding.topBar.setNavigationOnClickListener(view -> binding.sidebarLayout.open());
         binding.topBar.setOnMenuItemClickListener(item -> {
@@ -78,9 +120,13 @@ public class HomeActivity extends AppCompatActivity {
             }
             return false;
         });
+
         binding.svSearchView.setOnQueryTextListener(new SimpleSearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(@NonNull String s) {
+                Intent i = new Intent(HomeActivity.this, SearchResultActivity.class);
+                i.putExtra("keyword", s);
+                startActivity(i);
                 return false;
             }
 
@@ -116,35 +162,6 @@ public class HomeActivity extends AppCompatActivity {
 
             }
         });
-
-        binding.sidebar.setNavigationItemSelectedListener(item -> {
-            boolean res = true;
-            switch (item.getItemId()) {
-                case R.id.logout:
-                    TokenManager.deleteTokens();
-                    finish();
-                    break;
-                case R.id.account:
-                    Intent i1 = new Intent(this, UserInfoActivity.class);
-                    startActivity(i1);
-                    break;
-                case R.id.about:
-                    Intent i2 = new Intent(this, AboutActivity.class);
-                    startActivity(i2);
-                    break;
-                case R.id.setting:
-                    Intent i3 = new Intent(this, SettingsActivity.class);
-                    startActivity(i3);
-                    break;
-                default:
-                    res = false;
-                    break;
-            }
-            binding.sidebarLayout.closeDrawer(GravityCompat.START);
-            return res;
-        });
-
-        viewModel.loadData();
     }
 
     private void addCategory(Category category) {

@@ -26,7 +26,12 @@ public class ProductRemoteSource {
         return PRODUCT_SERVICE.getProductsByCategory(category.getSlug());
     }
 
+    public Single<APIResource<List<Product>>> getProductByKeyword(String keyword) {
+        return PRODUCT_SERVICE.getProductByKeyword(keyword);
+    }
+
     private String token() {
         return "Bearer " + TokenManager.getAccessToken();
     }
+
 }

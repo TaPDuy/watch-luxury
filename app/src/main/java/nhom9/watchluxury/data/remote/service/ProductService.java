@@ -21,4 +21,7 @@ public interface ProductService {
 
     @GET("/products/")
     Single<APIResource<List<Product>>> getProductsByCategory(@Query("category") String categorySlug);
+
+    @GET("/products/")
+    Single<APIResource<List<Product>>> getProductByKeyword(@Query("search") String keyword);
 }
