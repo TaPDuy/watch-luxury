@@ -2,14 +2,19 @@ package nhom9.watchluxury.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.ferfalk.simplesearchview.SimpleSearchView;
 import com.github.vivchar.rendererrecyclerviewadapter.ViewRenderer;
+import com.google.android.material.search.SearchView;
 
 import io.reactivex.rxjava3.disposables.Disposable;
 import nhom9.watchluxury.R;
@@ -44,8 +49,8 @@ public class HomeActivity extends AppCompatActivity {
 
         binding.floatingBtn.setOnClickListener(view -> {
 
-            if(binding.svSearchView.isShowing()) {
-                binding.svSearchView.hide();
+            if (binding.svSearchView.isSearchOpen()) {
+                binding.svSearchView.closeSearch();
             }
 
             if (check) {
@@ -68,10 +73,48 @@ public class HomeActivity extends AppCompatActivity {
         binding.topBar.setNavigationOnClickListener(view -> binding.sidebarLayout.open());
         binding.topBar.setOnMenuItemClickListener(item -> {
             if (item.getItemId() == R.id.search) {
-                binding.svSearchView.show();
+                binding.svSearchView.showSearch();
                 return true;
             }
             return false;
+        });
+        binding.svSearchView.setOnQueryTextListener(new SimpleSearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(@NonNull String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(@NonNull String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextCleared() {
+                return false;
+            }
+        });
+        binding.svSearchView.setOnSearchViewListener(new SimpleSearchView.SearchViewListener() {
+            @Override
+            public void onSearchViewShown() {
+                binding.btnFloatingGroup.setVisibility(View.GONE);
+                binding.ablTopBar.setExpanded(false);
+            }
+
+            @Override
+            public void onSearchViewClosed() {
+                binding.btnFloatingGroup.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onSearchViewShownAnimation() {
+
+            }
+
+            @Override
+            public void onSearchViewClosedAnimation() {
+
+            }
         });
 
         binding.sidebar.setNavigationItemSelectedListener(item -> {

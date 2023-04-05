@@ -25,6 +25,7 @@
                 android:fitsSystemWindows="true">
 
                 <com.google.android.material.appbar.AppBarLayout
+                    android:id="@+id/abl_topBar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -43,6 +44,7 @@
                             android:src="@drawable/logo3"
                             app:layout_collapseMode="parallax" />
 
+
                         <com.google.android.material.appbar.MaterialToolbar
                             android:id="@+id/topBar"
                             style="@style/Widget.Material3.Toolbar.Surface"
@@ -53,30 +55,24 @@
                             app:menu="@menu/top_bar_home"
                             app:navigationIcon="@drawable/ic_sidebar">
 
-                            <!--                            <com.google.android.material.search.SearchBar-->
-                            <!--                                android:id="@+id/sb_searchBar"-->
-                            <!--                                style="@style/TextAppearance.Material3.SearchBar"-->
-                            <!--                                android:layout_width="match_parent"-->
-                            <!--                                android:layout_height="wrap_content"-->
-                            <!--                                android:layout_marginHorizontal="8dp"-->
-                            <!--                                android:layout_marginVertical="16dp"-->
-                            <!--                                android:hint="Search..."-->
-                            <!--                                android:visibility="gone"-->
-                            <!--                                app:collapseIcon="@drawable/ic_search"-->
-                            <!--                                app:hideNavigationIcon="true" />-->
                         </com.google.android.material.appbar.MaterialToolbar>
+
+                        <com.ferfalk.simplesearchview.SimpleSearchView
+                            android:id="@+id/sv_searchView"
+                            android:layout_width="match_parent"
+                            android:layout_height="?attr/actionBarSize"
+                            android:background="@android:color/transparent"
+                            android:hint="Search..."
+                            app:layout_collapseMode="pin"
+                            app:searchBackground="@drawable/hero_bg">
+
+                        </com.ferfalk.simplesearchview.SimpleSearchView>
+
+
                     </com.google.android.material.appbar.CollapsingToolbarLayout>
 
 
                 </com.google.android.material.appbar.AppBarLayout>
-
-                <com.google.android.material.search.SearchView
-                    android:id="@+id/sv_searchView"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:hint="Search...">
-
-                </com.google.android.material.search.SearchView>
 
                 <androidx.core.widget.NestedScrollView
                     android:layout_width="match_parent"
