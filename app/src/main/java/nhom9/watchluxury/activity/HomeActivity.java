@@ -1,7 +1,6 @@
 package nhom9.watchluxury.activity;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -44,6 +43,11 @@ public class HomeActivity extends AppCompatActivity {
         initObserver();
 
         binding.floatingBtn.setOnClickListener(view -> {
+
+            if(binding.svSearchView.isShowing()) {
+                binding.svSearchView.hide();
+            }
+
             if (check) {
 //                    send.show();
 //                    lucky.show();
@@ -64,7 +68,7 @@ public class HomeActivity extends AppCompatActivity {
         binding.topBar.setNavigationOnClickListener(view -> binding.sidebarLayout.open());
         binding.topBar.setOnMenuItemClickListener(item -> {
             if (item.getItemId() == R.id.search) {
-                // search
+                binding.svSearchView.show();
                 return true;
             }
             return false;
