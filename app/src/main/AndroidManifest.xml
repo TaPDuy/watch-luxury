@@ -32,7 +32,8 @@
             android:parentActivityName=".activity.HomeActivity" />
         <activity
             android:name=".activity.AboutActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".activity.HomeActivity" />
         <activity
             android:name=".activity.EditUserActivity"
             android:exported="false"

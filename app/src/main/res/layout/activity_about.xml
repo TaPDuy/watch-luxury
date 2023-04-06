@@ -1,44 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    tools:context=".activity.AboutActivity">
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
 
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <ImageView
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:layout_gravity="center|top"
-        android:src="@drawable/logo3" />
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/topBar"
+                style="@style/Widget.Material3.Toolbar.Surface"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:navigationIcon="@drawable/ic_arrow_back"
+                app:title="About" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="40dp"
-        android:textColor="#A18151"
-        android:text="When we see someone give the most engaging,
-        impressive and rapport-building introduction,
-         we immediately think they’re gifted.
+        </com.google.android.material.appbar.AppBarLayout>
 
-But in reality, there’s usually a lot of work behind it.
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
-When writing your sample introduction in English,
- ask yourself: Who exactly am I talking to?
- Depending on your answer, there will be different things to
- include in your introduction.
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-So, what makes an introduction effective? First,
-it needs to be appropriate for the given setting.
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="164dp"
+                    android:layout_marginVertical="32dp"
+                    android:src="@drawable/logo3" />
 
-Consider, is it a formal or an informal situation?
+                <LinearLayout
+                    android:id="@+id/ll_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="64dp"
+                    android:paddingVertical="16dp">
 
-Because you know that saying “Hey there! How’s it going?”
-is perfectly okay if you’re with a group of friends, but of course, it might come across a bit odd in a meeting with your boss. So knowing the context is important. "
-        android:textSize="25dp" />
-</LinearLayout>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif"
+                        android:text="Bài tập lớn nhóm 9"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="6dp"
+                        android:fontFamily="sans-serif-condensed"
+                        android:text="Môn Phát triển ứng dụng cho các thiết bị di động"
+                        android:textSize="28sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="64dp"
+                        android:background="@drawable/hero_bg"
+                        android:fontFamily="sans-serif-condensed-light"
+                        android:paddingHorizontal="16dp"
+                        android:paddingVertical="8dp"
+                        android:text="WATCH LUXURY"
+                        android:textColor="@color/white"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-condensed-medium"
+                        android:text="Thành viên nhóm:"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingTop="6dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Tạ Phương Duy - B19DCCN143"
+                            android:textAlignment="center"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Nguyễn Văn Tứ - B19DCCN634"
+                            android:textAlignment="center"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Cao Xuân Đạt - B19DCCN167"
+                            android:textAlignment="center"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>
