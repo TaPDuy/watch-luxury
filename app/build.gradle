@@ -1,6 +1,5 @@
 plugins {
     id 'com.android.application'
-    id 'com.google.gms.google-services'
 }
 
 Properties properties = new Properties()
@@ -23,7 +22,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildFeatures {
-        viewBinding true
+        dataBinding true
     }
     buildTypes {
         release {
@@ -39,24 +38,28 @@ android {
 
 dependencies {
 
-    implementation 'androidx.appcompat:appcompat:1.6.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.8.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation 'com.google.firebase:firebase-auth:21.0.3'
+    implementation 'com.google.android.flexbox:flexbox:3.0.0'
+    implementation 'com.github.travijuu:numberpicker:1.0.7'
+    implementation 'com.github.vivchar:RendererRecyclerViewAdapter:3.0.1'
+    implementation 'com.github.Ferfalk:SimpleSearchView:0.2.0'
 
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-moshi:2.9.0'
+    implementation 'io.reactivex.rxjava3:rxjava:3.1.5'
+    implementation 'io.reactivex.rxjava3:rxandroid:3.0.2'
+    implementation "com.github.akarnokd:rxjava3-retrofit-adapter:3.0.0"
+    implementation 'com.squareup.picasso:picasso:2.8'
+
+    implementation 'androidx.room:room-runtime:2.5.1'
+    implementation 'androidx.room:room-rxjava3:2.5.1'
+    annotationProcessor "androidx.room:room-compiler:2.5.1"
+
+    implementation "com.squareup.okhttp3:logging-interceptor:4.10.0"
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
-    // Import the BoM for the Firebase platform
-    implementation platform('com.google.firebase:firebase-bom:31.2.2')
-
-    // Add the dependency for the Firebase Authentication library
-    // When using the BoM, you don't specify versions in Firebase library dependencies
-    implementation 'com.google.firebase:firebase-auth'
-
-
-    implementation 'com.google.android.gms:play-services-auth:20.4.1'
 }
