@@ -35,6 +35,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="164dp"
                     android:layout_marginVertical="32dp"
+                    android:contentDescription="@string/logo_desc"
                     android:src="@drawable/logo3" />
 
                 <LinearLayout
@@ -49,7 +50,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif"
-                        android:text="Bài tập lớn nhóm 9"
+                        android:text="@string/about_subtitles"
                         android:textSize="18sp" />
 
                     <TextView
@@ -57,7 +58,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="6dp"
                         android:fontFamily="sans-serif-condensed"
-                        android:text="Môn Phát triển ứng dụng cho các thiết bị di động"
+                        android:text="@string/about_header"
                         android:textSize="28sp"
                         android:textStyle="bold" />
 
@@ -69,7 +70,7 @@
                         android:fontFamily="sans-serif-condensed-light"
                         android:paddingHorizontal="16dp"
                         android:paddingVertical="8dp"
-                        android:text="WATCH LUXURY"
+                        android:text="@string/app_name_caps"
                         android:textColor="@color/white"
                         android:textSize="24sp"
                         android:textStyle="bold" />
@@ -78,7 +79,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-condensed-medium"
-                        android:text="Thành viên nhóm:"
+                        android:text="@string/about_members_header"
                         android:textSize="20sp"
                         android:textStyle="bold" />
 
@@ -91,20 +92,20 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Tạ Phương Duy - B19DCCN143"
-                            android:textAlignment="center"/>
+                            android:text="@string/about_member_1"
+                            android:textAlignment="center" />
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Nguyễn Văn Tứ - B19DCCN634"
-                            android:textAlignment="center"/>
+                            android:text="@string/about_member_2"
+                            android:textAlignment="center" />
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Cao Xuân Đạt - B19DCCN167"
-                            android:textAlignment="center"/>
+                            android:text="@string/about_member_3"
+                            android:textAlignment="center" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>

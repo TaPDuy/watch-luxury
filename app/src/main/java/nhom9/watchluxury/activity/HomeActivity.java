@@ -2,7 +2,6 @@ package nhom9.watchluxury.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -14,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.ferfalk.simplesearchview.SimpleSearchView;
 import com.github.vivchar.rendererrecyclerviewadapter.ViewRenderer;
-import com.google.android.material.search.SearchView;
 
 import io.reactivex.rxjava3.disposables.Disposable;
 import nhom9.watchluxury.R;

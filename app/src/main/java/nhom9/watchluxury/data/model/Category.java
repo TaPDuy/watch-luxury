@@ -12,7 +12,7 @@ public class Category implements Serializable {
 
     private int id;
     private String name;
-    private String slug;
+    private final String slug;
     private String description;
 
     private List<Product> products;
@@ -45,20 +45,12 @@ public class Category implements Serializable {
         return slug;
     }
 
-    public void setSlug(String slug) {
-        this.slug = slug;
-    }
-
     public String getDescription() {
         return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public void setProducts(List<Product> products) {
-        this.products = products;
     }
 
     @NonNull

@@ -3,8 +3,8 @@ package nhom9.watchluxury.data.repo;
 import android.util.Log;
 
 import java.util.List;
+import java.util.Objects;
 
-import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Single;
 import nhom9.watchluxury.data.local.ProductLocalSource;
@@ -35,7 +35,7 @@ public class ProductRepository {
                             db.insertProduct(prod).subscribe().dispose();
                         }
                 )
-                .doOnError(throwable -> Log.e(CLASS_NAME, throwable.getMessage()));
+                .doOnError(throwable -> Log.e(CLASS_NAME, Objects.requireNonNull(throwable.getMessage())));
 
         return Single.concatArrayDelayError(localData, remoteData);
     }
@@ -50,7 +50,7 @@ public class ProductRepository {
 //                            db.insertProduct(prod).subscribe().dispose();
                         }
                 )
-                .doOnError(throwable -> Log.e(CLASS_NAME, throwable.getMessage()));
+                .doOnError(throwable -> Log.e(CLASS_NAME, Objects.requireNonNull(throwable.getMessage())));
     }
 
     public Single<APIResource<List<Product>>> getProductByCategory(Category category) {
@@ -63,7 +63,7 @@ public class ProductRepository {
 //                            db.insertProduct(prod).subscribe().dispose();
                         }
                 )
-                .doOnError(throwable -> Log.e(CLASS_NAME, throwable.getMessage()));
+                .doOnError(throwable -> Log.e(CLASS_NAME, Objects.requireNonNull(throwable.getMessage())));
     }
 
     public Single<APIResource<List<Product>>> searchProducts(String keyword) {
@@ -76,6 +76,6 @@ public class ProductRepository {
 //                            db.insertProduct(prod).subscribe().dispose();
                         }
                 )
-                .doOnError(throwable -> Log.e(CLASS_NAME, throwable.getMessage()));
+                .doOnError(throwable -> Log.e(CLASS_NAME, Objects.requireNonNull(throwable.getMessage())));
     }
 }

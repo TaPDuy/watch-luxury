@@ -20,7 +20,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:fontFamily="sans-serif-condensed"
-                android:text="Category name"
+                android:text="@string/category_name_placeholder"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_flexGrow="1" />
@@ -29,7 +29,7 @@
                 android:id="@+id/tv_seeMore"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="See more"
+                android:text="@string/category_see_more"
                 android:textSize="16sp" />
         </com.google.android.flexbox.FlexboxLayout>
 

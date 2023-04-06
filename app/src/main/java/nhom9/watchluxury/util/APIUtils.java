@@ -3,7 +3,6 @@ package nhom9.watchluxury.util;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 
 import nhom9.watchluxury.BuildConfig;
 import nhom9.watchluxury.R;

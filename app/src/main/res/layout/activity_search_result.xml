@@ -41,7 +41,7 @@
                         android:layout_marginBottom="6dp"
                         android:background="@drawable/bg_header_underline"
                         android:fontFamily="sans-serif-condensed"
-                        android:text="Search results"
+                        android:text="@string/search_header"
                         android:textSize="32sp"
                         android:textStyle="bold" />
 

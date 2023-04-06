@@ -4,6 +4,7 @@
     tools:context=".activity.LoginActivity">
 
     <data>
+
         <variable
             name="viewModel"
             type="nhom9.watchluxury.viewmodel.LoginViewModel" />
@@ -17,40 +18,45 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            tools:ignore="UselessParent">
 
             <ImageView
                 android:layout_width="160dp"
                 android:layout_height="160dp"
+                android:contentDescription="@string/logo_desc"
                 android:src="@drawable/logo3" />
 
             <EditText
                 android:id="@+id/etLoginUsername"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:autofillHints="username"
                 android:ems="18"
-                android:hint="Username"
-                android:text="@={viewModel.username}"/>
+                android:hint="@string/login_username_hint"
+                android:inputType="text"
+                android:text="@={viewModel.username}" />
 
             <EditText
                 android:id="@+id/etLoginPassword"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:autofillHints="password"
                 android:ems="18"
-                android:hint="Password"
+                android:hint="@string/login_password_hint"
                 android:inputType="textPassword"
-                android:text="@={viewModel.password}"/>
+                android:text="@={viewModel.password}" />
 
-            <TextView
-                android:id="@+id/forgot"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:layout_marginTop="15dp"
-                android:layout_marginRight="25dp"
-                android:text="Forgot Account?"
-                android:textColor="#000000" />
+            <!--            <TextView-->
+            <!--                android:id="@+id/forgot"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_gravity="end"-->
+            <!--                android:layout_marginTop="15dp"-->
+            <!--                android:layout_marginEnd="25dp"-->
+            <!--                android:text="Forgot Account?"-->
+            <!--                android:textColor="#000000" />-->
 
             <Button
                 android:id="@+id/btnLogin"
@@ -58,8 +64,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
                 android:background="#2196F3"
-                android:text="Login"
                 android:onClick="@{() -> viewModel.onLoginClicked()}"
+                android:text="@string/login_button"
                 android:textColor="#fcfcfc" />
 
             <Button
@@ -68,18 +74,18 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:background="#03A9F4"
-                android:text="Register"
+                android:text="@string/login_register_button"
                 android:textColor="#fcfcfc" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="65dp"
-                android:layout_marginTop="60dp"
-                android:text="Use other account! ..."
-                android:textColor="#026bff"
+            <!--            <TextView-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginLeft="65dp"-->
+            <!--                android:layout_marginTop="60dp"-->
+            <!--                android:text="Use other account! ..."-->
+            <!--                android:textColor="#026bff"-->
 
-                android:textSize="15dp" />
+            <!--                android:textSize="15dp" />-->
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -89,22 +95,25 @@
                 <ImageView
                     android:layout_width="35dp"
                     android:layout_height="35dp"
-                    android:layout_marginLeft="115dp"
+                    android:layout_marginStart="115dp"
                     android:layout_marginTop="20dp"
+                    android:contentDescription="@string/oauth_logo_desc"
                     android:src="@drawable/facebooknew" />
 
                 <ImageView
                     android:layout_width="35dp"
                     android:layout_height="35dp"
-                    android:layout_marginLeft="30dp"
+                    android:layout_marginStart="30dp"
                     android:layout_marginTop="20dp"
+                    android:contentDescription="@string/oauth_logo_desc"
                     android:src="@drawable/googlelogo" />
 
                 <ImageView
                     android:layout_width="35dp"
                     android:layout_height="35dp"
-                    android:layout_marginLeft="30dp"
+                    android:layout_marginStart="30dp"
                     android:layout_marginTop="20dp"
+                    android:contentDescription="@string/oauth_logo_desc"
                     android:src="@drawable/yahoot" />
 
 

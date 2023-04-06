@@ -2,6 +2,8 @@ package nhom9.watchluxury.data.local;
 
 import android.util.Log;
 
+import java.util.Objects;
+
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Single;
 import nhom9.watchluxury.data.local.dao.UserDAO;
@@ -17,7 +19,7 @@ public class UserLocalSource {
     public Single<User> getUser(int id) {
         return dao.get(id)
                 .doOnSuccess(user -> Log.d(CLASS_NAME, "Query: " + user))
-                .doOnError(throwable -> Log.e(CLASS_NAME, throwable.getMessage()));
+                .doOnError(throwable -> Log.e(CLASS_NAME, Objects.requireNonNull(throwable.getMessage())));
     }
 
     public Completable insertUser(User user) {

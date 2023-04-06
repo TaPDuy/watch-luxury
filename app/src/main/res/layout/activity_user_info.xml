@@ -12,7 +12,8 @@
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
 
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
@@ -68,6 +69,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:adjustViewBounds="true"
+                                android:contentDescription="@string/user_avatar_desc"
                                 android:scaleType="fitCenter"
                                 android:src="@drawable/c1" />
                         </androidx.cardview.widget.CardView>
@@ -78,6 +80,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:paddingStart="24dp"
+                        android:paddingEnd="4dp"
                         app:layout_flexGrow="3">
 
                         <TextView

@@ -40,6 +40,7 @@
                             android:layout_height="match_parent"
                             android:layout_marginTop="?attr/actionBarSize"
                             android:adjustViewBounds="true"
+                            android:contentDescription="@string/logo_desc"
                             android:scaleType="fitCenter"
                             android:src="@drawable/logo3"
                             app:layout_collapseMode="parallax" />
@@ -62,7 +63,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="?attr/actionBarSize"
                             android:background="@android:color/transparent"
-                            android:hint="Search..."
+                            android:hint="@string/search_bar_hint"
                             app:layout_collapseMode="pin"
                             app:searchBackground="@drawable/hero_bg">
 
@@ -83,7 +84,7 @@
                         android:id="@+id/ll_categories"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="vertical"></LinearLayout>
+                        android:orientation="vertical" />
                     <!--                <com.google.android.material.floatingactionbutton.FloatingActionButton-->
                     <!--                    android:id="@+id/floatingSend"-->
                     <!--                    android:layout_width="wrap_content"-->
@@ -138,6 +139,7 @@
                     android:id="@+id/floatingCart"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:contentDescription="@string/floating_action_button_desc"
                     android:src="@drawable/ic_cart"
                     android:visibility="gone"
                     app:fabSize="mini">
@@ -149,6 +151,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
+                    android:contentDescription="@string/floating_action_button_desc"
                     android:src="@drawable/ic_favorite"
                     android:visibility="gone"
                     app:fabSize="mini">
@@ -160,6 +163,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
+                    android:contentDescription="@string/floating_action_button_desc"
                     android:src="@drawable/ic_home"
                     android:visibility="gone"
                     app:fabSize="mini">
@@ -171,6 +175,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
+                    android:contentDescription="@string/floating_action_button_desc"
                     android:src="@drawable/ic_menu"
                     android:tint="@color/white">
 

@@ -1,16 +1,13 @@
 package nhom9.watchluxury.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
-import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
 import nhom9.watchluxury.R;
 import nhom9.watchluxury.databinding.ActivitySettingsBinding;
 import nhom9.watchluxury.util.SettingsUtils;
-import nhom9.watchluxury.viewmodel.UserInfoViewModel;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -21,17 +18,15 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-//        viewModel = new ViewModelProvider(this).get(UserInfoViewModel.class);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_settings);
-//        binding.setViewModel(viewModel);
         binding.setLifecycleOwner(this);
         binding.executePendingBindings();
 
         binding.topBar.setNavigationOnClickListener(view -> finish());
 
         binding.swDarkMode.setChecked(SettingsUtils.isDarkMode());
-        binding.swDarkMode.setOnCheckedChangeListener((view, isChecked) -> {
-            SettingsUtils.setDarkMode(isChecked);
-        });
+        binding.swDarkMode.setOnCheckedChangeListener(
+                (view, isChecked) -> SettingsUtils.setDarkMode(isChecked)
+        );
     }
 }

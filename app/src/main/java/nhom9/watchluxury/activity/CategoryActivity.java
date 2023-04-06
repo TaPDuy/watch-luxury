@@ -10,9 +10,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.github.vivchar.rendererrecyclerviewadapter.LoadMoreViewBinder;
 import com.github.vivchar.rendererrecyclerviewadapter.RendererRecyclerViewAdapter;
-import com.github.vivchar.rendererrecyclerviewadapter.ViewFinder;
 import com.github.vivchar.rendererrecyclerviewadapter.ViewRenderer;
 import com.google.android.material.appbar.AppBarLayout;
 
@@ -89,12 +87,10 @@ public class CategoryActivity extends AppCompatActivity {
     }
 
     private void initObserver() {
-        viewModel.getProducts().observe(this, products -> {
-            adapter.setItems(products);
-        });
+        viewModel.getProducts().observe(this, adapter::setItems);
     }
 
-    private class ViewModelFactory implements ViewModelProvider.Factory {
+    private static class ViewModelFactory implements ViewModelProvider.Factory {
 
         private final Category category;
 
@@ -106,7 +102,7 @@ public class CategoryActivity extends AppCompatActivity {
         @Override
         public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
             try {
-                return (T) modelClass.getConstructor(Category.class).newInstance(category);
+                return modelClass.getConstructor(Category.class).newInstance(category);
             } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException |
                      InstantiationException e) {
                 throw new RuntimeException(e);

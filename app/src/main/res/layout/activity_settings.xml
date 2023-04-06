@@ -39,7 +39,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16pt"
                     android:fontFamily="sans-serif-medium"
-                    android:text="Dark mode"
+                    android:text="@string/settings_dark_mode"
                     android:textSize="20sp"
                     app:layout_flexGrow="1" />
 

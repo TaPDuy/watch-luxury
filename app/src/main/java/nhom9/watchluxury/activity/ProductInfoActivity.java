@@ -6,14 +6,11 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.app.Application;
 import android.os.Bundle;
 
 import java.lang.reflect.InvocationTargetException;
 
 import nhom9.watchluxury.R;
-import nhom9.watchluxury.data.local.AppDatabase;
-import nhom9.watchluxury.data.local.TokenManager;
 import nhom9.watchluxury.databinding.ActivityProductInfoBinding;
 import nhom9.watchluxury.util.APIUtils;
 import nhom9.watchluxury.viewmodel.ProductInfoViewModel;
@@ -51,7 +48,7 @@ public class ProductInfoActivity extends AppCompatActivity {
         viewModel.getImageUrl().observe(this, url -> APIUtils.loadImage(url, binding.imgProduct));
     }
 
-    private class ViewModelFactory implements ViewModelProvider.Factory {
+    private static class ViewModelFactory implements ViewModelProvider.Factory {
 
         private final int id;
 
@@ -63,7 +60,7 @@ public class ProductInfoActivity extends AppCompatActivity {
         @Override
         public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
             try {
-                return (T) modelClass.getConstructor(Integer.class).newInstance(id);
+                return modelClass.getConstructor(Integer.class).newInstance(id);
             } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException |
                      InstantiationException e) {
                 throw new RuntimeException(e);

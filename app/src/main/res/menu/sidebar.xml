@@ -18,7 +18,7 @@
         android:id="@+id/account"
         android:icon="@drawable/ic_user"
         android:titleCondensed="User"
-        android:title="User info" />
+        android:title="@string/sidebar_user" />
 
 <!--    <item-->
 <!--        android:id="@+id/note"-->
@@ -29,15 +29,15 @@
     <item
         android:id="@+id/setting"
         android:icon="@drawable/ic_settings"
-        android:title="Setting" />
+        android:title="@string/sidebar_settings" />
 
     <item
         android:id="@+id/about"
         android:icon="@drawable/ic_info"
-        android:title="About" />
+        android:title="@string/sidebar_about" />
 
     <item
         android:id="@+id/logout"
         android:icon="@drawable/ic_exit"
-        android:title="Logout" />
+        android:title="@string/sidebar_logout" />
 </menu>

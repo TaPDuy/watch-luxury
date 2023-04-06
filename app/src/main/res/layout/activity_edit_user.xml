@@ -13,7 +13,8 @@
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
 
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
@@ -46,7 +47,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_header_underline"
                     android:fontFamily="sans-serif-condensed"
-                    android:text="User info"
+                    android:text="@string/edit_user_info_header"
                     android:textColor="?android:textColorPrimary"
                     android:textSize="32sp"
                     android:textStyle="bold" />
@@ -67,7 +68,7 @@
                             style="@style/ThemeOverlay.Material3.TextInputEditText.OutlinedBox"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:hint="First name"
+                            android:hint="@string/edit_user_info_first_name"
                             bind:layout_flexGrow="1">
 
                             <com.google.android.material.textfield.TextInputEditText
@@ -87,7 +88,7 @@
                             style="@style/ThemeOverlay.Material3.TextInputEditText.OutlinedBox"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:hint="Last name"
+                            android:hint="@string/edit_user_info_last_name"
                             bind:layout_flexGrow="1">
 
                             <com.google.android.material.textfield.TextInputEditText
@@ -111,7 +112,7 @@
                         style="@style/ThemeOverlay.Material3.TextInputEditText.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Email"
+                        android:hint="@string/edit_user_info_email"
                         app:error='@{viewModel.errors["email"]}'>
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -132,7 +133,7 @@
                         style="@style/ThemeOverlay.Material3.TextInputEditText.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Address"
+                        android:hint="@string/edit_user_info_address"
                         app:error='@{viewModel.errors["address"]}'>
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -153,7 +154,7 @@
                         style="@style/ThemeOverlay.Material3.TextInputEditText.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Phone number"
+                        android:hint="@string/edit_user_info_phone"
                         app:error='@{viewModel.errors["phoneNumber"]}'>
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -175,7 +176,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:onClick="@{() -> viewModel.onSaveClicked()}"
-                        android:text="Save"
+                        android:text="@string/edit_user_info_save_button"
                         android:textSize="16sp"
                         app:cornerRadius="6dp"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -190,7 +191,7 @@
                     android:layout_marginTop="8dp"
                     android:background="@drawable/bg_header_underline"
                     android:fontFamily="sans-serif-condensed"
-                    android:text="Change password"
+                    android:text="@string/edit_user_password_header"
                     android:textColor="?android:textColorPrimary"
                     android:textSize="32sp"
                     android:textStyle="bold" />
@@ -206,7 +207,7 @@
                         style="@style/ThemeOverlay.Material3.TextInputEditText.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Old password"
+                        android:hint="@string/edit_user_password_old"
                         app:endIconMode="password_toggle"
                         app:error='@{viewModel.passwordErrors["password1"]}'>
 
@@ -228,7 +229,7 @@
                         style="@style/ThemeOverlay.Material3.TextInputEditText.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="New password"
+                        android:hint="@string/edit_user_password_new"
                         app:endIconMode="password_toggle"
                         app:error='@{viewModel.passwordErrors["password2"]}'>
 
@@ -251,7 +252,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:onClick="@{() -> viewModel.onPasswordSaveClicked()}"
-                        android:text="Update"
+                        android:text="@string/edit_user_password_update_button"
                         android:textSize="16sp"
                         app:cornerRadius="6dp"
                         app:layout_constraintEnd_toEndOf="parent"

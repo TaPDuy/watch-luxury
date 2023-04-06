@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="viewModel"
             type="nhom9.watchluxury.viewmodel.RegisterViewModel" />
@@ -17,113 +18,114 @@
 
         <TextView
             android:id="@+id/tvTitle"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="36dp"
             android:layout_marginTop="60dp"
-            android:text="@string/register_title"
-            android:textSize="25sp" />
+            android:text="@string/register_header"
+            android:textSize="25sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
             android:id="@+id/etUsername"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="36dp"
             android:layout_marginTop="40dp"
             android:layout_marginEnd="36dp"
             android:autofillHints="username"
-            android:hint="@string/hint_etUsername"
+            android:hint="@string/register_username_hint"
             android:inputType="text"
-            android:text="@={viewModel.username}"/>
+            android:text="@={viewModel.username}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
 
         <EditText
             android:id="@+id/etEmail"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etUsername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="36dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="36dp"
             android:autofillHints="emailAddress"
-            android:hint="@string/hint_etEmail"
+            android:hint="@string/register_email_hint"
             android:inputType="textEmailAddress"
-            android:text="@={viewModel.email}"/>
+            android:text="@={viewModel.email}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etUsername" />
 
         <EditText
             android:id="@+id/etAddress"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="36dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="36dp"
             android:autofillHints="postalAddress"
-            android:hint="@string/hint_etAddress"
+            android:hint="@string/register_address_hint"
             android:inputType="text"
-            android:text="@={viewModel.address}"/>
+            android:text="@={viewModel.address}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etEmail" />
 
         <EditText
             android:id="@+id/etPassword1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etAddress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="36dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="36dp"
             android:autofillHints="password"
-            android:hint="@string/hint_etPassword1"
+            android:hint="@string/register_password1_hint"
             android:inputType="textPassword"
-            android:text="@={viewModel.password1}"/>
+            android:text="@={viewModel.password1}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etAddress" />
 
         <EditText
             android:id="@+id/etPassword2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etPassword1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="36dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="36dp"
             android:autofillHints="password"
-            android:hint="@string/hint_etPassword2"
+            android:hint="@string/register_password2_hint"
             android:inputType="textPassword"
-            android:text="@={viewModel.password2}"/>
-
-
-        <Button
-            android:id="@+id/btnRegister"
+            android:text="@={viewModel.password2}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etPassword2"
+            app:layout_constraintTop_toBottomOf="@+id/etPassword1" />
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnRegister"
+            style="@style/Widget.Material3.Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="64dp"
-            android:background="#03A9F4"
-            android:text="@string/btn_register"
-            android:textColor="#fcfcfc"
-            android:onClick="@{() -> viewModel.onRegisterClicked()}"/>
-
-        <TextView
-            android:id="@+id/tvBackToLogin"
+            android:onClick="@{() -> viewModel.onRegisterClicked()}"
+            android:text="@string/register_button"
+            android:textSize="14sp"
+            app:cornerRadius="6dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnRegister"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:text="@string/register_back_to_login" />
+            app:layout_constraintTop_toBottomOf="@+id/etPassword2" />
+
+        <!--        <TextView-->
+        <!--            android:id="@+id/tvBackToLogin"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/btnRegister"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginTop="32dp"-->
+        <!--            android:text="@string/register_back_to_login" />-->
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
