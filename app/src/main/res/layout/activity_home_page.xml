@@ -42,7 +42,7 @@
                             android:adjustViewBounds="true"
                             android:contentDescription="@string/logo_desc"
                             android:scaleType="fitCenter"
-                            android:src="@drawable/logo3"
+                            android:src="@drawable/logo"
                             app:layout_collapseMode="parallax" />
 
 
