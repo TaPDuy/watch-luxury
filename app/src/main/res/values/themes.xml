@@ -14,5 +14,7 @@
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
         <!-- Customize your theme here. -->
+        <item name="logoColor">#FF000000</item>
+        <item name="logoOutlineColor">#00000000</item>
     </style>
 </resources>
