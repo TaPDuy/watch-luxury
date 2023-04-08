@@ -6,13 +6,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:paddingVertical="16dp">
 
         <com.google.android.flexbox.FlexboxLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_header_underline"
-            app:alignItems="center">
+            app:alignItems="center"
+            android:layout_marginHorizontal="16dp">
 
             <TextView
                 android:id="@+id/tv_categoryName"
@@ -37,7 +38,9 @@
             android:id="@+id/rv_productList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp" />
+            android:layout_marginTop="16dp"
+            android:paddingHorizontal="16dp"
+            android:clipToPadding="false"/>
 
     </LinearLayout>
 </layout>
