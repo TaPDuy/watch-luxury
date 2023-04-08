@@ -12,6 +12,7 @@ import nhom9.watchluxury.data.model.Category;
 import nhom9.watchluxury.data.model.Product;
 import nhom9.watchluxury.data.remote.ProductRemoteSource;
 import nhom9.watchluxury.data.remote.model.APIResource;
+import nhom9.watchluxury.data.remote.model.FavoriteRequest;
 import nhom9.watchluxury.data.remote.model.ResponseCode;
 import nhom9.watchluxury.util.DataSource;
 
@@ -76,6 +77,18 @@ public class ProductRepository {
 //                            db.insertProduct(prod).subscribe().dispose();
                         }
                 )
+                .doOnError(throwable -> Log.e(CLASS_NAME, Objects.requireNonNull(throwable.getMessage())));
+    }
+
+    public Single<APIResource<FavoriteRequest>> addFavorite(int userID, int productID) {
+        return api.addFavorite(userID, productID)
+                .doOnSuccess(res -> Log.d(CLASS_NAME, res.toString()))
+                .doOnError(throwable -> Log.e(CLASS_NAME, Objects.requireNonNull(throwable.getMessage())));
+    }
+
+    public Single<APIResource<FavoriteRequest>> removeFavorite(int userID, int productID) {
+        return api.removeFavorite(userID, productID)
+                .doOnSuccess(res -> Log.d(CLASS_NAME, res.toString()))
                 .doOnError(throwable -> Log.e(CLASS_NAME, Objects.requireNonNull(throwable.getMessage())));
     }
 }

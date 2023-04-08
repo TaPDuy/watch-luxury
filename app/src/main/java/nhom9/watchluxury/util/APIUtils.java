@@ -8,6 +8,7 @@ import nhom9.watchluxury.BuildConfig;
 import nhom9.watchluxury.R;
 import nhom9.watchluxury.data.remote.RetrofitClient;
 import nhom9.watchluxury.data.remote.service.AuthService;
+import nhom9.watchluxury.data.remote.service.FavoriteService;
 import nhom9.watchluxury.data.remote.service.ProductService;
 import nhom9.watchluxury.data.remote.service.UserService;
 
@@ -27,6 +28,10 @@ public class APIUtils {
 
     public static ProductService getProductService() {
         return RetrofitClient.getClient(BASE_URL).create(ProductService.class);
+    }
+
+    public static FavoriteService getFavoriteService() {
+        return RetrofitClient.getClient(BASE_URL).create(FavoriteService.class);
     }
 
     public static void loadImage(String url, ImageView target) {

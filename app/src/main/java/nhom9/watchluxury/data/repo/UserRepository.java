@@ -2,10 +2,12 @@ package nhom9.watchluxury.data.repo;
 
 import android.util.Log;
 
+import java.util.List;
 import java.util.Objects;
 
 import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Single;
+import nhom9.watchluxury.data.model.Product;
 import nhom9.watchluxury.util.DataSource;
 import nhom9.watchluxury.data.local.UserLocalSource;
 import nhom9.watchluxury.data.model.LoginCredentials;
@@ -80,6 +82,12 @@ public class UserRepository {
 
         return userAPI.updatePassword(id, oldPassword, newPassword)
                 .doOnSuccess(res -> Log.d(CLASS_NAME, "Updated password"))
+                .doOnError(throwable -> Log.e(CLASS_NAME, Objects.requireNonNull(throwable.getMessage())));
+    }
+
+    public Single<APIResource<List<Product>>> getFavorites(int id) {
+        return userAPI.getFavorites(id)
+                .doOnSuccess(res -> Log.d(CLASS_NAME, "Fetched favorites"))
                 .doOnError(throwable -> Log.e(CLASS_NAME, Objects.requireNonNull(throwable.getMessage())));
     }
 }
