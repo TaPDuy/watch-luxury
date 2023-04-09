@@ -27,15 +27,16 @@ public class ProductInfoViewModel extends ViewModel {
 
     private final MutableLiveData<Product> product;
     private final MutableLiveData<String> imageUrl;
+    private final MutableLiveData<Boolean> isFavorited;
+    private boolean initialFavorite = false;
     private final ProductRepository productRepo;
     private final int id;
-
-    private boolean remove = false;
 
     public ProductInfoViewModel(Integer productID) {
         this.productRepo = new ProductRepository();
         this.product = new MutableLiveData<>(null);
         this.imageUrl = new MutableLiveData<>("");
+        this.isFavorited = new MutableLiveData<>(false);
         this.id = productID;
 
         loadProductInfo();
@@ -53,8 +54,12 @@ public class ProductInfoViewModel extends ViewModel {
         return id;
     }
 
-    public void setFavoriteMode(boolean remove) {
-        this.remove = remove;
+    public void setIsFavorited(boolean b) {
+        this.isFavorited.setValue(b);
+    }
+
+    public MutableLiveData<Boolean> getIsFavorited() {
+        return isFavorited;
     }
 
     private void loadProductInfo() {
@@ -67,12 +72,35 @@ public class ProductInfoViewModel extends ViewModel {
         );
     }
 
+    private void loadFavorite() {
+        disposables.add(
+                productRepo.isFavorited(TokenManager.getUserId(), id)
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribeOn(Schedulers.io())
+                        .subscribeWith(new DisposableSingleObserver<Boolean>() {
+
+                            @Override
+                            public void onSuccess(@NonNull Boolean res) {
+                                isFavorited.setValue(res);
+                                initialFavorite = res;
+                                Log.d("ProductInfoViewModel", "onNext: " + isFavorited);
+                            }
+
+                            @Override
+                            public void onError(@NonNull Throwable e) {
+                                Log.d("ProductInfoViewModel", "onError: " + e);
+                            }
+                        })
+        );
+    }
+
     private class ProductObserver extends DisposableSubscriber<APIResource<Product>> {
 
         @Override
         public void onNext(APIResource<Product> res) {
             product.setValue(res.getData());
             imageUrl.setValue(res.getData().getImagePath());
+            loadFavorite();
             Log.d("ProductInfoViewModel", "onNext: " + res);
         }
 
@@ -89,20 +117,17 @@ public class ProductInfoViewModel extends ViewModel {
 
     @Override
     protected void onCleared() {
-        disposables.clear();
-//        EventBus.getDefault().post(new FavoriteEvent(
-//                TokenManager.getUserId(), id,
-//                remove ? FavoriteEvent.Action.REMOVE : FavoriteEvent.Action.ADD
-//        ));
-//        EventBus.post(Event.Type.FAVORITE, new FavoriteEvent(
-//                TokenManager.getUserId(), id,
-//                remove ? FavoriteEvent.Action.REMOVE : FavoriteEvent.Action.ADD
-//        ));
 
-        if(remove)
-            FavoriteEventBus.getInstance().removeFavorite(TokenManager.getUserId(), id);
-        else
-            FavoriteEventBus.getInstance().addFavorite(TokenManager.getUserId(), id);
+        if (initialFavorite != Boolean.TRUE.equals(isFavorited.getValue())) {
+
+            FavoriteEventBus eventBus = FavoriteEventBus.getInstance();
+            if (Boolean.TRUE.equals(isFavorited.getValue()))
+                eventBus.addFavorite(TokenManager.getUserId(), id);
+            else
+                eventBus.removeFavorite(TokenManager.getUserId(), id);
+        }
+
+        disposables.clear();
         super.onCleared();
     }
 }

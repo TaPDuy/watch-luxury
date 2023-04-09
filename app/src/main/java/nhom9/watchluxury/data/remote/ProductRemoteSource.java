@@ -41,6 +41,10 @@ public class ProductRemoteSource {
         return FAVORITE_SERVICE.removeFavorite(new FavoriteRequest(userID, productID), token());
     }
 
+    public Single<APIResource<List<FavoriteRequest>>> getFavorite(int userID, int productID) {
+        return FAVORITE_SERVICE.getFavorites(userID, productID, token());
+    }
+
     private String token() {
         return "Bearer " + TokenManager.getAccessToken();
     }

@@ -1,6 +1,7 @@
 package nhom9.watchluxury.activity;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -37,17 +38,24 @@ public class ProductInfoActivity extends AppCompatActivity {
         binding.topBar.setNavigationOnClickListener(view -> finish());
         binding.topBar.setOnMenuItemClickListener(item -> {
             if(item.getItemId() == R.id.favorite) {
-                // Implement favorite
-                item.setChecked(!item.isChecked());
-                viewModel.setFavoriteMode(item.isChecked());
+                viewModel.setIsFavorited(!item.isChecked());
                 return true;
             }
             return false;
         });
+        binding.topBar.setBackgroundTintList(null);
     }
 
     private void initObserver() {
         viewModel.getImageUrl().observe(this, url -> APIUtils.loadImage(url, binding.imgProduct));
+        viewModel.getIsFavorited().observe(
+                this,
+                isChecked -> {
+                    MenuItem item = binding.topBar.getMenu().findItem(R.id.favorite);
+                    item.setChecked(isChecked);
+                    item.setIcon(isChecked ? R.drawable.ic_favorite_checked : R.drawable.ic_favorite_unchecked);
+                }
+        );
     }
 
     private static class ViewModelFactory implements ViewModelProvider.Factory {

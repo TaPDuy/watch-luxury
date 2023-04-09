@@ -91,4 +91,11 @@ public class ProductRepository {
                 .doOnSuccess(res -> Log.d(CLASS_NAME, res.toString()))
                 .doOnError(throwable -> Log.e(CLASS_NAME, Objects.requireNonNull(throwable.getMessage())));
     }
+
+    public Single<Boolean> isFavorited(int userID, int productID) {
+        return api.getFavorite(userID, productID)
+                .doOnSuccess(res -> Log.d(CLASS_NAME, res.toString()))
+                .doOnError(throwable -> Log.e(CLASS_NAME, Objects.requireNonNull(throwable.getMessage())))
+                .map(res -> res.getData() != null && res.getData().size() != 0);
+    }
 }

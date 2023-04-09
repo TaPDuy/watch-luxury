@@ -43,7 +43,7 @@ public class UserRemoteSource {
     }
 
     public Single<APIResource<List<Product>>> getFavorites(int id) {
-        return FAVORITE_SERVICE.getFavorites(id, token());
+        return FAVORITE_SERVICE.getUserFavorites(id, token());
     }
 
     private String token() {
