@@ -83,13 +83,19 @@ public class ProductRepository {
     public Flowable<APIResource<FavoriteRequest>> addFavorite(int userID, int productID) {
         return api.addFavorite(userID, productID)
                 .doOnNext(res -> Log.d(CLASS_NAME, res.toString()))
-                .doOnError(throwable -> Log.e(CLASS_NAME, Objects.requireNonNull(throwable.getMessage())));
+                .onErrorResumeNext(throwable -> {
+                    Log.e(CLASS_NAME, Objects.requireNonNull(throwable.getMessage()));
+                    return Flowable.empty();
+                });
     }
 
     public Flowable<APIResource<FavoriteRequest>> removeFavorite(int userID, int productID) {
         return api.removeFavorite(userID, productID)
                 .doOnNext(res -> Log.d(CLASS_NAME, res.toString()))
-                .doOnError(throwable -> Log.e(CLASS_NAME, Objects.requireNonNull(throwable.getMessage())));
+                .onErrorResumeNext(throwable -> {
+                    Log.e(CLASS_NAME, Objects.requireNonNull(throwable.getMessage()));
+                    return Flowable.empty();
+                });
     }
 
     public Single<Boolean> isFavorited(int userID, int productID) {
