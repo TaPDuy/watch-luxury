@@ -153,7 +153,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:contentDescription="@string/floating_action_button_desc"
-                    android:src="@drawable/ic_favorite"
+                    android:src="@drawable/ic_favorite_checked"
                     android:visibility="gone"
                     app:fabSize="mini">
 

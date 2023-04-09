@@ -1,13 +1,5 @@
-<vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="24dp"
-    android:height="24dp"
-    android:viewportWidth="24"
-    android:viewportHeight="24">
-  <group>
-    <clip-path
-        android:pathData="M0,0h24v24h-24z"/>
-    <path
-        android:pathData="M12,21.275L10.4,19.85C8.7,18.317 7.296,16.996 6.188,15.887C5.079,14.779 4.2,13.783 3.55,12.9C2.9,12.017 2.446,11.2 2.188,10.45C1.929,9.7 1.8,8.933 1.8,8.15C1.8,6.517 2.342,5.158 3.425,4.075C4.508,2.992 5.867,2.45 7.5,2.45C8.367,2.45 9.188,2.625 9.963,2.975C10.738,3.325 11.417,3.825 12,4.475C12.567,3.825 13.242,3.325 14.025,2.975C14.808,2.625 15.633,2.45 16.5,2.45C18.117,2.45 19.471,2.992 20.562,4.075C21.654,5.158 22.2,6.517 22.2,8.15C22.2,8.933 22.071,9.696 21.812,10.438C21.554,11.179 21.1,11.992 20.45,12.875C19.8,13.758 18.917,14.758 17.8,15.875C16.683,16.992 15.275,18.317 13.575,19.85L12,21.275Z"
-        android:fillColor="#1C1B1F"/>
-  </group>
-</vector>
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/ic_favorite_checked" android:state_checked="true"/>
+    <item android:drawable="@drawable/ic_favorite_unchecked" android:state_checked="false"/>
+</selector>
