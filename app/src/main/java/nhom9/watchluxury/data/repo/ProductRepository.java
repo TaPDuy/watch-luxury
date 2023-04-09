@@ -80,15 +80,15 @@ public class ProductRepository {
                 .doOnError(throwable -> Log.e(CLASS_NAME, Objects.requireNonNull(throwable.getMessage())));
     }
 
-    public Single<APIResource<FavoriteRequest>> addFavorite(int userID, int productID) {
+    public Flowable<APIResource<FavoriteRequest>> addFavorite(int userID, int productID) {
         return api.addFavorite(userID, productID)
-                .doOnSuccess(res -> Log.d(CLASS_NAME, res.toString()))
+                .doOnNext(res -> Log.d(CLASS_NAME, res.toString()))
                 .doOnError(throwable -> Log.e(CLASS_NAME, Objects.requireNonNull(throwable.getMessage())));
     }
 
-    public Single<APIResource<FavoriteRequest>> removeFavorite(int userID, int productID) {
+    public Flowable<APIResource<FavoriteRequest>> removeFavorite(int userID, int productID) {
         return api.removeFavorite(userID, productID)
-                .doOnSuccess(res -> Log.d(CLASS_NAME, res.toString()))
+                .doOnNext(res -> Log.d(CLASS_NAME, res.toString()))
                 .doOnError(throwable -> Log.e(CLASS_NAME, Objects.requireNonNull(throwable.getMessage())));
     }
 

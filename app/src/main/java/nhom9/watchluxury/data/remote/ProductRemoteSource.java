@@ -2,6 +2,7 @@ package nhom9.watchluxury.data.remote;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Single;
 import nhom9.watchluxury.data.local.TokenManager;
 import nhom9.watchluxury.data.model.Category;
@@ -33,11 +34,11 @@ public class ProductRemoteSource {
         return PRODUCT_SERVICE.getProductByKeyword(keyword);
     }
 
-    public Single<APIResource<FavoriteRequest>> addFavorite(int userID, int productID) {
+    public Flowable<APIResource<FavoriteRequest>> addFavorite(int userID, int productID) {
         return FAVORITE_SERVICE.addFavorite(new FavoriteRequest(userID, productID), token());
     }
 
-    public Single<APIResource<FavoriteRequest>> removeFavorite(int userID, int productID) {
+    public Flowable<APIResource<FavoriteRequest>> removeFavorite(int userID, int productID) {
         return FAVORITE_SERVICE.removeFavorite(new FavoriteRequest(userID, productID), token());
     }
 

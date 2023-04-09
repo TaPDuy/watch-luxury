@@ -2,6 +2,7 @@ package nhom9.watchluxury.data.remote.service;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Single;
 import nhom9.watchluxury.data.model.Product;
 import nhom9.watchluxury.data.remote.model.APIResource;
@@ -23,8 +24,8 @@ public interface FavoriteService {
     Single<APIResource<List<FavoriteRequest>>> getFavorites(@Query("user") int userID, @Query("product") int productID, @Header("Authorization") String accessToken);
 
     @POST("favorites/")
-    Single<APIResource<FavoriteRequest>> addFavorite(@Body FavoriteRequest request, @Header("Authorization") String accessToken);
+    Flowable<APIResource<FavoriteRequest>> addFavorite(@Body FavoriteRequest request, @Header("Authorization") String accessToken);
 
     @HTTP(method = "DELETE", path = "favorites/", hasBody = true)
-    Single<APIResource<FavoriteRequest>> removeFavorite(@Body FavoriteRequest request, @Header("Authorization") String accessToken);
+    Flowable<APIResource<FavoriteRequest>> removeFavorite(@Body FavoriteRequest request, @Header("Authorization") String accessToken);
 }

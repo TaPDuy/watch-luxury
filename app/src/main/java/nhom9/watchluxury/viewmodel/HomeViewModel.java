@@ -11,9 +11,11 @@ import java.util.List;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
+import io.reactivex.rxjava3.observers.DisposableObserver;
 import io.reactivex.rxjava3.observers.DisposableSingleObserver;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import io.reactivex.rxjava3.subjects.PublishSubject;
+import io.reactivex.rxjava3.subscribers.ResourceSubscriber;
 import nhom9.watchluxury.data.local.TokenManager;
 import nhom9.watchluxury.data.model.Category;
 import nhom9.watchluxury.data.model.Product;
@@ -98,10 +100,10 @@ public class HomeViewModel extends ViewModel {
                         productRepo.addFavorite(e.getUserID(), e.getProductID())
                                 .observeOn(AndroidSchedulers.mainThread())
                                 .subscribeOn(Schedulers.io())
-                                .subscribeWith(new DisposableSingleObserver<APIResource<FavoriteRequest>>() {
+                                .subscribeWith(new ResourceSubscriber<APIResource<FavoriteRequest>>() {
 
                                     @Override
-                                    public void onSuccess(@io.reactivex.rxjava3.annotations.NonNull APIResource<FavoriteRequest> res) {
+                                    public void onNext(@NonNull APIResource<FavoriteRequest> res) {
                                         Log.d("HomeViewModel", "Added");
                                         loadFavorites();
                                         Log.d("HomeViewModel", "onNext: " + res);
@@ -111,14 +113,19 @@ public class HomeViewModel extends ViewModel {
                                     public void onError(@io.reactivex.rxjava3.annotations.NonNull Throwable e) {
                                         Log.d("HomeViewModel", "onError: " + e);
                                     }
+
+                                    @Override
+                                    public void onComplete() {
+
+                                    }
                                 }) :
                         productRepo.removeFavorite(e.getUserID(), e.getProductID())
                                 .observeOn(AndroidSchedulers.mainThread())
                                 .subscribeOn(Schedulers.io())
-                                .subscribeWith(new DisposableSingleObserver<APIResource<FavoriteRequest>>() {
+                                .subscribeWith(new ResourceSubscriber<APIResource<FavoriteRequest>>() {
 
                                     @Override
-                                    public void onSuccess(@io.reactivex.rxjava3.annotations.NonNull APIResource<FavoriteRequest> res) {
+                                    public void onNext(APIResource<FavoriteRequest> res) {
                                         Log.d("HomeViewModel", "Removed");
                                         loadFavorites();
                                         Log.d("HomeViewModel", "onNext: " + res);
@@ -127,6 +134,11 @@ public class HomeViewModel extends ViewModel {
                                     @Override
                                     public void onError(@io.reactivex.rxjava3.annotations.NonNull Throwable e) {
                                         Log.d("HomeViewModel", "onError: " + e);
+                                    }
+
+                                    @Override
+                                    public void onComplete() {
+
                                     }
                                 })
         );
