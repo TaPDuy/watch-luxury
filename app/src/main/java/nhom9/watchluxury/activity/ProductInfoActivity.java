@@ -1,12 +1,12 @@
 package nhom9.watchluxury.activity;
 
+import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
-
-import android.os.Bundle;
 
 import java.lang.reflect.InvocationTargetException;
 
@@ -38,6 +38,8 @@ public class ProductInfoActivity extends AppCompatActivity {
         binding.topBar.setOnMenuItemClickListener(item -> {
             if(item.getItemId() == R.id.favorite) {
                 // Implement favorite
+                item.setChecked(!item.isChecked());
+                viewModel.setFavoriteMode(item.isChecked());
                 return true;
             }
             return false;

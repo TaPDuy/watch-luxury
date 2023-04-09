@@ -9,6 +9,7 @@ import nhom9.watchluxury.data.remote.model.FavoriteRequest;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.HTTP;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -21,6 +22,6 @@ public interface FavoriteService {
     @POST("favorite/")
     Single<APIResource<FavoriteRequest>> addFavorite(@Body FavoriteRequest request, @Header("Authorization") String accessToken);
 
-    @DELETE("favorite/")
+    @HTTP(method = "DELETE", path = "favorite/", hasBody = true)
     Single<APIResource<FavoriteRequest>> removeFavorite(@Body FavoriteRequest request, @Header("Authorization") String accessToken);
 }

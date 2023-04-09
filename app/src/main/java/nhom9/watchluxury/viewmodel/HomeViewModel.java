@@ -18,8 +18,10 @@ import nhom9.watchluxury.data.local.TokenManager;
 import nhom9.watchluxury.data.model.Category;
 import nhom9.watchluxury.data.model.Product;
 import nhom9.watchluxury.data.remote.model.APIResource;
+import nhom9.watchluxury.data.remote.model.FavoriteRequest;
 import nhom9.watchluxury.data.repo.ProductRepository;
 import nhom9.watchluxury.data.repo.UserRepository;
+import nhom9.watchluxury.event.FavoriteEvent;
 
 public class HomeViewModel extends ViewModel {
 
@@ -27,7 +29,7 @@ public class HomeViewModel extends ViewModel {
     private final ProductRepository productRepo;
     private final UserRepository userRepo;
     private List<Category> categories;
-    private MutableLiveData<List<Product>> favorites;
+    private final MutableLiveData<List<Product>> favorites;
     private final PublishSubject<List<Category>> subject;
 
     public HomeViewModel() {
@@ -56,10 +58,6 @@ public class HomeViewModel extends ViewModel {
 
                             @Override
                             public void onSuccess(@NonNull APIResource<List<Category>> res) {
-//                                status.setValue(res.getResponseCode() == ResponseCode.SUCCESS ? Status.SUCCESS : Status.ERROR);
-//                                List<Category> newCats = res.getData();
-
-
                                 categories = res.getData();
                                 subject.onNext(categories);
                                 Log.d("HomeViewModel", "onSuccess: " + res);
@@ -67,7 +65,6 @@ public class HomeViewModel extends ViewModel {
 
                             @Override
                             public void onError(@NonNull Throwable e) {
-//                                status.setValue(Status.ERROR);
                                 Log.e("HomeViewModel", "onError: " + e);
                             }
                         })
@@ -92,6 +89,46 @@ public class HomeViewModel extends ViewModel {
                                 Log.e("HomeViewModel", "onError: " + e);
                             }
                         })
+        );
+    }
+
+    public void onFavoriteEvent(FavoriteEvent e) {
+        disposables.add(
+                e.getAction() == FavoriteEvent.Action.ADD ?
+                        productRepo.addFavorite(e.getUserID(), e.getProductID())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribeOn(Schedulers.io())
+                                .subscribeWith(new DisposableSingleObserver<APIResource<FavoriteRequest>>() {
+
+                                    @Override
+                                    public void onSuccess(@io.reactivex.rxjava3.annotations.NonNull APIResource<FavoriteRequest> res) {
+                                        Log.d("HomeViewModel", "Added");
+                                        loadFavorites();
+                                        Log.d("HomeViewModel", "onNext: " + res);
+                                    }
+
+                                    @Override
+                                    public void onError(@io.reactivex.rxjava3.annotations.NonNull Throwable e) {
+                                        Log.d("HomeViewModel", "onError: " + e);
+                                    }
+                                }) :
+                        productRepo.removeFavorite(e.getUserID(), e.getProductID())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribeOn(Schedulers.io())
+                                .subscribeWith(new DisposableSingleObserver<APIResource<FavoriteRequest>>() {
+
+                                    @Override
+                                    public void onSuccess(@io.reactivex.rxjava3.annotations.NonNull APIResource<FavoriteRequest> res) {
+                                        Log.d("HomeViewModel", "Removed");
+                                        loadFavorites();
+                                        Log.d("HomeViewModel", "onNext: " + res);
+                                    }
+
+                                    @Override
+                                    public void onError(@io.reactivex.rxjava3.annotations.NonNull Throwable e) {
+                                        Log.d("HomeViewModel", "onError: " + e);
+                                    }
+                                })
         );
     }
 

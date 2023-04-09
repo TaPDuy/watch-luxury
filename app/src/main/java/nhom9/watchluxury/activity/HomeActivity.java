@@ -55,12 +55,13 @@ public class HomeActivity extends AppCompatActivity {
     private void initContent() {
         ViewPageAdapter adapter = new ViewPageAdapter(getSupportFragmentManager(), getLifecycle());
 
-        adapter.addFragment(HomeFragment.newInstance(0, "Home", viewModel));
-        adapter.addFragment(FavoriteFragment.newInstance(1, "Favorites", viewModel));
+        adapter.addFragment(HomeFragment.newInstance(0, "Home"));
+        adapter.addFragment(FavoriteFragment.newInstance(1, "Favorites"));
         adapter.addFragment(CartFragment.newInstance(2, "Cart"));
 
         binding.vpContent.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
         binding.vpContent.setUserInputEnabled(false);
+        binding.vpContent.setOffscreenPageLimit(2);
         binding.vpContent.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
 
             @Override

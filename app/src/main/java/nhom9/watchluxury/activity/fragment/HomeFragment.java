@@ -2,16 +2,16 @@ package nhom9.watchluxury.activity.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.github.vivchar.rendererrecyclerviewadapter.ViewRenderer;
 
@@ -21,7 +21,6 @@ import nhom9.watchluxury.activity.CategoryActivity;
 import nhom9.watchluxury.activity.ProductInfoActivity;
 import nhom9.watchluxury.data.model.Category;
 import nhom9.watchluxury.data.model.Product;
-import nhom9.watchluxury.databinding.FragmentFavoriteBinding;
 import nhom9.watchluxury.databinding.FragmentHomeBinding;
 import nhom9.watchluxury.databinding.ItemCategoryBinding;
 import nhom9.watchluxury.util.APIUtils;
@@ -34,13 +33,11 @@ public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;
     private Disposable disposable;
 
-    public HomeFragment(HomeViewModel viewModel) {
-        // Required empty public constructor
-        this.viewModel = viewModel;
+    public HomeFragment() {
     }
 
-    public static HomeFragment newInstance(int page, String title, HomeViewModel viewModel) {
-        HomeFragment fragment = new HomeFragment(viewModel);
+    public static HomeFragment newInstance(int page, String title) {
+        HomeFragment fragment = new HomeFragment();
         Bundle args = new Bundle();
         args.putInt("page", page);
         args.putString("title", title);
@@ -50,7 +47,10 @@ public class HomeFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        viewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
         binding = FragmentHomeBinding.inflate(inflater, container, false);
+        binding.setLifecycleOwner(this);
+        binding.executePendingBindings();
         return binding.getRoot();
     }
 
