@@ -39,7 +39,7 @@
                         <ImageView
                             android:id="@+id/img_logo"
                             android:layout_width="match_parent"
-                            android:layout_height="200dp"
+                            android:layout_height="164dp"
                             android:layout_marginTop="?attr/actionBarSize"
                             android:adjustViewBounds="true"
                             android:contentDescription="@string/logo_desc"
