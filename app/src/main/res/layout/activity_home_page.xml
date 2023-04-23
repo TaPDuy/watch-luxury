@@ -77,49 +77,50 @@
 
                 </com.google.android.material.appbar.AppBarLayout>
 
-                <androidx.core.widget.NestedScrollView
+
+                <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/vp_content"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+                    android:fillViewport="true"
+                    android:nestedScrollingEnabled="true"
+                    app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
+                <!--                    <androidx.viewpager2.widget.ViewPager2-->
+                <!--                        android:id="@+id/vp_content"-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="match_parent" />-->
+                <!--                <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+                <!--                    android:id="@+id/floatingSend"-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_above="@+id/floatingLucky"-->
 
-                    <androidx.viewpager2.widget.ViewPager2
-                        android:id="@+id/vp_content"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
-                    <!--                <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-                    <!--                    android:id="@+id/floatingSend"-->
-                    <!--                    android:layout_width="wrap_content"-->
-                    <!--                    android:layout_height="wrap_content"-->
-                    <!--                    android:layout_above="@+id/floatingLucky"-->
+                <!--                    android:layout_alignParentEnd="true"-->
+                <!--                    android:layout_marginRight="30px"-->
+                <!--                    android:layout_marginBottom="20px"-->
+                <!--                    android:background="@color/floatSon"-->
+                <!--                    android:src="@drawable/base_send"-->
+                <!--                    android:visibility="gone"-->
+                <!--                    app:fabSize="mini">-->
 
-                    <!--                    android:layout_alignParentEnd="true"-->
-                    <!--                    android:layout_marginRight="30px"-->
-                    <!--                    android:layout_marginBottom="20px"-->
-                    <!--                    android:background="@color/floatSon"-->
-                    <!--                    android:src="@drawable/base_send"-->
-                    <!--                    android:visibility="gone"-->
-                    <!--                    app:fabSize="mini">-->
+                <!--                </com.google.android.material.floatingactionbutton.FloatingActionButton>-->
 
-                    <!--                </com.google.android.material.floatingactionbutton.FloatingActionButton>-->
+                <!--                <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+                <!--                    android:id="@+id/floatingLucky"-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_above="@+id/floatingCart"-->
+                <!--                    android:layout_alignParentEnd="true"-->
 
-                    <!--                <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-                    <!--                    android:id="@+id/floatingLucky"-->
-                    <!--                    android:layout_width="wrap_content"-->
-                    <!--                    android:layout_height="wrap_content"-->
-                    <!--                    android:layout_above="@+id/floatingCart"-->
-                    <!--                    android:layout_alignParentEnd="true"-->
+                <!--                    android:layout_marginRight="30px"-->
+                <!--                    android:layout_marginBottom="20px"-->
+                <!--                    android:background="@color/floatSon"-->
+                <!--                    android:src="@drawable/base_lucky"-->
+                <!--                    android:visibility="gone"-->
+                <!--                    app:fabSize="mini">-->
 
-                    <!--                    android:layout_marginRight="30px"-->
-                    <!--                    android:layout_marginBottom="20px"-->
-                    <!--                    android:background="@color/floatSon"-->
-                    <!--                    android:src="@drawable/base_lucky"-->
-                    <!--                    android:visibility="gone"-->
-                    <!--                    app:fabSize="mini">-->
+                <!--                </com.google.android.material.floatingactionbutton.FloatingActionButton>-->
 
-                    <!--                </com.google.android.material.floatingactionbutton.FloatingActionButton>-->
-
-
-                </androidx.core.widget.NestedScrollView>
 
             </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

@@ -1,5 +1,6 @@
 package nhom9.watchluxury.activity;
 
+import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -10,8 +11,11 @@ import androidx.core.view.GravityCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -53,24 +57,52 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void initContent() {
-        ViewPageAdapter adapter = new ViewPageAdapter(getSupportFragmentManager(), getLifecycle());
+        ViewPageAdapter adapter = new ViewPageAdapter(getSupportFragmentManager());
 
         adapter.addFragment(HomeFragment.newInstance(0, "Home"));
         adapter.addFragment(FavoriteFragment.newInstance(1, "Favorites"));
         adapter.addFragment(CartFragment.newInstance(2, "Cart"));
 
-        binding.vpContent.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
-        binding.vpContent.setUserInputEnabled(false);
+//        binding.vpContent.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
+//        binding.vpContent.setUserInputEnabled(false);
         binding.vpContent.setOffscreenPageLimit(2);
-        binding.vpContent.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+        binding.vpContent.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+
+            int previousPos = 0;
+
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
 
             @Override
             public void onPageSelected(int position) {
 //                binding.imgLogo.setVisibility(position == 0 ? View.VISIBLE : View.GONE);
                 binding.ablTopBar.setExpanded(position == 0);
-                super.onPageSelected(position);
+
+                ObjectAnimator anim;
+                if (position != 2) {
+                    if (previousPos == 2) {
+                        anim = ObjectAnimator.ofFloat(binding.btnFloatingGroup, "translationY", -200, 0);
+                        anim.start();
+                    }
+                }
+                else {
+                    anim = ObjectAnimator.ofFloat(binding.btnFloatingGroup, "translationY", 0, -200);
+                    anim.start();
+                }
+
+                previousPos = position;
+//                binding.vpContent.reMeasureCurrentPage(position);
             }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+
         });
+
         binding.vpContent.setAdapter(adapter);
     }
 
@@ -188,26 +220,37 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 
-    private static class ViewPageAdapter extends FragmentStateAdapter {
+    private static class ViewPageAdapter extends FragmentPagerAdapter {
 
         private final List<Fragment> fragments = new ArrayList<>();
 
-        public ViewPageAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle) {
-            super(fragmentManager, lifecycle);
+        public ViewPageAdapter(@NonNull FragmentManager fragmentManager) {
+            super(fragmentManager);
         }
 
         @NonNull
         @Override
-        public Fragment createFragment(int position) {
+        public Fragment getItem(int position) {
             return fragments.get(position);
         }
+//
+//        @NonNull
+//        @Override
+//        public Fragment createFragment(int position) {
+//            return fragments.get(position);
+//        }
 
         public void addFragment(Fragment fragment) {
             fragments.add(fragment);
         }
+//
+//        @Override
+//        public int getItemCount() {
+//            return fragments.size();
+//        }
 
         @Override
-        public int getItemCount() {
+        public int getCount() {
             return fragments.size();
         }
     }
