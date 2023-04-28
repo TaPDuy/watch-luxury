@@ -8,19 +8,19 @@ import java.util.Objects;
 import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Single;
 import nhom9.watchluxury.data.model.Product;
-import nhom9.watchluxury.util.DataSource;
-import nhom9.watchluxury.data.local.UserLocalSource;
+import nhom9.watchluxury.data.DataSource;
+import nhom9.watchluxury.data.local.source.UserLocalSource;
 import nhom9.watchluxury.data.model.LoginCredentials;
 import nhom9.watchluxury.data.model.User;
 import nhom9.watchluxury.data.remote.model.APIResource;
 import nhom9.watchluxury.data.remote.model.ResponseCode;
 import nhom9.watchluxury.data.local.TokenManager;
-import nhom9.watchluxury.data.remote.UserRemoteSource;
+import nhom9.watchluxury.data.remote.source.UserRemoteSource;
 
 public class UserRepository {
 
-    private static final UserRemoteSource userAPI = DataSource.getRemoteUser();
-    private static final UserLocalSource userDB = DataSource.getLocalUser();
+    private static final UserRemoteSource userAPI = DataSource.get(UserRemoteSource.class);
+    private static final UserLocalSource userDB = DataSource.get(UserLocalSource.class);
 
     // For logging
     private static final String CLASS_NAME = "UserRepo";

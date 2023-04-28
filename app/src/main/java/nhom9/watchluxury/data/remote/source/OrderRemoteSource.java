@@ -1,9 +1,8 @@
-package nhom9.watchluxury.data.remote;
+package nhom9.watchluxury.data.remote.source;
 
 import java.util.List;
 
 import io.reactivex.rxjava3.core.Single;
-import nhom9.watchluxury.data.local.TokenManager;
 import nhom9.watchluxury.data.model.Order;
 import nhom9.watchluxury.data.model.Product;
 import nhom9.watchluxury.data.remote.model.APIResource;
@@ -11,7 +10,7 @@ import nhom9.watchluxury.data.remote.model.CreateOrderRequest;
 import nhom9.watchluxury.data.remote.service.OrderService;
 import nhom9.watchluxury.util.APIUtils;
 
-public class OrderRemoteSource {
+public class OrderRemoteSource extends RemoteSource {
 
     private static final OrderService ORDER_SERVICE = APIUtils.getOrderService();
 
@@ -29,9 +28,5 @@ public class OrderRemoteSource {
                 order.getAddress(),
                 productIDs
         ), token());
-    }
-
-    private String token() {
-        return "Bearer " + TokenManager.getAccessToken();
     }
 }

@@ -1,10 +1,9 @@
-package nhom9.watchluxury.data.remote;
+package nhom9.watchluxury.data.remote.source;
 
 import java.util.List;
 
 import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Single;
-import nhom9.watchluxury.data.local.TokenManager;
 import nhom9.watchluxury.data.model.Category;
 import nhom9.watchluxury.data.model.Product;
 import nhom9.watchluxury.data.remote.model.APIResource;
@@ -13,7 +12,7 @@ import nhom9.watchluxury.data.remote.service.FavoriteService;
 import nhom9.watchluxury.data.remote.service.ProductService;
 import nhom9.watchluxury.util.APIUtils;
 
-public class ProductRemoteSource {
+public class ProductRemoteSource extends RemoteSource {
 
     private static final ProductService PRODUCT_SERVICE = APIUtils.getProductService();
     private static final FavoriteService FAVORITE_SERVICE = APIUtils.getFavoriteService();
@@ -45,9 +44,4 @@ public class ProductRemoteSource {
     public Single<APIResource<List<FavoriteRequest>>> getFavorite(int userID, int productID) {
         return FAVORITE_SERVICE.getFavorites(userID, productID, token());
     }
-
-    private String token() {
-        return "Bearer " + TokenManager.getAccessToken();
-    }
-
 }

@@ -1,4 +1,4 @@
-package nhom9.watchluxury.data.local;
+package nhom9.watchluxury.data.local.source;
 
 import android.util.Log;
 
@@ -6,10 +6,11 @@ import java.util.Objects;
 
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Single;
+import nhom9.watchluxury.data.local.AppDatabase;
 import nhom9.watchluxury.data.local.dao.ProductDAO;
 import nhom9.watchluxury.data.model.Product;
 
-public class ProductLocalSource {
+public class ProductLocalSource extends LocalSource {
 
     private static final ProductDAO dao = AppDatabase.getInstance().productDAO();
 
