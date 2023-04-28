@@ -2,6 +2,7 @@ package nhom9.watchluxury.util;
 
 import nhom9.watchluxury.data.local.ProductLocalSource;
 import nhom9.watchluxury.data.local.UserLocalSource;
+import nhom9.watchluxury.data.remote.OrderRemoteSource;
 import nhom9.watchluxury.data.remote.ProductRemoteSource;
 import nhom9.watchluxury.data.remote.UserRemoteSource;
 
@@ -11,6 +12,7 @@ public class DataSource {
     private static ProductLocalSource productLocalSource;
     private static UserRemoteSource userRemoteSource;
     private static ProductRemoteSource productRemoteSource;
+    private static OrderRemoteSource orderRemoteSource;
 
     public static UserLocalSource getLocalUser() {
         if (userLocalSource == null)
@@ -34,5 +36,11 @@ public class DataSource {
         if (productRemoteSource == null)
             productRemoteSource = new ProductRemoteSource();
         return productRemoteSource;
+    }
+
+    public static OrderRemoteSource getRemoteOrder() {
+        if (orderRemoteSource == null)
+            orderRemoteSource = new OrderRemoteSource();
+        return orderRemoteSource;
     }
 }
