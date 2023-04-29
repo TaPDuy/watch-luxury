@@ -45,7 +45,7 @@
     <string name="product_thumbnail_bg_desc">Product thumbnail background</string>
     <string name="product_name_placeholder">Product nameProduct nameProduct nameProduct nameProduct nameProduct nameProduct nameProduct nameProduct nameProduct name</string>
     <string name="product_price_placeholder">0đ</string>
-    <string name="logged_in_as">Logged in as </string>
+    <string name="logged_in_as">Logged in as\u0020</string>
     <string name="sidebar_username_placeholder">Lazarus</string>
     <string name="sidebar_user">User info</string>
     <string name="sidebar_settings">Setting</string>
