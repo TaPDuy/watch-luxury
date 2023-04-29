@@ -3,11 +3,14 @@ package nhom9.watchluxury.data.model;
 import androidx.annotation.NonNull;
 
 import com.squareup.moshi.Json;
+import com.squareup.moshi.JsonClass;
 
 import java.util.Date;
 import java.util.List;
 
+import nhom9.watchluxury.data.local.model.OrderRow;
 import nhom9.watchluxury.util.JsonUtils;
+
 
 public class Order {
 
@@ -20,13 +23,13 @@ public class Order {
     private String address;
     private List<Product> products;
 
-    private int total;
+    private long total;
     private int status;
 
     @Json(name = "time_added")
-    private Date timeCreated;
+    private String timeCreated;
 
-    public Order(int id, User user, String name, String phoneNumber, String address, List<Product> products, int total, int status, Date timeCreated) {
+    public Order(int id, User user, String name, String phoneNumber, String address, List<Product> products, long total, int status, String timeCreated) {
         this.id = id;
         this.user = user;
         this.name = name;
@@ -36,6 +39,10 @@ public class Order {
         this.total = total;
         this.status = status;
         this.timeCreated = timeCreated;
+    }
+
+    public OrderRow asTableRow() {
+        return new OrderRow(this);
     }
 
     public int getId() {
@@ -86,11 +93,11 @@ public class Order {
         this.products = products;
     }
 
-    public int getTotal() {
+    public long getTotal() {
         return total;
     }
 
-    public void setTotal(int total) {
+    public void setTotal(long total) {
         this.total = total;
     }
 
@@ -102,11 +109,11 @@ public class Order {
         this.status = status;
     }
 
-    public Date getTimeCreated() {
+    public String getTimeCreated() {
         return timeCreated;
     }
 
-    public void setTimeCreated(Date timeCreated) {
+    public void setTimeCreated(String timeCreated) {
         this.timeCreated = timeCreated;
     }
 
