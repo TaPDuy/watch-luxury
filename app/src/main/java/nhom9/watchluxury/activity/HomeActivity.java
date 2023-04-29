@@ -12,12 +12,8 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
-import androidx.viewpager2.adapter.FragmentStateAdapter;
-import androidx.viewpager2.widget.ViewPager2;
 
 import com.ferfalk.simplesearchview.SimpleSearchView;
 
@@ -113,7 +109,9 @@ public class HomeActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.logout:
                     TokenManager.deleteTokens();
+                    Intent intent = new Intent(this , LoginActivity.class);
                     finish();
+                    startActivity(intent);
                     break;
                 case R.id.account:
                     Intent i1 = new Intent(this, UserInfoActivity.class);
@@ -253,5 +251,10 @@ public class HomeActivity extends AppCompatActivity {
         public int getCount() {
             return fragments.size();
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+
     }
 }

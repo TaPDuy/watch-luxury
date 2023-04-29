@@ -11,10 +11,7 @@ import androidx.lifecycle.ViewModelProvider;
 import org.jetbrains.annotations.Nullable;
 
 import nhom9.watchluxury.R;
-import nhom9.watchluxury.data.local.AppDatabase;
-import nhom9.watchluxury.data.local.TokenManager;
 import nhom9.watchluxury.databinding.ActivityLoginBinding;
-import nhom9.watchluxury.util.SettingsUtils;
 import nhom9.watchluxury.viewmodel.LoginViewModel;
 
 public class LoginActivity extends AppCompatActivity {
@@ -25,10 +22,6 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        TokenManager.init(getApplicationContext());
-        AppDatabase.init(getApplicationContext());
-        SettingsUtils.init(getApplicationContext());
 
         viewModel = new ViewModelProvider(this).get(LoginViewModel.class);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
@@ -44,11 +37,6 @@ public class LoginActivity extends AppCompatActivity {
             intent.setClass(LoginActivity.this, RegisterActivity.class);
             startActivity(intent);
         });
-
-        if (TokenManager.isAuthenticated()) {
-            Intent intent = new Intent(LoginActivity.this , HomeActivity.class);
-            startActivity(intent);
-        }
     }
 
     private void initObserver() {
@@ -75,5 +63,10 @@ public class LoginActivity extends AppCompatActivity {
                     break;
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+
     }
 }
