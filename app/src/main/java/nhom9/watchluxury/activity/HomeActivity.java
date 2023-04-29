@@ -109,7 +109,7 @@ public class HomeActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.logout:
                     TokenManager.deleteTokens();
-                    Intent intent = new Intent(this , LoginActivity.class);
+                    Intent intent = new Intent(this , MainActivity.class);
                     finish();
                     startActivity(intent);
                     break;
