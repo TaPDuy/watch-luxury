@@ -29,6 +29,12 @@ public class TokenManager {
         editor.apply();
     }
 
+    public static void saveUsername(String username) {
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString("username", username);
+        editor.apply();
+    }
+
     public static void saveTokens(String accessToken, String refreshToken) {
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString("accessToken", accessToken);
@@ -36,16 +42,21 @@ public class TokenManager {
         editor.apply();
     }
 
-    public static void save(String accessToken, String refreshToken, int userID) {
+    public static void save(String accessToken, String refreshToken, int userID, String username) {
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString("accessToken", accessToken);
         editor.putString("refreshToken", refreshToken);
         editor.putInt("userID", userID);
+        editor.putString("username", username);
         editor.apply();
     }
 
     public static int getUserId() {
         return sharedPref.getInt("userID", -1);
+    }
+
+    public static String getUsername() {
+        return sharedPref.getString("username", "");
     }
 
     public static String getAccessToken() {
@@ -61,6 +72,7 @@ public class TokenManager {
         editor.remove("accessToken");
         editor.remove("refreshToken");
         editor.remove("userID");
+        editor.remove("username");
         editor.apply();
     }
 

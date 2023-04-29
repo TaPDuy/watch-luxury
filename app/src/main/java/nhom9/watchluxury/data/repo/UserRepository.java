@@ -70,7 +70,8 @@ public class UserRepository {
                     TokenManager.save(
                             credentials.getAccessToken(),
                             credentials.getRefreshToken(),
-                            credentials.getLoggedInUserID()
+                            credentials.getLoggedInUserID(),
+                            username
                     );
 
                     Log.d(CLASS_NAME, "New credentials saved: " + credentials);

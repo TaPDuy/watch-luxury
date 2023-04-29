@@ -4,6 +4,7 @@ import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -103,6 +104,9 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void initSideBar() {
+
+        TextView loginAs = binding.sidebar.getHeaderView(0).findViewById(R.id.tv_username);
+        loginAs.setText(TokenManager.getUsername());
 
         binding.sidebar.setNavigationItemSelectedListener(item -> {
             boolean res = true;
