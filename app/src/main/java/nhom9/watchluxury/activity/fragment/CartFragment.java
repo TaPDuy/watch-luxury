@@ -58,7 +58,7 @@ public class CartFragment extends Fragment {
         viewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
         binding = FragmentCartBinding.inflate(inflater, container, false);
         binding.setViewModel(viewModel);
-        binding.setLifecycleOwner(this);
+        binding.setLifecycleOwner(requireActivity());
         binding.executePendingBindings();
         return binding.getRoot();
     }

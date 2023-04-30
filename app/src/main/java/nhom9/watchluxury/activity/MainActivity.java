@@ -33,6 +33,8 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        Log.i(this.getLocalClassName(), "Creating activity...");
+
         if (!init) {
             Log.i("Init", "Initializing...");
             TokenManager.init(getApplicationContext());
@@ -63,7 +65,6 @@ public class MainActivity extends AppCompatActivity implements LoginFragment.Log
         viewModel.getLoading().observe(this, finish -> {
             if (finish) {
                 Intent intent = new Intent(MainActivity.this, HomeActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                 startActivity(intent);
             }
         });

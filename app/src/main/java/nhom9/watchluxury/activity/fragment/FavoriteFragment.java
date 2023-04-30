@@ -52,7 +52,7 @@ public class FavoriteFragment extends Fragment {
         viewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
         binding = FragmentFavoriteBinding.inflate(inflater, container, false);
         binding.setViewModel(viewModel);
-        binding.setLifecycleOwner(this);
+        binding.setLifecycleOwner(requireActivity());
         binding.executePendingBindings();
         return binding.getRoot();
     }

@@ -113,20 +113,20 @@ public class HomeActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.logout:
                     TokenManager.deleteTokens();
-                    Intent intent = new Intent(this , MainActivity.class);
+                    Intent intent = new Intent(HomeActivity.this , MainActivity.class);
                     finish();
                     startActivity(intent);
                     break;
                 case R.id.account:
-                    Intent i1 = new Intent(this, UserInfoActivity.class);
+                    Intent i1 = new Intent(HomeActivity.this, UserInfoActivity.class);
                     startActivity(i1);
                     break;
                 case R.id.about:
-                    Intent i2 = new Intent(this, AboutActivity.class);
+                    Intent i2 = new Intent(HomeActivity.this, AboutActivity.class);
                     startActivity(i2);
                     break;
                 case R.id.setting:
-                    Intent i3 = new Intent(this, SettingsActivity.class);
+                    Intent i3 = new Intent(HomeActivity.this, SettingsActivity.class);
                     startActivity(i3);
                     break;
                 default:
