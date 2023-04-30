@@ -11,7 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.vivchar.rendererrecyclerviewadapter.ViewRenderer;
 
@@ -78,7 +79,7 @@ public class FavoriteFragment extends Fragment {
         );
 
         binding.rvFavoriteList.setAdapter(adapter);
-        binding.rvFavoriteList.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        binding.rvFavoriteList.setLayoutManager(new LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false));
 
         initObserver();
         viewModel.loadFavorites();

@@ -6,7 +6,8 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.vivchar.rendererrecyclerviewadapter.RendererRecyclerViewAdapter;
 import com.github.vivchar.rendererrecyclerviewadapter.ViewRenderer;
@@ -71,7 +72,7 @@ public class SearchResultActivity extends AppCompatActivity {
         );
 
         binding.rvProductList.setAdapter(adapter);
-        binding.rvProductList.setLayoutManager(new GridLayoutManager(this, 2));
+        binding.rvProductList.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
 
         binding.topBar.setNavigationOnClickListener(view -> finish());
 

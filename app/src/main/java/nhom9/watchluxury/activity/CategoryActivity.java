@@ -5,7 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -78,7 +79,7 @@ public class CategoryActivity extends AppCompatActivity {
         );
 
         binding.rvProductList.setAdapter(adapter);
-        binding.rvProductList.setLayoutManager(new GridLayoutManager(this, 2));
+        binding.rvProductList.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
 
         binding.topBar.setNavigationOnClickListener(view -> finish());
 
