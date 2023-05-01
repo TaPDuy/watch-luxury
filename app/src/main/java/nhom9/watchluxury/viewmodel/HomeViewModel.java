@@ -11,11 +11,11 @@ import java.util.List;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
-import io.reactivex.rxjava3.observers.DisposableObserver;
 import io.reactivex.rxjava3.observers.DisposableSingleObserver;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import io.reactivex.rxjava3.subjects.PublishSubject;
 import io.reactivex.rxjava3.subscribers.ResourceSubscriber;
+import nhom9.watchluxury.data.local.CartManager;
 import nhom9.watchluxury.data.local.TokenManager;
 import nhom9.watchluxury.data.model.Category;
 import nhom9.watchluxury.data.model.Product;
@@ -23,6 +23,7 @@ import nhom9.watchluxury.data.remote.model.APIResource;
 import nhom9.watchluxury.data.remote.model.FavoriteRequest;
 import nhom9.watchluxury.data.repo.ProductRepository;
 import nhom9.watchluxury.data.repo.UserRepository;
+import nhom9.watchluxury.event.CartEvent;
 import nhom9.watchluxury.event.FavoriteEvent;
 
 public class HomeViewModel extends ViewModel {
@@ -32,6 +33,7 @@ public class HomeViewModel extends ViewModel {
     private final UserRepository userRepo;
     private List<Category> categories;
     private final MutableLiveData<List<Product>> favorites;
+    private final MutableLiveData<List<Product>> cartItems;
     private final PublishSubject<List<Category>> subject;
 
     public HomeViewModel() {
@@ -39,6 +41,7 @@ public class HomeViewModel extends ViewModel {
         this.productRepo = new ProductRepository();
         this.categories = new ArrayList<>();
         this.favorites = new MutableLiveData<>(new ArrayList<>());
+        this.cartItems = new MutableLiveData<>(new ArrayList<>());
         subject = PublishSubject.create();
     }
 
@@ -48,6 +51,10 @@ public class HomeViewModel extends ViewModel {
 
     public MutableLiveData<List<Product>> getFavorites() {
         return favorites;
+    }
+
+    public MutableLiveData<List<Product>> getCartItems() {
+        return cartItems;
     }
 
     public void loadData() {
@@ -142,6 +149,10 @@ public class HomeViewModel extends ViewModel {
                                     }
                                 })
         );
+    }
+
+    public void onCartEvent(CartEvent e) {
+        cartItems.setValue(CartManager.getCart());
     }
 
     @Override

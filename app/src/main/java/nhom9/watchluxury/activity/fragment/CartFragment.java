@@ -2,7 +2,6 @@ package nhom9.watchluxury.activity.fragment;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -23,11 +22,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.vivchar.rendererrecyclerviewadapter.ViewRenderer;
 
+import io.reactivex.rxjava3.disposables.Disposable;
 import nhom9.watchluxury.R;
 import nhom9.watchluxury.activity.ProductInfoActivity;
 import nhom9.watchluxury.data.model.Product;
 import nhom9.watchluxury.databinding.DialogOrderBinding;
 import nhom9.watchluxury.databinding.FragmentCartBinding;
+import nhom9.watchluxury.event.CartEventBus;
 import nhom9.watchluxury.util.APIUtils;
 import nhom9.watchluxury.viewmodel.HomeViewModel;
 import nhom9.watchluxury.viewmodel.adapter.ProductAdapter;
@@ -38,6 +39,7 @@ public class CartFragment extends Fragment {
     private FragmentCartBinding binding;
 
     private ProductAdapter adapter;
+    private Disposable disposable;
 
     public CartFragment() {
     }
@@ -103,6 +105,8 @@ public class CartFragment extends Fragment {
 //        });
 
         binding.idBuy.setOnClickListener(v -> openDialog());
+
+        initObservers();
     }
 
 //    private void showPrice(){
@@ -115,6 +119,10 @@ public class CartFragment extends Fragment {
 //        }
 //
 //    }
+    private void initObservers() {
+        disposable = CartEventBus.getInstance().getEvents().subscribe(viewModel::onCartEvent);
+        viewModel.getCartItems().observe(getViewLifecycleOwner(), adapter::setItems);
+    }
 
     private void openDialog() {
 
@@ -142,5 +150,11 @@ public class CartFragment extends Fragment {
         dialogBinding.idConfirm.setOnClickListener(view -> Toast.makeText(requireContext(), "Mua hang thanh cong", Toast.LENGTH_SHORT).show());
 
         dialog.show();
+    }
+
+    @Override
+    public void onDestroy() {
+        disposable.dispose();
+        super.onDestroy();
     }
 }

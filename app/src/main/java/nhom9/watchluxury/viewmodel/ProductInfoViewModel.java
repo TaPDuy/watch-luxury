@@ -11,11 +11,13 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.observers.DisposableSingleObserver;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import io.reactivex.rxjava3.subscribers.DisposableSubscriber;
+import nhom9.watchluxury.data.local.CartManager;
 import nhom9.watchluxury.data.local.TokenManager;
 import nhom9.watchluxury.data.model.Product;
 import nhom9.watchluxury.data.remote.model.APIResource;
 import nhom9.watchluxury.data.remote.model.FavoriteRequest;
 import nhom9.watchluxury.data.repo.ProductRepository;
+import nhom9.watchluxury.event.CartEventBus;
 import nhom9.watchluxury.event.Event;
 import nhom9.watchluxury.event.EventBus;
 import nhom9.watchluxury.event.FavoriteEvent;
@@ -25,6 +27,7 @@ public class ProductInfoViewModel extends ViewModel {
 
     private final CompositeDisposable disposables = new CompositeDisposable();
 
+    private CartEventBus cartEventBus;
     private final MutableLiveData<Product> product;
     private final MutableLiveData<String> imageUrl;
     private final MutableLiveData<Boolean> isFavorited;
@@ -38,6 +41,8 @@ public class ProductInfoViewModel extends ViewModel {
         this.imageUrl = new MutableLiveData<>("");
         this.isFavorited = new MutableLiveData<>(false);
         this.id = productID;
+
+        cartEventBus = CartEventBus.getInstance();
 
         loadProductInfo();
     }
@@ -112,6 +117,22 @@ public class ProductInfoViewModel extends ViewModel {
         @Override
         public void onComplete() {
 
+        }
+    }
+
+    public void onAddToCart() {
+        Product p = product.getValue();
+        if (p != null) {
+            CartManager.addItem(p);
+            cartEventBus.addToCart(p);
+        }
+    }
+
+    public void onRemoveFromCart() {
+        Product p = product.getValue();
+        if (p != null) {
+            CartManager.removeItem(p);
+            cartEventBus.removeFromCart(p);
         }
     }
 

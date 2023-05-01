@@ -44,6 +44,14 @@ public class ProductInfoActivity extends AppCompatActivity {
             return false;
         });
         binding.topBar.setBackgroundTintList(null);
+
+        binding.btnAddToCart.addOnCheckedChangeListener((button, isChecked) -> {
+            if (isChecked) {
+                viewModel.onAddToCart();
+            } else {
+                viewModel.onRemoveFromCart();
+            }
+        });
     }
 
     private void initObserver() {
