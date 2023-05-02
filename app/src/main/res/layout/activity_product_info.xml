@@ -131,7 +131,7 @@
                 style="@style/Widget.Material3.Button"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:text="@{viewModel.cartText}"
+                android:text="@{viewModel.isInCart ? @string/product_cart_button_checked : @string/product_cart_button}"
                 android:textSize="14sp"
                 app:cornerRadius="6dp"
                 android:checkable="true"

@@ -15,19 +15,15 @@ import nhom9.watchluxury.data.local.CartManager;
 import nhom9.watchluxury.data.local.TokenManager;
 import nhom9.watchluxury.data.model.Product;
 import nhom9.watchluxury.data.remote.model.APIResource;
-import nhom9.watchluxury.data.remote.model.FavoriteRequest;
 import nhom9.watchluxury.data.repo.ProductRepository;
 import nhom9.watchluxury.event.CartEventBus;
-import nhom9.watchluxury.event.Event;
-import nhom9.watchluxury.event.EventBus;
-import nhom9.watchluxury.event.FavoriteEvent;
 import nhom9.watchluxury.event.FavoriteEventBus;
 
 public class ProductInfoViewModel extends ViewModel {
 
     private final CompositeDisposable disposables = new CompositeDisposable();
 
-    private CartEventBus cartEventBus;
+    private final CartEventBus cartEventBus;
     private final MutableLiveData<Product> product;
     private final MutableLiveData<String> imageUrl;
     private final MutableLiveData<Boolean> isFavorited;
@@ -35,7 +31,6 @@ public class ProductInfoViewModel extends ViewModel {
     private final ProductRepository productRepo;
     private final int id;
     private final MutableLiveData<Boolean> isInCart;
-    private final MutableLiveData<String> cartText;
 
     public ProductInfoViewModel(Integer productID) {
         this.productRepo = new ProductRepository();
@@ -46,7 +41,6 @@ public class ProductInfoViewModel extends ViewModel {
 
         boolean inCart = CartManager.hasItem(productID);
         this.isInCart = new MutableLiveData<>(inCart);
-        this.cartText = new MutableLiveData<>(inCart ? "Added to cart" : "Add to cart");
 
         cartEventBus = CartEventBus.getInstance();
 
@@ -75,10 +69,6 @@ public class ProductInfoViewModel extends ViewModel {
 
     public MutableLiveData<Boolean> getIsFavorited() {
         return isFavorited;
-    }
-
-    public MutableLiveData<String> getCartText() {
-        return cartText;
     }
 
     private void loadProductInfo() {
@@ -123,7 +113,6 @@ public class ProductInfoViewModel extends ViewModel {
 
             boolean inCart = CartManager.hasItem(p.getId());
             isInCart.setValue(inCart);
-            cartText.setValue(inCart ? "Added to cart" : "Add to cart");
 
             loadFavorite();
             Log.d("ProductInfoViewModel", "onNext: " + res);
@@ -143,7 +132,6 @@ public class ProductInfoViewModel extends ViewModel {
     public void onCartClicked(boolean checked) {
 
         isInCart.setValue(checked);
-        cartText.setValue(checked ? "Added to cart" : "Add to cart");
 
         Product p = product.getValue();
         if (p != null) {
