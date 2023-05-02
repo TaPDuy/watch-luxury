@@ -36,14 +36,19 @@ public class HomeViewModel extends ViewModel {
     private List<Category> categories;
     private final MutableLiveData<List<Product>> favorites;
     private final MutableLiveData<List<Product>> cartItems;
+    private final MutableLiveData<Long> total;
     private final PublishSubject<List<Category>> subject;
+
 
     public HomeViewModel() {
         this.userRepo = new UserRepository();
         this.productRepo = new ProductRepository();
         this.categories = new ArrayList<>();
+
         this.favorites = new MutableLiveData<>(new ArrayList<>());
         this.cartItems = new MutableLiveData<>(new ArrayList<>());
+        this.total = new MutableLiveData<>(0L);
+
         subject = PublishSubject.create();
     }
 
@@ -57,6 +62,10 @@ public class HomeViewModel extends ViewModel {
 
     public MutableLiveData<List<Product>> getCartItems() {
         return cartItems;
+    }
+
+    public MutableLiveData<Long> getTotal() {
+        return total;
     }
 
     public void loadData() {
@@ -167,6 +176,7 @@ public class HomeViewModel extends ViewModel {
 
     public void onCartEvent(CartEvent e) {
         cartItems.setValue(CartManager.getCart());
+        total.setValue(CartManager.getTotal());
     }
 
     @Override

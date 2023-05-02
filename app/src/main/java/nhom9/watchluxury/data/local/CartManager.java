@@ -8,15 +8,23 @@ import nhom9.watchluxury.data.model.Product;
 public class CartManager {
 
     private static final List<Product> CART = new ArrayList<>();
+    private static long total = 0;
 
     public static void addItem(Product product) {
         if (!hasItem(product)) {
             CART.add(product);
+            total += product.getPrice();
         }
     }
 
     public static void removeItem(Product product) {
-        CART.removeIf(p -> p.getId() == product.getId());
+        boolean removed = CART.removeIf(p -> p.getId() == product.getId());
+        if (removed)
+            total -= product.getPrice();
+    }
+
+    public static long getTotal() {
+        return total;
     }
 
     public static boolean hasItem(int productID) {
