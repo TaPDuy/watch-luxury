@@ -34,6 +34,8 @@ public class ProductInfoViewModel extends ViewModel {
     private boolean initialFavorite = false;
     private final ProductRepository productRepo;
     private final int id;
+    private final MutableLiveData<Boolean> isInCart;
+    private final MutableLiveData<String> cartText;
 
     public ProductInfoViewModel(Integer productID) {
         this.productRepo = new ProductRepository();
@@ -42,9 +44,17 @@ public class ProductInfoViewModel extends ViewModel {
         this.isFavorited = new MutableLiveData<>(false);
         this.id = productID;
 
+        boolean inCart = CartManager.hasItem(productID);
+        this.isInCart = new MutableLiveData<>(inCart);
+        this.cartText = new MutableLiveData<>(inCart ? "Added to cart" : "Add to cart");
+
         cartEventBus = CartEventBus.getInstance();
 
         loadProductInfo();
+    }
+
+    public MutableLiveData<Boolean> isInCart() {
+        return isInCart;
     }
 
     public MutableLiveData<Product> getProduct() {
@@ -65,6 +75,10 @@ public class ProductInfoViewModel extends ViewModel {
 
     public MutableLiveData<Boolean> getIsFavorited() {
         return isFavorited;
+    }
+
+    public MutableLiveData<String> getCartText() {
+        return cartText;
     }
 
     private void loadProductInfo() {
@@ -103,8 +117,14 @@ public class ProductInfoViewModel extends ViewModel {
 
         @Override
         public void onNext(APIResource<Product> res) {
-            product.setValue(res.getData());
-            imageUrl.setValue(res.getData().getImagePath());
+            Product p = res.getData();
+            product.setValue(p);
+            imageUrl.setValue(p.getImagePath());
+
+            boolean inCart = CartManager.hasItem(p.getId());
+            isInCart.setValue(inCart);
+            cartText.setValue(inCart ? "Added to cart" : "Add to cart");
+
             loadFavorite();
             Log.d("ProductInfoViewModel", "onNext: " + res);
         }
@@ -120,19 +140,20 @@ public class ProductInfoViewModel extends ViewModel {
         }
     }
 
-    public void onAddToCart() {
-        Product p = product.getValue();
-        if (p != null) {
-            CartManager.addItem(p);
-            cartEventBus.addToCart(p);
-        }
-    }
+    public void onCartClicked(boolean checked) {
 
-    public void onRemoveFromCart() {
+        isInCart.setValue(checked);
+        cartText.setValue(checked ? "Added to cart" : "Add to cart");
+
         Product p = product.getValue();
         if (p != null) {
-            CartManager.removeItem(p);
-            cartEventBus.removeFromCart(p);
+            if (checked) {
+                CartManager.addItem(p);
+                cartEventBus.addToCart(p);
+            } else {
+                CartManager.removeItem(p);
+                cartEventBus.removeFromCart(p);
+            }
         }
     }
 

@@ -16,13 +16,19 @@ public class CartManager {
     }
 
     public static void removeItem(Product product) {
-        if (hasItem(product)) {
-            CART.remove(product);
-        }
+        CART.removeIf(p -> p.getId() == product.getId());
+    }
+
+    public static boolean hasItem(int productID) {
+        for (Product product : CART)
+            if (product.getId() == productID)
+                return true;
+
+        return false;
     }
 
     public static boolean hasItem(Product product) {
-        return CART.contains(product);
+        return hasItem(product.getId());
     }
 
     public static List<Product> getCart() {

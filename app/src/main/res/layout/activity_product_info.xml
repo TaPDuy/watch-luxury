@@ -131,10 +131,11 @@
                 style="@style/Widget.Material3.Button"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:text="@string/product_cart_button"
+                android:text="@{viewModel.cartText}"
                 android:textSize="14sp"
                 app:cornerRadius="6dp"
                 android:checkable="true"
+                android:checked="@{viewModel.isInCart}"
                 app:layout_flexGrow="1" />
         </com.google.android.flexbox.FlexboxLayout>
     </RelativeLayout>
