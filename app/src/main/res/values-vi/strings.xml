@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="register_header">Tạo tài khoản mới</string>
+    <string name="register_username_hint">Tên tài khoản</string>
+    <string name="register_email_hint">Email</string>
+    <string name="register_address_hint">Địa chỉ</string>
+    <string name="register_password1_hint">Mật khẩu</string>
+    <string name="register_password2_hint">Nhập lại mật khẩu</string>
+    <string name="register_button">Đăng ký</string>
+    <string name="about_members_header">Thành viên nhóm:</string>
+    <string name="edit_user_info_header">Thông tin người dùng</string>
+    <string name="edit_user_info_first_name">First name</string>
+    <string name="edit_user_info_last_name">Last name</string>
+    <string name="edit_user_info_email">Email</string>
+    <string name="edit_user_info_address">Địa chỉ</string>
+    <string name="edit_user_info_phone">Số điện thoại</string>
+    <string name="edit_user_info_save_button">Lưu</string>
+    <string name="edit_user_password_header">Đổi mật khẩu</string>
+    <string name="edit_user_password_old">Mật khẩu cũ</string>
+    <string name="edit_user_password_new">Mật khẩu mới</string>
+    <string name="edit_user_password_update_button">Cập nhật</string>
+    <string name="search_bar_hint">Tìm kiếm…</string>
+    <string name="login_username_hint">Tên người dùng</string>
+    <string name="login_password_hint">Mật khẩu</string>
+    <string name="login_button">Đăng nhập</string>
+    <string name="login_register_button">Đăng ký</string>
+    <string name="product_thumbnail_desc">Ảnh sản phẩm</string>
+    <string name="product_price_header">Giá tiền</string>
+    <string name="cart_total_header">Tổng tiền</string>
+    <string name="cart_checkout_button">Đặt hàng</string>
+    <string name="product_cart_button">Thêm vào giỏ hàng</string>
+    <string name="search_header">Kết quả tìm kiếm</string>
+    <string name="settings_dark_mode">Dark mode</string>
+    <string name="user_avatar_desc">Ảnh đại diện</string>
+    <string name="category_see_more">Xem thêm</string>
+    <string name="category_name_placeholder">Tên danh mục</string>
+    <string name="logged_in_as">Xin chào,\\u0020</string>
+    <string name="sidebar_user">Thông tin người dùng</string>
+    <string name="sidebar_settings">Cài đặt</string>
+    <string name="sidebar_about">About</string>
+    <string name="sidebar_logout">Đăng xuất</string>
+    <string name="menu_search">Tìm kiếm</string>
+    <string name="menu_favorite">Ưu thích</string>
+    <string name="menu_edit">Sửa</string>
+</resources>
