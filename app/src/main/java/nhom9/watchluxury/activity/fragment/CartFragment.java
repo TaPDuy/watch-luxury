@@ -25,9 +25,11 @@ import com.github.vivchar.rendererrecyclerviewadapter.ViewRenderer;
 import io.reactivex.rxjava3.disposables.Disposable;
 import nhom9.watchluxury.R;
 import nhom9.watchluxury.activity.ProductInfoActivity;
+import nhom9.watchluxury.data.local.CartManager;
 import nhom9.watchluxury.data.model.Product;
 import nhom9.watchluxury.databinding.DialogOrderBinding;
 import nhom9.watchluxury.databinding.FragmentCartBinding;
+import nhom9.watchluxury.event.CartEvent;
 import nhom9.watchluxury.event.CartEventBus;
 import nhom9.watchluxury.util.APIUtils;
 import nhom9.watchluxury.viewmodel.HomeViewModel;
@@ -75,9 +77,13 @@ public class CartFragment extends Fragment {
                 R.layout.item_cart,
                 Product.class,
                 (model, finder, payloads) -> {
+
                     finder.setText(R.id.tv_itemLabel, model.getName());
                     finder.setText(R.id.tv_itemPrice, String.format("%,d", model.getPrice()) + "đ");
+                    finder.setOnClickListener(R.id.btn_removeFromCart, () -> viewModel.removeFromCart(model.getId()));
+
                     APIUtils.loadImage(model.getImagePath(), finder.find(R.id.img_itemThumbnail));
+
                     finder.setOnClickListener(() -> {
                         Intent i3 = new Intent(getContext(), ProductInfoActivity.class);
                         i3.putExtra("productID", model.getId());

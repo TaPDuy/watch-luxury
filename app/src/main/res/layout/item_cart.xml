@@ -1,81 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="120dp"
-    android:layout_marginBottom="5dp"
-    app:cardCornerRadius="8dp">
+    android:layout_margin="4pt">
 
-    <ImageView
-        android:id="@+id/img_itemThumbnail"
-        android:layout_width="90dp"
-        android:layout_height="match_parent"
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="164dp"
+        android:layout_marginBottom="32dp"
+        app:cardCornerRadius="16dp">
 
-        android:layout_marginStart="10dp"
-        android:src="@drawable/c2" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:padding="16dp">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+            <com.google.android.flexbox.FlexboxLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:flexDirection="row"
+                app:justifyContent="space_evenly">
 
-        <TextView
-            android:id="@+id/tv_itemLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="200dp"
-            android:layout_marginTop="30dp"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    app:layout_flexShrink="0">
 
-            android:text="CASIO VUITTON 3.0"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            android:textStyle="normal" />
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        app:cardCornerRadius="16dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintDimensionRatio="W,1:1"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/tv_itemPrice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="200dp"
-            android:layout_marginTop="20dp"
-            android:text="128.500$"
-            android:textStyle="bold" />
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:contentDescription="@string/product_thumbnail_bg_desc"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/hero_bg" />
 
+                        <ImageView
+                            android:id="@+id/img_itemThumbnail"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:contentDescription="@string/product_thumbnail_desc"
+                            android:scaleType="centerInside"
+                            android:scaleX="0.9"
+                            android:scaleY="0.9"
+                            android:src="@drawable/googlelogo" />
+                    </androidx.cardview.widget.CardView>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </LinearLayout>
+                <Space
+                    android:layout_width="16dp"
+                    android:layout_height="match_parent" />
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="14dp"
-        android:orientation="horizontal">
+                <com.google.android.flexbox.FlexboxLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    app:flexDirection="column"
+                    app:justifyContent="space_between"
+                    app:layout_flexGrow="1">
 
-        <TextView
-            android:id="@+id/idMove"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="280dp"
-            android:layout_marginTop="58dp"
-            android:text="-"
-            android:textSize="35sp" />
+                    <TextView
+                        android:id="@+id/tv_itemLabel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:fontFamily="sans-serif-condensed"
+                        android:maxLines="3"
+                        android:padding="6dp"
+                        android:text="@string/product_name_placeholder"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/idCount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="55dp"
-            android:text="1"
-            android:textSize="24sp" />
+                    <com.google.android.flexbox.FlexboxLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:alignItems="center">
 
-        <TextView
-            android:id="@+id/idAdd"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="55dp"
-            android:text="+"
-            android:textSize="25sp" />
+                        <TextView
+                            android:id="@+id/tv_itemPrice"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="sans-serif-medium"
+                            android:padding="6dp"
+                            android:text="@string/product_price_placeholder"
+                            android:textSize="14sp"
+                            app:layout_flexGrow="1" />
 
-    </LinearLayout>
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_removeFromCart"
+                            style="@style/Widget.Material3.Button.Icon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:paddingHorizontal="12dp"
+                            android:textSize="14sp"
+                            app:icon="@drawable/ic_delete"
+                            app:iconSize="24sp"
+                            app:iconTint="@color/remove_color" />
+                    </com.google.android.flexbox.FlexboxLayout>
+                </com.google.android.flexbox.FlexboxLayout>
+            </com.google.android.flexbox.FlexboxLayout>
 
-</androidx.cardview.widget.CardView>
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+</layout>

@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.annotations.NonNull;
@@ -24,6 +25,7 @@ import nhom9.watchluxury.data.remote.model.FavoriteRequest;
 import nhom9.watchluxury.data.repo.ProductRepository;
 import nhom9.watchluxury.data.repo.UserRepository;
 import nhom9.watchluxury.event.CartEvent;
+import nhom9.watchluxury.event.CartEventBus;
 import nhom9.watchluxury.event.FavoriteEvent;
 
 public class HomeViewModel extends ViewModel {
@@ -149,6 +151,18 @@ public class HomeViewModel extends ViewModel {
                                     }
                                 })
         );
+    }
+
+    public void removeFromCart(int productID) {
+
+        Optional<Product> product = cartItems.getValue().stream()
+                .filter(p -> p.getId() == productID)
+                .findFirst();
+
+        if (product.isPresent()) {
+            CartManager.removeItem(product.get());
+            CartEventBus.getInstance().removeFromCart(product.get());
+        }
     }
 
     public void onCartEvent(CartEvent e) {
