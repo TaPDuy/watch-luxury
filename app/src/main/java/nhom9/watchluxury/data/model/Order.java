@@ -29,6 +29,10 @@ public class Order {
     @Json(name = "time_added")
     private String timeCreated;
 
+    public Order(User user, String name, String phoneNumber, String address, List<Product> products, long total) {
+        this(-1, user, name, phoneNumber, address, products, total, 0, null);
+    }
+
     public Order(int id, User user, String name, String phoneNumber, String address, List<Product> products, long total, int status, String timeCreated) {
         this.id = id;
         this.user = user;

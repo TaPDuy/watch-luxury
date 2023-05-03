@@ -19,9 +19,11 @@ import io.reactivex.rxjava3.subscribers.ResourceSubscriber;
 import nhom9.watchluxury.data.local.CartManager;
 import nhom9.watchluxury.data.local.TokenManager;
 import nhom9.watchluxury.data.model.Category;
+import nhom9.watchluxury.data.model.Order;
 import nhom9.watchluxury.data.model.Product;
 import nhom9.watchluxury.data.remote.model.APIResource;
 import nhom9.watchluxury.data.remote.model.FavoriteRequest;
+import nhom9.watchluxury.data.repo.OrderRepository;
 import nhom9.watchluxury.data.repo.ProductRepository;
 import nhom9.watchluxury.data.repo.UserRepository;
 import nhom9.watchluxury.event.CartEvent;
@@ -32,6 +34,7 @@ public class HomeViewModel extends ViewModel {
 
     private final CompositeDisposable disposables = new CompositeDisposable();
     private final ProductRepository productRepo;
+    private final OrderRepository orderRepo;
     private final UserRepository userRepo;
     private List<Category> categories;
     private final MutableLiveData<List<Product>> favorites;
@@ -45,8 +48,11 @@ public class HomeViewModel extends ViewModel {
     private final MutableLiveData<String> phoneNumber;
 
     public HomeViewModel() {
+
         this.userRepo = new UserRepository();
         this.productRepo = new ProductRepository();
+        this.orderRepo = new OrderRepository();
+
         this.categories = new ArrayList<>();
 
         this.favorites = new MutableLiveData<>(new ArrayList<>());
@@ -203,10 +209,33 @@ public class HomeViewModel extends ViewModel {
     }
 
     public void onConfirmClicked() {
-        Log.d("Checkout", name.getValue());
-        Log.d("Checkout", address.getValue());
-        Log.d("Checkout", phoneNumber.getValue());
-        Log.d("Checkout", "" + total.getValue());
+
+        disposables.add(
+                orderRepo.createOrder(TokenManager.getUserId(), new Order(
+                                TokenManager.getUser(),
+                                name.getValue(),
+                                phoneNumber.getValue(),
+                                address.getValue(),
+                                cartItems.getValue(),
+                                total.getValue()
+                        ))
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribeOn(Schedulers.io())
+                        .subscribeWith(new DisposableSingleObserver<APIResource<Order>>() {
+
+                            @Override
+                            public void onSuccess(@NonNull APIResource<Order> res) {
+                                CartManager.clear();
+                                CartEventBus.getInstance().clearCart();
+                                Log.d("HomeViewModel", "onNext: " + res);
+                            }
+
+                            @Override
+                            public void onError(@NonNull Throwable e) {
+                                Log.d("HomeViewModel", "onError: " + e);
+                            }
+                        })
+        );
     }
 
     @Override

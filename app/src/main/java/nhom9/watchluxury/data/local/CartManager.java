@@ -23,6 +23,11 @@ public class CartManager {
             total -= product.getPrice();
     }
 
+    public static void clear() {
+        CART.clear();
+        total = 0;
+    }
+
     public static long getTotal() {
         return total;
     }

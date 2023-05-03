@@ -19,4 +19,8 @@ public class CartEventBus extends EventBus<CartEvent> {
     public void removeFromCart(Product product) {
         invoke(new CartEvent(product, CartEvent.Action.REMOVE));
     }
+
+    public void clearCart() {
+        invoke(new CartEvent(null, CartEvent.Action.REMOVE));
+    }
 }

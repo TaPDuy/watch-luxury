@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,11 +24,9 @@ import com.github.vivchar.rendererrecyclerviewadapter.ViewRenderer;
 import io.reactivex.rxjava3.disposables.Disposable;
 import nhom9.watchluxury.R;
 import nhom9.watchluxury.activity.ProductInfoActivity;
-import nhom9.watchluxury.data.local.CartManager;
 import nhom9.watchluxury.data.model.Product;
 import nhom9.watchluxury.databinding.DialogOrderBinding;
 import nhom9.watchluxury.databinding.FragmentCartBinding;
-import nhom9.watchluxury.event.CartEvent;
 import nhom9.watchluxury.event.CartEventBus;
 import nhom9.watchluxury.util.APIUtils;
 import nhom9.watchluxury.viewmodel.HomeViewModel;
@@ -154,7 +151,10 @@ public class CartFragment extends Fragment {
         dialog.setCancelable(true);
 
         dialogBinding.idCancel.setOnClickListener(view -> dialog.dismiss());
-        dialogBinding.idConfirm.setOnClickListener(view -> Toast.makeText(requireContext(), "Mua hang thanh cong", Toast.LENGTH_SHORT).show());
+        dialogBinding.idConfirm.setOnClickListener(view -> {
+            viewModel.onConfirmClicked();
+            dialog.dismiss();
+        });
 
         dialog.show();
     }
