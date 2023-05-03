@@ -71,7 +71,6 @@ public class UserRepository {
                             credentials.getAccessToken(),
                             credentials.getRefreshToken()
                     );
-                    TokenManager.saveInt(TokenManager.KEY_ID, credentials.getLoggedInUserID());
 
                     userAPI.getUser(credentials.getLoggedInUserID())
                             .doOnSuccess(
