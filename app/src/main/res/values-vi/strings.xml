@@ -47,4 +47,6 @@
     <string name="checkout_confirm_button">Xác nhận</string>
     <string name="user_info_name">Tên</string>
     <string name="checkout_confirm_title">Xác nhận đơn hàng</string>
+    <string name="sidebar_orders">Lịch sử mua hàng</string>
+    <string name="orders_title">Đơn hàng của %s</string>
 </resources>

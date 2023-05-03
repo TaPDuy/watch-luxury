@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <import type="nhom9.watchluxury.util.DateUtils" />
+
+        <variable
+            name="order"
+            type="nhom9.watchluxury.data.model.Order" />
+
+        <variable
+            name="viewModel"
+            type="nhom9.watchluxury.viewmodel.OrdersViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/dialog_inset"
+        android:orientation="vertical"
+        android:paddingTop="8dp">
+
+
+        <TextView
+            android:id="@+id/tv_itemName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_header_underline"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-condensed"
+            android:maxLines="2"
+            android:paddingVertical="6dp"
+            android:text="@{order.name}"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            android:paddingVertical="3dp"
+            android:text="@{DateUtils.toSimpleString(order.timeCreated)}" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:fontFamily="sans-serif-medium"
+                android:paddingVertical="4dp"
+                android:text="Address: "
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:paddingVertical="4dp"
+                android:text="@{order.address}"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:fontFamily="sans-serif-medium"
+                android:paddingVertical="4dp"
+                android:text="Phone number: "
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:paddingVertical="4dp"
+                android:text="@{order.phoneNumber}"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="16dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:paddingVertical="4dp"
+            android:text="Products: "
+            android:textSize="16sp" />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_productList"
+            android:layout_width="match_parent"
+            android:layout_height="288dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="0"
+                android:layout_marginEnd="4dp"
+                android:fontFamily="sans-serif-medium"
+                android:paddingVertical="4dp"
+                android:text="Subtotal: "
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:paddingVertical="4dp"
+                android:text='@{String.format("%,d", order.total) + "đ"}'
+                android:textSize="16sp" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+</layout>

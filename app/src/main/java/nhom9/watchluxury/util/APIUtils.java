@@ -17,8 +17,6 @@ public class APIUtils {
 
     public static final String BASE_URL = BuildConfig.API_BASE_URL;
 
-    private static final Picasso PICASSO = Picasso.get();
-
     public static AuthService getAuthenticationService() {
         return RetrofitClient.getClient(BASE_URL).create(AuthService.class);
     }
@@ -40,7 +38,7 @@ public class APIUtils {
     }
 
     public static void loadImage(String url, ImageView target) {
-        PICASSO.load(BASE_URL + url)
+        Picasso.get().load(BASE_URL + url)
                 .placeholder(R.drawable.c1)
                 .error(R.mipmap.ic_launcher)
                 .into(target);

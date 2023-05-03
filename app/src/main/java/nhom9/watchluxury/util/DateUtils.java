@@ -10,6 +10,18 @@ import java.util.TimeZone;
 public class DateUtils {
 
     private static final DateFormat FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.US);
+    private static final DateFormat SIMPLE = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy", Locale.US);
+
+    public static String toSimpleString(Date date) {
+        if (date == null)
+            return "";
+
+        return SIMPLE.format(date);
+    }
+
+    public static String toSimpleString(String date) {
+        return toSimpleString(parse(date));
+    }
 
     public static String toString(Date date) {
         if (date == null)

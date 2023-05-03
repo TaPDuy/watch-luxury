@@ -59,10 +59,7 @@ public class HomeViewModel extends ViewModel {
         this.cartItems = new MutableLiveData<>(new ArrayList<>());
         this.total = new MutableLiveData<>(0L);
 
-        this.name = new MutableLiveData<>(
-                TokenManager.getString(TokenManager.KEY_FIRST_NAME)
-                        + " "
-                        + TokenManager.getString(TokenManager.KEY_LAST_NAME));
+        this.name = new MutableLiveData<>(TokenManager.getUsername() + "'s order");
         this.address = new MutableLiveData<>(TokenManager.getString(TokenManager.KEY_ADDRESS));
         this.phoneNumber = new MutableLiveData<>(TokenManager.getString(TokenManager.KEY_PHONE));
 

@@ -2,6 +2,7 @@ package nhom9.watchluxury.data.model;
 
 import androidx.annotation.NonNull;
 
+import com.github.vivchar.rendererrecyclerviewadapter.ViewModel;
 import com.squareup.moshi.Json;
 import com.squareup.moshi.JsonClass;
 
@@ -12,7 +13,7 @@ import nhom9.watchluxury.data.local.model.OrderRow;
 import nhom9.watchluxury.util.JsonUtils;
 
 
-public class Order {
+public class Order implements ViewModel {
 
     private int id;
 

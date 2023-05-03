@@ -20,6 +20,11 @@
         android:titleCondensed="User"
         android:title="@string/sidebar_user" />
 
+    <item
+        android:id="@+id/orders"
+        android:icon="@drawable/ic_order_history"
+        android:title="@string/sidebar_orders" />
+
 <!--    <item-->
 <!--        android:id="@+id/note"-->
 <!--        android:iconTint="@color/navi"-->

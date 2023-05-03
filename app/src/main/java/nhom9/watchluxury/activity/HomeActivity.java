@@ -129,6 +129,10 @@ public class HomeActivity extends AppCompatActivity {
                     Intent i3 = new Intent(HomeActivity.this, SettingsActivity.class);
                     startActivity(i3);
                     break;
+                case R.id.orders:
+                    Intent i4 = new Intent(HomeActivity.this, OrdersActivity.class);
+                    startActivity(i4);
+                    break;
                 default:
                     res = false;
                     break;

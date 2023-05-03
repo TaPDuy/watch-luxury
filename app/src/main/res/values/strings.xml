@@ -63,4 +63,6 @@
     <string name="checkout_confirm_button">Confirm</string>
     <string name="user_info_name">Name</string>
     <string name="checkout_confirm_title">Confirm your order</string>
+    <string name="sidebar_orders">Order history</string>
+    <string name="orders_title">%s\'s orders</string>
 </resources>
