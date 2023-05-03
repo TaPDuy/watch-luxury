@@ -1,12 +1,13 @@
 package nhom9.watchluxury.activity;
 
+import android.os.Bundle;
+import android.view.MenuItem;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
-
-import android.os.Bundle;
 
 import java.lang.reflect.InvocationTargetException;
 
@@ -37,15 +38,25 @@ public class ProductInfoActivity extends AppCompatActivity {
         binding.topBar.setNavigationOnClickListener(view -> finish());
         binding.topBar.setOnMenuItemClickListener(item -> {
             if(item.getItemId() == R.id.favorite) {
-                // Implement favorite
+                viewModel.setIsFavorited(!item.isChecked());
                 return true;
             }
             return false;
         });
+        binding.topBar.setBackgroundTintList(null);
+        binding.btnAddToCart.addOnCheckedChangeListener((button, isChecked) -> viewModel.onCartClicked(isChecked));
     }
 
     private void initObserver() {
         viewModel.getImageUrl().observe(this, url -> APIUtils.loadImage(url, binding.imgProduct));
+        viewModel.getIsFavorited().observe(
+                this,
+                isChecked -> {
+                    MenuItem item = binding.topBar.getMenu().findItem(R.id.favorite);
+                    item.setChecked(isChecked);
+                    item.setIcon(isChecked ? R.drawable.ic_favorite_checked : R.drawable.ic_favorite_unchecked);
+                }
+        );
     }
 
     private static class ViewModelFactory implements ViewModelProvider.Factory {

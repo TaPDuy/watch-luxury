@@ -3,4 +3,10 @@
     <style name="rounded_corner">
         <item name="cornerSize">16dp</item>
     </style>
+
+    <style name="dialog">
+        <item name="android:background">@color/design_default_color_surface</item>
+        <item name="android:windowEnterAnimation">@anim/slide_up</item>
+        <item name="android:windowExitAnimation">@anim/slide_down</item>
+    </style>
 </resources>

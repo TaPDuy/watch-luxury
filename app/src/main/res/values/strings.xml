@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Watch Luxury</string>
+    <string name="app_name" translatable="false">Watch Luxury</string>
     <string name="register_header">Create new account</string>
     <string name="register_username_hint">Username</string>
     <string name="register_email_hint">Email</string>
@@ -7,15 +7,15 @@
     <string name="register_password1_hint">Password</string>
     <string name="register_password2_hint">Retype Password</string>
     <string name="register_button">Register</string>
-    <string name="register_back_to_login">Already have an account! Login</string>
-    <string name="about_subtitles">Bài tập lớn nhóm 9</string>
-    <string name="about_header">Môn Phát triển ứng dụng cho các thiết bị di động</string>
-    <string name="app_name_caps">WATCH LUXURY</string>
-    <string name="about_members_header">Thành viên nhóm:</string>
-    <string name="about_member_1">Tạ Phương Duy - B19DCCN143</string>
-    <string name="about_member_2">Nguyễn Văn Tứ - B19DCCN634</string>
-    <string name="about_member_3">Cao Xuân Đạt - B19DCCN167</string>
-    <string name="logo_desc">The app\'s logo</string>
+    <string name="register_back_to_login" translatable="false">Already have an account! Login</string>
+    <string name="about_subtitles" translatable="false">Bài tập lớn nhóm 9</string>
+    <string name="about_header" translatable="false">Môn Phát triển ứng dụng cho các thiết bị di động</string>
+    <string name="app_name_caps" translatable="false">WATCH LUXURY</string>
+    <string name="about_members_header">Group members:</string>
+    <string name="about_member_1" translatable="false">Tạ Phương Duy - B19DCCN143</string>
+    <string name="about_member_2" translatable="false">Nguyễn Văn Tứ - B19DCCN634</string>
+    <string name="about_member_3" translatable="false">Cao Xuân Đạt - B19DCCN167</string>
+    <string name="logo_desc" translatable="false">The app\'s logo</string>
     <string name="edit_user_info_header">User info</string>
     <string name="edit_user_info_first_name">First name</string>
     <string name="edit_user_info_last_name">Last name</string>
@@ -28,25 +28,27 @@
     <string name="edit_user_password_new">New password</string>
     <string name="edit_user_password_update_button">Update</string>
     <string name="search_bar_hint">Search…</string>
-    <string name="floating_action_button_desc">Floating action button</string>
+    <string name="floating_action_button_desc" translatable="false">Floating action button</string>
     <string name="login_username_hint">Username</string>
     <string name="login_password_hint">Password</string>
     <string name="login_button">Login</string>
     <string name="login_register_button">Register</string>
-    <string name="oauth_logo_desc">Oauth logo</string>
+    <string name="oauth_logo_desc" translatable="false">Oauth logo</string>
     <string name="product_thumbnail_desc">Product thumbnail</string>
     <string name="product_price_header">Price</string>
+    <string name="cart_total_header">Subtotal</string>
+    <string name="cart_checkout_button">Checkout</string>
     <string name="product_cart_button">Add to cart</string>
     <string name="search_header">Search results</string>
     <string name="settings_dark_mode">Dark mode</string>
     <string name="user_avatar_desc">User avatar</string>
     <string name="category_see_more">See more</string>
     <string name="category_name_placeholder">Category name</string>
-    <string name="product_thumbnail_bg_desc">Product thumbnail background</string>
-    <string name="product_name_placeholder">Product name</string>
-    <string name="product_price_placeholder">0đ</string>
-    <string name="logged_in_as">Logged in as </string>
-    <string name="sidebar_username_placeholder">Lazarus</string>
+    <string name="product_thumbnail_bg_desc" translatable="false">Product thumbnail background</string>
+    <string name="product_name_placeholder" translatable="false">Product nameProduct nameProduct nameProduct nameProduct nameProduct nameProduct nameProduct nameProduct nameProduct name</string>
+    <string name="product_price_placeholder" translatable="false">0đ</string>
+    <string name="logged_in_as">Logged in as\u0020</string>
+    <string name="sidebar_username_placeholder" translatable="false">Lazarus</string>
     <string name="sidebar_user">User info</string>
     <string name="sidebar_settings">Setting</string>
     <string name="sidebar_about">About</string>
@@ -54,4 +56,13 @@
     <string name="menu_search">Search</string>
     <string name="menu_favorite">Favorite</string>
     <string name="menu_edit">Edit</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="product_cart_button_checked">Added to cart</string>
+    <string name="checkout_cancel_button">Cancel</string>
+    <string name="checkout_confirm_button">Confirm</string>
+    <string name="user_info_name">Name</string>
+    <string name="checkout_confirm_title">Confirm your order</string>
+    <string name="sidebar_orders">Order history</string>
+    <string name="orders_title">%s\'s orders</string>
 </resources>

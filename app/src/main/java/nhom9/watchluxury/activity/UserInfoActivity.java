@@ -48,6 +48,8 @@ public class UserInfoActivity extends AppCompatActivity {
             }
             return false;
         });
+
+        viewModel.loadOrders();
     }
 
     private void initObserver() {
