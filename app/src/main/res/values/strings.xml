@@ -59,4 +59,8 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="product_cart_button_checked">Added to cart</string>
+    <string name="checkout_cancel_button">Cancel</string>
+    <string name="checkout_confirm_button">Confirm</string>
+    <string name="user_info_name">Name</string>
+    <string name="checkout_confirm_title">Confirm your order</string>
 </resources>

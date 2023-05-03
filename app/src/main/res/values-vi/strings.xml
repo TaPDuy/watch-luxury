@@ -43,4 +43,8 @@
     <string name="menu_favorite">Ưu thích</string>
     <string name="menu_edit">Sửa</string>
     <string name="product_cart_button_checked">Đã thêm vào giỏ hàng</string>
+    <string name="checkout_cancel_button">Hủy</string>
+    <string name="checkout_confirm_button">Xác nhận</string>
+    <string name="user_info_name">Tên</string>
+    <string name="checkout_confirm_title">Xác nhận đơn hàng</string>
 </resources>

@@ -136,6 +136,7 @@ public class CartFragment extends Fragment {
         final Dialog dialog = new Dialog(requireContext());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(dialogBinding.getRoot());
+        dialogBinding.setViewModel(viewModel);
 
         Window window = dialog.getWindow();
         if (window == null)

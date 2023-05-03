@@ -39,6 +39,10 @@ public class HomeViewModel extends ViewModel {
     private final MutableLiveData<Long> total;
     private final PublishSubject<List<Category>> subject;
 
+    // Confirm order fields
+    private final MutableLiveData<String> name;
+    private final MutableLiveData<String> address;
+    private final MutableLiveData<String> phoneNumber;
 
     public HomeViewModel() {
         this.userRepo = new UserRepository();
@@ -48,6 +52,13 @@ public class HomeViewModel extends ViewModel {
         this.favorites = new MutableLiveData<>(new ArrayList<>());
         this.cartItems = new MutableLiveData<>(new ArrayList<>());
         this.total = new MutableLiveData<>(0L);
+
+        this.name = new MutableLiveData<>(
+                TokenManager.getString(TokenManager.KEY_FIRST_NAME)
+                        + " "
+                        + TokenManager.getString(TokenManager.KEY_LAST_NAME));
+        this.address = new MutableLiveData<>(TokenManager.getString(TokenManager.KEY_ADDRESS));
+        this.phoneNumber = new MutableLiveData<>(TokenManager.getString(TokenManager.KEY_PHONE));
 
         subject = PublishSubject.create();
     }
@@ -66,6 +77,18 @@ public class HomeViewModel extends ViewModel {
 
     public MutableLiveData<Long> getTotal() {
         return total;
+    }
+
+    public MutableLiveData<String> getName() {
+        return name;
+    }
+
+    public MutableLiveData<String> getAddress() {
+        return address;
+    }
+
+    public MutableLiveData<String> getPhoneNumber() {
+        return phoneNumber;
     }
 
     public void loadData() {
@@ -177,6 +200,13 @@ public class HomeViewModel extends ViewModel {
     public void onCartEvent(CartEvent e) {
         cartItems.setValue(CartManager.getCart());
         total.setValue(CartManager.getTotal());
+    }
+
+    public void onConfirmClicked() {
+        Log.d("Checkout", name.getValue());
+        Log.d("Checkout", address.getValue());
+        Log.d("Checkout", phoneNumber.getValue());
+        Log.d("Checkout", "" + total.getValue());
     }
 
     @Override
