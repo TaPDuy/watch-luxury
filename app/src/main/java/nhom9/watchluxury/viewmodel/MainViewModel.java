@@ -42,6 +42,7 @@ public class MainViewModel extends ViewModel {
                     .subscribeWith(new DisposableSubscriber<APIResource<User>>() {
                         @Override
                         public void onNext(@NonNull APIResource<User> res) {
+                            TokenManager.saveUser(res.getData());
                             Log.i("Init", "onNext: " + res);
                         }
 

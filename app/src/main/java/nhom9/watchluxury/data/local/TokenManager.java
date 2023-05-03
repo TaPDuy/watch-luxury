@@ -8,6 +8,7 @@ import nhom9.watchluxury.data.model.User;
 public class TokenManager {
 
     private static SharedPreferences sharedPref;
+    private static User user;
 
     public static final String KEY_ID = "id";
     public static final String KEY_USERNAME = "username";
@@ -35,18 +36,8 @@ public class TokenManager {
         editor.putString(KEY_PHONE, user.getPhoneNumber());
         editor.putString(KEY_EMAIL, user.getEmail());
         editor.apply();
-    }
 
-    public static void saveInt(String key, int value) {
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putInt(key, value);
-        editor.apply();
-    }
-
-    public static void saveString(String key, String value) {
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putString(key, value);
-        editor.apply();
+        TokenManager.user = user;
     }
 
     public static String getString(String key) {
@@ -92,9 +83,15 @@ public class TokenManager {
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.clear();
         editor.apply();
+
+        TokenManager.user = null;
     }
 
     public static boolean isAuthenticated() {
         return !getAccessToken().isEmpty() && getUserId() != -1;
+    }
+
+    public static User getUser() {
+        return user;
     }
 }
