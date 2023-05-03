@@ -67,12 +67,22 @@ public class UserRepository {
                 .doOnSuccess(res -> {
 
                     LoginCredentials credentials = res.getData();
-                    TokenManager.save(
+                    TokenManager.saveTokens(
                             credentials.getAccessToken(),
-                            credentials.getRefreshToken(),
-                            credentials.getLoggedInUserID(),
-                            username
+                            credentials.getRefreshToken()
                     );
+                    TokenManager.saveInt(TokenManager.KEY_ID, credentials.getLoggedInUserID());
+
+                    userAPI.getUser(credentials.getLoggedInUserID())
+                            .doOnSuccess(
+                                    res2 -> {
+                                        User user = res2.getData();
+                                        TokenManager.saveUser(user);
+                                        userDB.insertUser(user).subscribe().dispose();
+                                    }
+                            )
+                            .doOnError(throwable -> Log.e(CLASS_NAME, Objects.requireNonNull(throwable.getMessage())))
+                            .subscribe().dispose();
 
                     Log.d(CLASS_NAME, "New credentials saved: " + credentials);
                 })
