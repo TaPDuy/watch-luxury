@@ -77,6 +77,25 @@ public class HomeActivity extends AppCompatActivity {
 //                binding.imgLogo.setVisibility(position == 0 ? View.VISIBLE : View.GONE);
                 binding.ablTopBar.setExpanded(position == 0);
 
+                switch (position) {
+                    case 0:
+                        binding.imgPageTitle.setVisibility(View.VISIBLE);
+                        binding.tvPageTitle.setVisibility(View.GONE);
+                        break;
+                    case 1:
+                        binding.imgPageTitle.setVisibility(View.GONE);
+                        binding.tvPageTitle.setVisibility(View.VISIBLE);
+                        binding.tvPageTitle.setText("Favorites");
+                        break;
+                    case 2:
+                        binding.imgPageTitle.setVisibility(View.GONE);
+                        binding.tvPageTitle.setVisibility(View.VISIBLE);
+                        binding.tvPageTitle.setText("Cart");
+                        break;
+                    default:
+                        break;
+                }
+
                 ObjectAnimator anim;
                 if (position != 2) {
                     if (previousPos == 2) {
