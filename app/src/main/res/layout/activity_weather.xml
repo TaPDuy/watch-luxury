@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="viewModel"
+            type="nhom9.watchluxury.viewmodel.WeatherViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/imgweatwo"
+        android:orientation="vertical"
+        android:weightSum="6.9"
+        android:fitsSystemWindows="true">
+
+        <LinearLayout
+            android:id="@+id/linear_search"
+
+            style="@style/RoundedEditText"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="0.6"
+
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <EditText
+
+                android:id="@+id/et_location_current"
+                android:layout_width="240dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="1dp"
+
+                android:layout_weight="1.1"
+                android:background="@drawable/background_search"
+                android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ ,"
+
+                android:hint="Cin city name:"
+                android:paddingStart="1dp"
+                android:text="@={viewModel.location}"
+                android:textColor="@color/colorPrimaryDark"
+                android:textColorHint="#979191"
+                android:textSize="20dp" />
+
+            <ImageButton
+
+                android:id="@+id/btn_search"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="1dp"
+                android:layout_weight="0.2"
+                android:adjustViewBounds="true"
+                android:background="#FAF5F5"
+
+                android:contextClickable="true"
+
+                android:padding="0dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/base_search" />
+
+        </LinearLayout>
+
+        <LinearLayout
+
+            android:id="@+id/linear_current_day_weather"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4.8">
+
+            <LinearLayout
+
+
+                android:id="@+id/mainLayout"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="3"
+                android:orientation="vertical"
+                android:padding="10dp"
+                android:weightSum="5.7"
+                tools:ignore="NestedWeights">
+
+                <TextView
+                    android:id="@+id/tv_city"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.8"
+                    android:gravity="center"
+                    android:text="@{viewModel.cityName}"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="40sp">
+
+                </TextView>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="80dp"
+                    android:layout_weight="2.0"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <ImageView
+                        android:id="@+id/iv_weather_current_icon"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="end"
+                        android:layout_weight="0.4"
+                        android:padding="0dp" />
+                    <!--                    android:src="@drawable/weather" />-->
+
+                    <TextView
+                        android:id="@+id/tv_temp_description_current"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1.1"
+                        android:gravity="center_vertical"
+                        android:paddingStart="1dp"
+                        android:text="@{viewModel.description}"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="25sp" />
+
+                    <TextView
+                        android:id="@+id/tv_temperature_current"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.5"
+                        android:autoSizeTextType="uniform"
+                        android:gravity="center"
+                        android:text='@{viewModel.formatTemperature(viewModel.currentTemperature)}'
+                        android:textColor="@color/colorAccent"
+                        android:textSize="70sp" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_forecast_weather"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="10dp"
+            android:layout_weight="1.5"
+            android:orientation="horizontal">
+
+            <LinearLayout
+
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="3dp"
+                android:layout_weight="1"
+                android:background="@drawable/background_view"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_first_day"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@{viewModel.firstDayName}"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="20sp" />
+
+
+                <!--            <ImageView-->
+                <!--                android:id="@+id/img_icon"-->
+                <!--                android:layout_width="70dp"-->
+                <!--                android:layout_height="70dp"-->
+                <!--                android:layout_gravity="center"-->
+                <!--                android:layout_weight="0.8" />-->
+
+                <TextView
+                    android:id="@+id/tv_first_day_max_temp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@{viewModel.formatTemperature(viewModel.firstDayTemp)}"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="20sp" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="3dp"
+                android:layout_weight="1"
+                android:background="@drawable/background_view"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_second_day"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@{viewModel.secondDayName}"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="20sp" />
+
+
+                <!--            <ImageView-->
+
+                <!--                android:id="@+id/img_icon2"-->
+                <!--                android:layout_width="70dp"-->
+                <!--                android:layout_height="70dp"-->
+                <!--                android:layout_gravity="center"-->
+                <!--                android:layout_weight="0.8" />-->
+
+
+                <TextView
+                    android:id="@+id/tv_second_day_max_temp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@{viewModel.formatTemperature(viewModel.secondDayTemp)}"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="20sp" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="3dp"
+                android:layout_weight="1"
+                android:background="@drawable/background_view"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_third_day"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@{viewModel.thirdDayName}"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="20sp" />
+
+                <!--            <ImageView-->
+
+                <!--                android:id="@+id/img_icon3"-->
+                <!--                android:layout_width="70dp"-->
+                <!--                android:layout_height="70dp"-->
+                <!--                android:layout_gravity="center"-->
+                <!--                android:layout_weight="0.8" />-->
+
+                <TextView
+                    android:id="@+id/tv_third_day_max_temp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@{viewModel.formatTemperature(viewModel.thirdDayTemp)}"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="20sp" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="3dp"
+                android:layout_weight="1"
+                android:background="@drawable/background_view"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_fourth_day"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@{viewModel.fourthDayName}"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="20sp" />
+
+                <!--            <ImageView-->
+
+                <!--                android:id="@+id/img_icon4"-->
+                <!--                android:layout_width="70dp"-->
+                <!--                android:layout_height="70dp"-->
+                <!--                android:layout_gravity="center"-->
+                <!--                android:layout_weight="0.8" />-->
+
+                <TextView
+                    android:id="@+id/tv_fourth_day_max_temp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@{viewModel.formatTemperature(viewModel.fourthDayTemp)}"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="20sp" />
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/frameLayout_progress_bar"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="150dp"
+            android:background="@color/colorPrimaryDark"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/frameLayout_no_result"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="150dp"
+            android:background="@color/colorPrimaryDark"
+            android:visibility='@{viewModel.noResult ? View.VISIBLE : View.GONE}'
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1.5"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_no_result_found_view">
+
+                </ImageView>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.7"
+                    android:gravity="center"
+                    android:text="@string/no_result"
+                    android:textColor="#fff"
+                    android:textSize="45sp">
+
+                </TextView>
+            </LinearLayout>
+        </FrameLayout>
+
+    </LinearLayout>
+</layout>

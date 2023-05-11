@@ -32,6 +32,11 @@
 <!--        android:title="Note" />-->
 
     <item
+        android:id="@+id/weather"
+        android:icon="@drawable/clouds"
+        android:title="@string/weather" />
+
+    <item
         android:id="@+id/setting"
         android:icon="@drawable/ic_settings"
         android:title="@string/sidebar_settings" />

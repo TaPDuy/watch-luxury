@@ -133,6 +133,10 @@ public class HomeActivity extends AppCompatActivity {
                     Intent i4 = new Intent(HomeActivity.this, OrdersActivity.class);
                     startActivity(i4);
                     break;
+                case R.id.weather:
+                    Intent i5 = new Intent(HomeActivity.this, WeatherActivity.class);
+                    startActivity(i5);
+                    break;
                 default:
                     res = false;
                     break;
