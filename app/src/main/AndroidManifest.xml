@@ -15,6 +15,10 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".activity.MusicActivity"
+            android:exported="false"
+            android:parentActivityName=".activity.HomeActivity" />
+        <activity
             android:name=".activity.WeatherActivity"
             android:exported="false"
             android:parentActivityName=".activity.HomeActivity" />

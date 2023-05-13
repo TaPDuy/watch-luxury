@@ -159,36 +159,39 @@
                 tools:ignore="RtlSymmetry">
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    style="@style/Widget.Material3.ExtendedFloatingActionButton.Icon.Primary"
                     android:id="@+id/floatingBtnCart"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:contentDescription="@string/floating_action_button_desc"
                     android:src="@drawable/ic_cart"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     app:fabSize="mini">
 
                 </com.google.android.material.floatingactionbutton.FloatingActionButton>
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    style="@style/Widget.Material3.ExtendedFloatingActionButton.Icon.Primary"
                     android:id="@+id/floatingBtnFavorite"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:contentDescription="@string/floating_action_button_desc"
                     android:src="@drawable/ic_favorite_checked"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     app:fabSize="mini">
 
                 </com.google.android.material.floatingactionbutton.FloatingActionButton>
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    style="@style/Widget.Material3.ExtendedFloatingActionButton.Icon.Primary"
                     android:id="@+id/floatingBtnHome"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:contentDescription="@string/floating_action_button_desc"
                     android:src="@drawable/ic_home"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     app:fabSize="mini">
 
                 </com.google.android.material.floatingactionbutton.FloatingActionButton>

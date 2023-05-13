@@ -156,6 +156,10 @@ public class HomeActivity extends AppCompatActivity {
                     Intent i5 = new Intent(HomeActivity.this, WeatherActivity.class);
                     startActivity(i5);
                     break;
+                case R.id.bgm:
+                    Intent i6 = new Intent(HomeActivity.this, MusicActivity.class);
+                    startActivity(i6);
+                    break;
                 default:
                     res = false;
                     break;

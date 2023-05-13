@@ -37,6 +37,11 @@
         android:title="@string/weather" />
 
     <item
+        android:id="@+id/bgm"
+        android:icon="@drawable/okok"
+        android:title="@string/bgm" />
+
+    <item
         android:id="@+id/setting"
         android:icon="@drawable/ic_settings"
         android:title="@string/sidebar_settings" />
