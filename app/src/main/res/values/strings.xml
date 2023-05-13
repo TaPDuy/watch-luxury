@@ -65,4 +65,12 @@
     <string name="checkout_confirm_title">Confirm your order</string>
     <string name="sidebar_orders">Order history</string>
     <string name="orders_title">%s\'s orders</string>
+    <string name="max" translatable="false">Max</string>
+    <string name="min" translatable="false">Min</string>
+    <string name="temp" translatable="false">Temp</string>
+    <string name="no_result" translatable="false">No Result</string>
+    <string name="city_name" translatable="false">Weather in</string>
+    <string name="weather">Weather</string>
+    <string name="bgm" translatable="false">BGM</string>
+    <string name="note">Note</string>
 </resources>

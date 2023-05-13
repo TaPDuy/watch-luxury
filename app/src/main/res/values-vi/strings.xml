@@ -49,4 +49,6 @@
     <string name="checkout_confirm_title">Xác nhận đơn hàng</string>
     <string name="sidebar_orders">Lịch sử mua hàng</string>
     <string name="orders_title">Đơn hàng của %s</string>
+    <string name="weather">Thời tiết</string>
+    <string name="note">Ghi chú</string>
 </resources>
