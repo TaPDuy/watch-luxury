@@ -160,6 +160,10 @@ public class HomeActivity extends AppCompatActivity {
                     Intent i6 = new Intent(HomeActivity.this, MusicActivity.class);
                     startActivity(i6);
                     break;
+                case R.id.note:
+                    Intent i7 = new Intent(HomeActivity.this, NoteActivity.class);
+                    startActivity(i7);
+                    break;
                 default:
                     res = false;
                     break;

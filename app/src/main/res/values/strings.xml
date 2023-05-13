@@ -72,4 +72,5 @@
     <string name="city_name" translatable="false">Weather in</string>
     <string name="weather">Weather</string>
     <string name="bgm" translatable="false">BGM</string>
+    <string name="note">Note</string>
 </resources>
