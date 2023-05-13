@@ -151,48 +151,56 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
+                android:padding="16dp"
                 android:clipToPadding="false"
-                android:layoutDirection="rtl"
                 android:orientation="vertical"
-                android:paddingStart="16dp"
-                android:paddingBottom="16dp"
-                tools:ignore="RtlSymmetry">
+                tools:ignore="RtlSymmetry"
+                android:gravity="center">
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    style="@style/Widget.Material3.ExtendedFloatingActionButton.Icon.Primary"
                     android:id="@+id/floatingBtnCart"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:contentDescription="@string/floating_action_button_desc"
                     android:src="@drawable/ic_cart"
-                    android:visibility="visible"
-                    app:fabSize="mini">
+                    android:visibility="gone"
+                    app:fabSize="mini"
+                    app:shapeAppearanceOverlay="@style/FloatingActionButton"
+                    android:scaleType="fitCenter"
+                    app:fabCustomSize="42dp"
+                    app:maxImageSize="16dp">
 
                 </com.google.android.material.floatingactionbutton.FloatingActionButton>
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    style="@style/Widget.Material3.ExtendedFloatingActionButton.Icon.Primary"
                     android:id="@+id/floatingBtnFavorite"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="12dp"
                     android:contentDescription="@string/floating_action_button_desc"
                     android:src="@drawable/ic_favorite_checked"
-                    android:visibility="visible"
-                    app:fabSize="mini">
+                    android:visibility="gone"
+                    app:fabSize="mini"
+                    app:shapeAppearanceOverlay="@style/FloatingActionButton"
+                    android:scaleType="fitCenter"
+                    app:fabCustomSize="42dp"
+                    app:maxImageSize="16dp">
 
                 </com.google.android.material.floatingactionbutton.FloatingActionButton>
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    style="@style/Widget.Material3.ExtendedFloatingActionButton.Icon.Primary"
                     android:id="@+id/floatingBtnHome"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="12dp"
                     android:contentDescription="@string/floating_action_button_desc"
                     android:src="@drawable/ic_home"
-                    android:visibility="visible"
-                    app:fabSize="mini">
+                    android:visibility="gone"
+                    app:fabSize="mini"
+                    app:shapeAppearanceOverlay="@style/FloatingActionButton"
+                    android:scaleType="fitCenter"
+                    app:fabCustomSize="42dp"
+                    app:maxImageSize="16dp">
 
                 </com.google.android.material.floatingactionbutton.FloatingActionButton>
 
@@ -200,10 +208,11 @@
                     android:id="@+id/floatingBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="12dp"
                     android:contentDescription="@string/floating_action_button_desc"
                     android:src="@drawable/ic_menu"
-                    android:tint="@color/white">
+                    android:tint="@color/white"
+                    app:shapeAppearanceOverlay="@style/FloatingActionButton">
 
                 </com.google.android.material.floatingactionbutton.FloatingActionButton>
 
