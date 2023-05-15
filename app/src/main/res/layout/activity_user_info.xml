@@ -71,7 +71,7 @@
                                 android:adjustViewBounds="true"
                                 android:contentDescription="@string/user_avatar_desc"
                                 android:scaleType="fitCenter"
-                                android:src="@drawable/c1" />
+                                android:src="@drawable/logo" />
                         </androidx.cardview.widget.CardView>
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
