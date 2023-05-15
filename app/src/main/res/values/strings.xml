@@ -73,4 +73,6 @@
     <string name="weather">Weather</string>
     <string name="bgm" translatable="false">BGM</string>
     <string name="note">Note</string>
+    <string name="title_favorite">Favorites</string>
+    <string name="title_cart">Cart</string>
 </resources>

@@ -85,12 +85,12 @@ public class HomeActivity extends AppCompatActivity {
                     case 1:
                         binding.imgPageTitle.setVisibility(View.GONE);
                         binding.tvPageTitle.setVisibility(View.VISIBLE);
-                        binding.tvPageTitle.setText("Favorites");
+                        binding.setTitle(getString(R.string.title_favorite));
                         break;
                     case 2:
                         binding.imgPageTitle.setVisibility(View.GONE);
                         binding.tvPageTitle.setVisibility(View.VISIBLE);
-                        binding.tvPageTitle.setText("Cart");
+                        binding.setTitle(getString(R.string.title_cart));
                         break;
                     default:
                         break;

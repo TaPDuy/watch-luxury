@@ -51,4 +51,6 @@
     <string name="orders_title">Đơn hàng của %s</string>
     <string name="weather">Thời tiết</string>
     <string name="note">Ghi chú</string>
+    <string name="title_favorite">Ưa thích</string>
+    <string name="title_cart">Giỏ hàng</string>
 </resources>

@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="title"
+            type="String" />
         <variable
             name="viewModel"
             type="nhom9.watchluxury.viewmodel.HomeViewModel" />
@@ -46,7 +48,7 @@
                                 android:id="@+id/tv_pageTitle"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/app_name"
+                                android:text="@{title}"
                                 android:textSize="28sp"
                                 android:fontFamily="sans-serif-condensed"
                                 android:textStyle="bold"
