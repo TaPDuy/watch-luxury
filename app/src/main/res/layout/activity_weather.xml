@@ -74,7 +74,7 @@
             android:id="@+id/linear_current_day_weather"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="4.8">
+            android:layout_weight="6.2">
 
             <LinearLayout
 
@@ -89,7 +89,7 @@
                 android:layout_weight="3"
                 android:orientation="vertical"
                 android:padding="10dp"
-                android:weightSum="5.7"
+                android:weightSum="8.7"
                 tools:ignore="NestedWeights">
 
                 <TextView
@@ -112,15 +112,16 @@
                     android:layout_marginTop="80dp"
                     android:layout_weight="2.0"
                     android:orientation="horizontal"
-                    android:weightSum="2">
+                    android:weightSum="2"
+                    android:gravity="center">
 
-                    <ImageView
-                        android:id="@+id/iv_weather_current_icon"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="end"
-                        android:layout_weight="0.4"
-                        android:padding="0dp" />
+<!--                    <ImageView-->
+<!--                        android:id="@+id/iv_weather_current_icon"-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:layout_gravity="end"-->
+<!--                        android:layout_weight="0.4"-->
+<!--                        android:padding="0dp" />-->
                     <!--                    android:src="@drawable/weather" />-->
 
                     <TextView
@@ -133,6 +134,10 @@
                         android:text="@{viewModel.description}"
                         android:textColor="@color/colorPrimary"
                         android:textSize="25sp" />
+
+                    <Space
+                        android:layout_width="16dp"
+                        android:layout_height="match_parent"/>
 
                     <TextView
                         android:id="@+id/tv_temperature_current"

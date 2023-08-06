@@ -31,19 +31,17 @@ public class MusicActivity extends AppCompatActivity {
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         arrayList = new ArrayList<>();
+        arrayList.add(new Music("Baroque No.0", R.raw.baroque0));
+        arrayList.add(new Music("Baroque No.1", R.raw.baroque1));
+        arrayList.add(new Music("Baroque No.2", R.raw.baroque2));
+        arrayList.add(new Music("Baroque No.3", R.raw.baroque3));
+        arrayList.add(new Music("Baroque No.4", R.raw.baroque4));
+        arrayList.add(new Music("Baroque No.5", R.raw.baroque5));
         arrayList.add(new Music("Một con vịt", R.raw.motconvit));
         arrayList.add(new Music("Morning mood", R.raw.morningmood));
-        arrayList.add(new Music("Nơi đảo xa ", R.raw.morningmood));
-        arrayList.add(new Music("Quốc ca", R.raw.morningmood));
-        arrayList.add(new Music("Em của ngày hôm qua", R.raw.motconvit));
-        arrayList.add(new Music("Chào buổi sáng", R.raw.motconvit));
-        arrayList.add(new Music("Ngày ấy", R.raw.motconvit));
-        arrayList.add(new Music("Hay lam", R.raw.motconvit));
-        arrayList.add(new Music("Hay lam", R.raw.motconvit));
-        arrayList.add(new Music("Hay lam", R.raw.motconvit));
-        arrayList.add(new Music("Hay lam", R.raw.motconvit));
-        arrayList.add(new Music("Hay lam", R.raw.motconvit));
-        arrayList.add(new Music("Hay lam", R.raw.motconvit));
+        arrayList.add(new Music("Walk", R.raw.walk));
+        arrayList.add(new Music("Ema Skye", R.raw.emaskye));
+        arrayList.add(new Music("Midsummer", R.raw.midsummer));
 
         adapter = new MusicAdapter(this, arrayList);
         binding.ListOfSongs.setAdapter(adapter);

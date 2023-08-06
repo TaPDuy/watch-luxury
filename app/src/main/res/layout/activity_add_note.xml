@@ -61,7 +61,8 @@
             android:layout_gravity="center"
             android:backgroundTint="@color/white"
             android:text="SAVE NOTE"
-            android:textColor="#00B0FF" />
+            android:textColor="#00B0FF"
+            app:cornerRadius="6dp"/>
 
     </LinearLayout>
 </layout>

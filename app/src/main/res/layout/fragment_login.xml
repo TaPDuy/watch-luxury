@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".activity.fragment.LoginFragment">
 
@@ -10,7 +11,7 @@
             type="nhom9.watchluxury.viewmodel.LoginViewModel" />
     </data>
 
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true">
@@ -18,8 +19,13 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fitsSystemWindows="true"
             android:gravity="center"
             android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             tools:ignore="UselessParent">
 
             <ImageView
@@ -28,26 +34,50 @@
                 android:contentDescription="@string/logo_desc"
                 android:src="@drawable/logo" />
 
-            <EditText
-                android:id="@+id/etLoginUsername"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:autofillHints="username"
-                android:ems="18"
-                android:hint="@string/login_username_hint"
-                android:inputType="text"
-                android:text="@={viewModel.username}" />
+                android:orientation="vertical"
+                android:paddingHorizontal="32dp"
+                android:layout_marginTop="32dp">
 
-            <EditText
-                android:id="@+id/etLoginPassword"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:autofillHints="password"
-                android:ems="18"
-                android:hint="@string/login_password_hint"
-                android:inputType="textPassword"
-                android:text="@={viewModel.password}" />
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/ThemeOverlay.Material3.TextInputEditText.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/login_username_hint">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etLoginUsername"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPersonName"
+                        android:maxLines="1"
+                        android:text="@={viewModel.username}" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="16dp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/ThemeOverlay.Material3.TextInputEditText.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/login_password_hint"
+                    app:endIconMode="password_toggle">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etLoginPassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword"
+                        android:maxLines="1"
+                        android:text="@={viewModel.password}" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
 
             <!--            <TextView-->
             <!--                android:id="@+id/forgot"-->
@@ -59,24 +89,39 @@
             <!--                android:text="Forgot Account?"-->
             <!--                android:textColor="#000000" />-->
 
-            <Button
-                android:id="@+id/btnLogin"
-                android:layout_width="150dp"
+            <com.google.android.flexbox.FlexboxLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                android:background="#2196F3"
-                android:onClick="@{() -> viewModel.onLoginClicked()}"
-                android:text="@string/login_button"
-                android:textColor="#fcfcfc" />
+                app:flexDirection="row"
+                android:paddingHorizontal="32dp"
+                android:layout_marginTop="32dp">
 
-            <Button
-                android:id="@+id/btnRegister"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:background="#03A9F4"
-                android:text="@string/login_register_button"
-                android:textColor="#fcfcfc" />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnRegister"
+                    style="@style/Widget.Material3.Button"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/login_register_button"
+                    android:textSize="16sp"
+                    app:cornerRadius="6dp"
+                    app:layout_flexGrow="1" />
+
+                <Space
+                    android:layout_width="32dp"
+                    android:layout_height="match_parent"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnLogin"
+                    style="@style/Widget.Material3.Button"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{() -> viewModel.onLoginClicked()}"
+                    android:text="@string/login_button"
+                    android:textSize="16sp"
+                    app:cornerRadius="6dp"
+                    app:layout_flexGrow="1" />
+
+            </com.google.android.flexbox.FlexboxLayout>
 
             <!--            <TextView-->
             <!--                android:layout_width="wrap_content"-->
@@ -88,39 +133,39 @@
 
             <!--                android:textSize="15dp" />-->
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+<!--            <LinearLayout-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="horizontal">-->
 
-                <ImageView
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:layout_marginStart="115dp"
-                    android:layout_marginTop="20dp"
-                    android:contentDescription="@string/oauth_logo_desc"
-                    android:src="@drawable/facebooknew" />
+<!--                <ImageView-->
+<!--                    android:layout_width="35dp"-->
+<!--                    android:layout_height="35dp"-->
+<!--                    android:layout_marginStart="115dp"-->
+<!--                    android:layout_marginTop="20dp"-->
+<!--                    android:contentDescription="@string/oauth_logo_desc"-->
+<!--                    android:src="@drawable/facebooknew" />-->
 
-                <ImageView
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginTop="20dp"
-                    android:contentDescription="@string/oauth_logo_desc"
-                    android:src="@drawable/googlelogo" />
+<!--                <ImageView-->
+<!--                    android:layout_width="35dp"-->
+<!--                    android:layout_height="35dp"-->
+<!--                    android:layout_marginStart="30dp"-->
+<!--                    android:layout_marginTop="20dp"-->
+<!--                    android:contentDescription="@string/oauth_logo_desc"-->
+<!--                    android:src="@drawable/googlelogo" />-->
 
-                <ImageView
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginTop="20dp"
-                    android:contentDescription="@string/oauth_logo_desc"
-                    android:src="@drawable/yahoot" />
+<!--                <ImageView-->
+<!--                    android:layout_width="35dp"-->
+<!--                    android:layout_height="35dp"-->
+<!--                    android:layout_marginStart="30dp"-->
+<!--                    android:layout_marginTop="20dp"-->
+<!--                    android:contentDescription="@string/oauth_logo_desc"-->
+<!--                    android:src="@drawable/yahoot" />-->
 
 
-            </LinearLayout>
+<!--            </LinearLayout>-->
 
         </LinearLayout>
 
-    </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -49,8 +49,8 @@ public class WeatherActivity extends AppCompatActivity {
                 dismissKeyboard();
             }
         );
-
-        viewModel.getImageUrl().observe(this, str -> APIUtils.loadImage(str, binding.ivWeatherCurrentIcon));
+//
+//        viewModel.getImageUrl().observe(this, str -> APIUtils.loadImage(str, binding.ivWeatherCurrentIcon));
 
         viewModel.loadWeatherInfo();
     }

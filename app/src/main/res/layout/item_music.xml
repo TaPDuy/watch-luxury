@@ -9,39 +9,43 @@
         android:layout_gravity="center|top"
         android:background="@drawable/shape"
         app:shapeAppearanceOverlay="@style/radiusImage">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="16dp">
 
-        <ImageView
-            android:id="@+id/ivMusic"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/okok" />
+            <ImageView
+                android:id="@+id/ivMusic"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/okok" />
 
-        <TextView
-            android:id="@+id/txtName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="150px"
-            android:layout_marginTop="10dp"
-            android:text="song name"
-            android:textColor="@color/purple_700"
-            android:textSize="24dp" />
+            <TextView
+                android:id="@+id/txtName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="150px"
+                android:layout_marginTop="10dp"
+                android:text="song name"
+                android:textColor="@color/purple_700"
+                android:textSize="24dp" />
 
-        <ImageView
-            android:id="@+id/ivPlay"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginLeft="580px"
+            <ImageView
+                android:id="@+id/ivPlay"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="8dp"
+                android:layout_toStartOf="@+id/ivStop"
+                android:src="@drawable/icstart" />
 
-            android:layout_marginTop="8dp"
-            android:src="@drawable/icstart" />
-
-        <ImageView
-            android:id="@+id/ivStop"
-            android:layout_width="31dp"
-            android:layout_height="31dp"
-            android:layout_marginLeft="650px"
-            android:layout_marginTop="8dp"
-            android:src="@drawable/stopp" />
+            <ImageView
+                android:id="@+id/ivStop"
+                android:layout_width="31dp"
+                android:layout_height="31dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/stopp"
+                android:layout_alignParentEnd="true"/>
+        </RelativeLayout>
 
     </androidx.cardview.widget.CardView>
 </layout>

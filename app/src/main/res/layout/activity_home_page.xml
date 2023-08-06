@@ -170,7 +170,8 @@
                     app:shapeAppearanceOverlay="@style/FloatingActionButton"
                     android:scaleType="fitCenter"
                     app:fabCustomSize="42dp"
-                    app:maxImageSize="16dp">
+                    android:backgroundTint="#009181"
+                    app:maxImageSize="22dp">
 
                 </com.google.android.material.floatingactionbutton.FloatingActionButton>
 
@@ -186,7 +187,8 @@
                     app:shapeAppearanceOverlay="@style/FloatingActionButton"
                     android:scaleType="fitCenter"
                     app:fabCustomSize="42dp"
-                    app:maxImageSize="16dp">
+                    android:backgroundTint="#009181"
+                    app:maxImageSize="22dp">
 
                 </com.google.android.material.floatingactionbutton.FloatingActionButton>
 
@@ -202,7 +204,8 @@
                     app:shapeAppearanceOverlay="@style/FloatingActionButton"
                     android:scaleType="fitCenter"
                     app:fabCustomSize="42dp"
-                    app:maxImageSize="16dp">
+                    android:backgroundTint="#009181"
+                    app:maxImageSize="22dp">
 
                 </com.google.android.material.floatingactionbutton.FloatingActionButton>
 
@@ -214,6 +217,8 @@
                     android:contentDescription="@string/floating_action_button_desc"
                     android:src="@drawable/ic_menu"
                     android:tint="@color/white"
+                    android:backgroundTint="#00a59a"
+                    app:maxImageSize="28dp"
                     app:shapeAppearanceOverlay="@style/FloatingActionButton">
 
                 </com.google.android.material.floatingactionbutton.FloatingActionButton>
